@@ -1,14 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { filter, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor() {}
+  //#region Injection
   private readonly Http = inject(HttpClient);
+  //#endregion
 
+  //#region Implemntation
   GetWithPagination<T>(
     Url: string,
     PageNumber: number,
@@ -39,4 +41,5 @@ export class ApiService {
   Delete<T>(Url: string, Id: string): Observable<T> {
     return this.Http.delete<T>(Url.replace('{Id}', Id));
   }
+  //#endregion
 }

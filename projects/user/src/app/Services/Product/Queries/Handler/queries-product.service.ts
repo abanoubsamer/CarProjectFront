@@ -28,7 +28,7 @@ export class QueriesProductService {
       pageNumber,
       pageSize,
       filter
-    ).pipe(map((res: PaginationResponse<GetProducts>) => res));
+    );
   }
   //#endregion
 }
