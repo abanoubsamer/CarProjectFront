@@ -11,5 +11,6 @@ export class Routing {
   };
   static Authentication = {
     LoginUser: Routing.Role + 'Auth/Login',
+    RegisterUser: Routing.Role + 'Auth/Register/User',
   };
 }

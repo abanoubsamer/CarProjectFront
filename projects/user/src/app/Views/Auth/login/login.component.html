@@ -12,16 +12,50 @@
             <h3>Sign In</h3>
             <p class="mb-4"></p>
           </div>
-          <form action="#" method="post">
-            <div class="form-group first">
-              <label for="name">User Name Or Email</label>
-              <input type="text" class="form-control" id="name" />
-            </div>
+          <form [formGroup]="Form">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email</mat-label>
 
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" />
-            </div>
+              <input
+                matInput
+                type="email"
+                id="loginEmail"
+                formControlName="email"
+                required
+              />
+              <mat-icon matSuffix>email</mat-icon>
+
+              @if (Form.get('email')?.hasError('required')) {
+              <mat-error> Email Is Required </mat-error>
+              } @else if (Form.get('email')?.hasError('email')) {
+              <mat-error> Email Is Invalid </mat-error>
+              } @else if (Form.get('email')?.hasError('maxlength')) {
+              <mat-error> Email Is maxlength Is 30 Char </mat-error>
+              } @else if (Form.get('email')?.hasError('minlength')) {
+              <mat-error> Email Is MinLength Is 5 Char </mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Password</mat-label>
+
+              <input
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                id="loginPassword"
+                formControlName="password"
+                required
+              />
+
+              <mat-icon
+                matSuffix
+                (click)="togglePasswordVisibility()"
+                style="cursor: pointer"
+              >
+                {{ hide ? "visibility_off" : "visibility" }}
+              </mat-icon>
+            </mat-form-field>
+
+            <!-- Submit button -->
 
             <div class="d-flex mb-5 align-items-center">
               <label class="control control--checkbox mb-0"
@@ -34,11 +68,15 @@
               >
             </div>
 
-            <input
+            <button
+              mat-raised-button
+              color="primary"
+              class="full-width login-button w-100"
               type="submit"
-              value="Log In"
-              class="register btn btn-pill text-white btn-block btn-primary"
-            />
+              (click)="login()"
+            >
+              Login
+            </button>
           </form>
           <div class="col-lg-10">
             <span class="d-block text-center my-3 text-muted">
