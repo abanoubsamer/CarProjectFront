@@ -25,57 +25,109 @@
             <h3>Register</h3>
             <p class="mb-4"></p>
           </div>
-          <form action="#" method="post">
-            <div class="form-group first">
+               <form [formGroup]="Form">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>user name</mat-label>
+    
+                  <input
+                    matInput
+                    type="name"
+                    id="registerName"
+                    formControlName="name"
+                    required
+                  />
+                
+    
+                  @if (Form.get('userName')?.hasError('required')) {
+                  <mat-error> Email Is Required </mat-error>
+                  }  @else if (Form.get('userName')?.hasError('maxlength')) {
+                  <mat-error> Email Is maxlength Is 30 Char </mat-error>
+                  } @else if (Form.get('userName')?.hasError('minlength')) {
+                  <mat-error> Email Is MinLength Is 5 Char </mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+             
+              <mat-label>Email</mat-label>
+
               <input
-                type="text"
-                class="form-control"
-                placeholder="Name"
-                id="name"
-              />
-            </div>
-            <div class="form-group">
-              <input
+                matInput
                 type="email"
-                class="form-control"
-                placeholder="Email"
-                id="email"
+                id="loginEmail"
+                formControlName="email"
+                required
               />
-            </div>
-            <div class="form-group">
+              <mat-icon matSuffix>email</mat-icon>
+
+              @if (Form.get('email')?.hasError('required')) {
+              <mat-error> Email Is Required </mat-error>
+              } @else if (Form.get('email')?.hasError('email')) {
+              <mat-error> Email Is Invalid </mat-error>
+              } @else if (Form.get('email')?.hasError('maxlength')) {
+              <mat-error> Email Is maxlength Is 30 Char </mat-error>
+              } @else if (Form.get('email')?.hasError('minlength')) {
+              <mat-error> Email Is MinLength Is 5 Char </mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Password</mat-label>
+
               <input
-                type="password"
-                class="form-control"
-                placeholder="Password"
-                id="password"
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                id="loginPassword"
+                formControlName="password"
+                required
               />
-            </div>
-            <div class="form-group last mb-4">
+
+              <mat-icon
+                matSuffix
+                (click)="togglePasswordVisibility()"
+                style="cursor: pointer"
+              >
+                {{ hide ? "visibility_off" : "visibility" }}
+              </mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>confirm Password</mat-label>
+
               <input
-                type="password"
-                class="form-control"
-                placeholder="Re-type Password"
-                id="re-password"
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                id="loginPassword"
+                formControlName="comperPassword"
+                required
               />
-            </div>
+
+              <mat-icon
+                matSuffix
+                (click)="togglePasswordVisibility()"
+                style="cursor: pointer"
+              >
+                {{ hide ? "visibility_off" : "visibility" }}
+              </mat-icon>
+            </mat-form-field>
+            <!-- Submit button -->
 
             <div class="d-flex mb-5 align-items-center">
-              <label class="check control--checkbox mb-3 mb-sm-0">
+              <label class="check control--checkbox mb-0">
                 <input type="checkbox" checked="checked" />
-                <span class="caption">
-                  <a href="#">Terms and Conditions</a>
-                </span>
+                <span class="caption">Remember me</span>
+                <div class="control__indicator"></div>
               </label>
-              <span class="ml-auto">
-                <a href="#" class="sign-in">Sign In</a>
-              </span>
             </div>
-
-            <input
+            <span class="ml-auto"
+              ><a href="#" class="forgot-pass">Forgot Password</a></span
+            >
+            <button
+              mat-raised-button
+              color="primary"
+              class="full-width login-button w-100"
               type="submit"
-              value="Register"
-              class="register btn btn-pill text-white btn-block btn-primary"
-            />
+              (click)="Registeration()"
+            >
+              Login
+            </button>
           </form>
         </div>
       </div>
