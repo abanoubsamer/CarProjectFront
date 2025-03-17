@@ -64,18 +64,7 @@ h2 {
 .content .contents .form-group,
 .content .bg .form-group {
    position: relative;
-}
-
-.content .contents .form-group label,
-.content .bg .form-group label {
-   position: absolute;
-   top: 50%;
-   -webkit-transform: translateY(-50%);
-   -ms-transform: translateY(-50%);
-   transform: translateY(-50%);
-   -webkit-transition: .3s all ease;
-   -o-transition: .3s all ease;
-   transition: .3s all ease;
+   margin-top: 15px;
 }
 
 .content .contents .form-group input,
@@ -84,35 +73,12 @@ h2 {
    border-bottom: 1px solid #ccc;
 }
 
-.content .contents .form-group.first,
-.content .bg .form-group.first {
-   border-top-left-radius: 7px;
-   border-top-right-radius: 7px;
-}
 
-.content .contents .form-group.last,
-.content .bg .form-group.last {
-   border-bottom-left-radius: 7px;
-   border-bottom-right-radius: 7px;
-}
 
-.content .contents .form-group label,
-.content .bg .form-group label {
-   font-size: 12px;
-   display: block;
-   margin-bottom: 0;
-   color: #b3b3b3;
-}
 
-.content .contents .form-group.focus,
-.content .bg .form-group.focus {
-   background: #fff;
-}
 
-.content .contents .form-group.field--not-empty label,
-.content .bg .form-group.field--not-empty label {
-   margin-top: -25px;
-}
+
+
 
 .content .contents .form-control,
 .content .bg .form-control {
@@ -158,9 +124,10 @@ h2 {
    text-align: center;
    color: #fff;
    margin-bottom: 10px;
+   margin-right: 5px;
 }
 
-.social-login a span {
+.social-login a i {
    position: absolute;
    top: 50%;
    left: 50%;
@@ -212,84 +179,22 @@ h2 {
    color: #888;
 }
 
-.control input {
-   position: absolute;
-   z-index: -1;
-   opacity: 0;
-}
 
-.control__indicator {
-   position: absolute;
-   top: 2px;
-   left: 0;
-   height: 20px;
+
+
+.check input {
+   margin-right: 5px;
    width: 20px;
-   background: #e6e6e6;
-   border-radius: 4px;
+   height: 15px;
+   margin-top: 5px;
 }
 
-.control--radio .control__indicator {
-   border-radius: 50%;
-}
-
-.control:hover input~.control__indicator,
-.control input:focus~.control__indicator {
-   background: #ccc;
-}
-
-.control input:checked~.control__indicator {
-   background: #213a59;
-}
-
-.control:hover input:not([disabled]):checked~.control__indicator,
-.control input:checked:focus~.control__indicator {
-   background: #15919b;
-}
-
-.control input:disabled~.control__indicator {
-   background: #e6e6e6;
-   opacity: 0.9;
-   pointer-events: none;
-}
-
-.control__indicator:after {
-   font-family: 'icomoon';
-   content: '\e5ca';
-   position: absolute;
-   display: none;
-   font-size: 16px;
-   -webkit-transition: .3s all ease;
-   -o-transition: .3s all ease;
-   transition: .3s all ease;
-}
-
-.control input:checked~.control__indicator:after {
-   display: block;
-   color: #fff;
-}
-
-.control--checkbox .control__indicator:after {
-   top: 50%;
-   left: 50%;
-   margin-top: -1px;
-   -webkit-transform: translate(-50%, -50%);
-   -ms-transform: translate(-50%, -50%);
-   transform: translate(-50%, -50%);
-}
-
-.control--checkbox input:disabled~.control__indicator:after {
-   border-color: #7b7b7b;
-}
-
-.control--checkbox input:disabled:checked~.control__indicator {
-   background-color: #7e0cf5;
-   opacity: .2;
-}
 
 
 .register {
    background-color: #213a59;
    border: none;
+   width: 100%;
 }
 
 .register:hover {
@@ -301,6 +206,9 @@ h2 {
 .sign-in {
    color: #213a59;
    text-decoration: none;
+   position: relative;
+   left: 50%;
+   top: 2px;
 }
 
 .sign-in:hover {
@@ -313,6 +221,7 @@ h2 {
    color: #213a59;
    font-size: 35px;
    transition: 0.3s;
+   font-weight: bold;
 }
 
 .name:hover {
