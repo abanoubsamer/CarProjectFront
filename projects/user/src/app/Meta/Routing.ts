@@ -1,5 +1,5 @@
 export class Routing {
-  static Ip = 'https://localhost:7154/';
+  static Ip = 'https://17b2-197-55-39-142.ngrok-free.app/';
   static Root = 'Api/';
   static Version = 'V1/';
   static Role = Routing.Ip + Routing.Root + Routing.Version;
