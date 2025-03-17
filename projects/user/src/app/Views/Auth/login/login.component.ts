@@ -6,9 +6,10 @@ import { LoginModel } from '../../../Services/Auth/Commend/Models/LoginModel';
 import { AuthCommendService } from '../../../Services/Auth/Commend/Handler/auth-commend.service';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from '../../../Services/Navigation/navigation.service';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',
-  imports: [MatFormSharedModule, CommonModule],
+  imports: [MatFormSharedModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

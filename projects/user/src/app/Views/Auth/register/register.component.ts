@@ -1,4 +1,4 @@
-import { Component, inject,OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatFormSharedModule } from '../../../Shared/Modules/mat-form-shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -10,10 +10,9 @@ import { RegisterModel } from '../../../Services/Auth/Commend/Models/RegisterMod
   selector: 'app-register',
   imports: [MatFormSharedModule, CommonModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
-
   Form: FormGroup = new FormGroup({});
   hide: boolean = true;
   hideConfirmPassword: boolean = true;
@@ -23,18 +22,16 @@ export class RegisterComponent implements OnInit {
   private readonly toastrService = inject(ToastrService);
   private readonly Navigation = inject(NavigationService);
 
-
   ngOnInit(): void {
     this.Form = this.initFormRegister();
   }
-  initFormRegister (): FormGroup {
+  initFormRegister(): FormGroup {
     return this.Bulider.group({
       userName: [
         '',
         {
           validators: [
             Validators.required,
-          
             Validators.maxLength(20),
             Validators.minLength(3),
           ],
@@ -57,13 +54,10 @@ export class RegisterComponent implements OnInit {
           validators: [Validators.required, Validators.minLength(8)],
         },
       ],
-      comperPassword:[
+      comperPassword: [
         '',
-        { validators: [Validators.required, Validators.minLength(8)],}
-      ]
-
-
-
+        { validators: [Validators.required, Validators.minLength(8)] },
+      ],
     });
   }
   Registeration() {
@@ -72,7 +66,6 @@ export class RegisterComponent implements OnInit {
       this.AuthCommend.Registration(request).subscribe({
         next: (res) => {
           if (res.success) {
-          
             this.toastrService.success('Success Registration');
             this.Navigation.NavigationByUrl('/Auth/Login');
           }
@@ -86,5 +79,4 @@ export class RegisterComponent implements OnInit {
   togglePasswordVisibility() {
     this.hide = !this.hide;
   }
-
 }

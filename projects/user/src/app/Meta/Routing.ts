@@ -13,4 +13,8 @@ export class Routing {
     LoginUser: Routing.Role + 'Auth/Login',
     RegisterUser: Routing.Role + 'Auth/Register/User',
   };
+
+  static User = {
+    GetUserById: Routing.Role + 'User/{Id}',
+  };
 }

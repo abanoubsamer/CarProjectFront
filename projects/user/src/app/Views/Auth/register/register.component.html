@@ -25,29 +25,27 @@
             <h3>Register</h3>
             <p class="mb-4"></p>
           </div>
-               <form [formGroup]="Form">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>user name</mat-label>
-    
-                  <input
-                    matInput
-                    type="name"
-                    id="registerName"
-                    formControlName="name"
-                    required
-                  />
-                
-    
-                  @if (Form.get('userName')?.hasError('required')) {
-                  <mat-error> Email Is Required </mat-error>
-                  }  @else if (Form.get('userName')?.hasError('maxlength')) {
-                  <mat-error> Email Is maxlength Is 30 Char </mat-error>
-                  } @else if (Form.get('userName')?.hasError('minlength')) {
-                  <mat-error> Email Is MinLength Is 5 Char </mat-error>
-                  }
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-             
+          <form [formGroup]="Form">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>User name</mat-label>
+
+              <input
+                matInput
+                type="name"
+                id="registerName"
+                formControlName="userName"
+                required
+              />
+              <mat-icon matSuffix>supervised_user_circle</mat-icon>
+              @if (Form.get('userName')?.hasError('required')) {
+              <mat-error> Email Is Required </mat-error>
+              } @else if (Form.get('userName')?.hasError('maxlength')) {
+              <mat-error> Email Is maxlength Is 30 Char </mat-error>
+              } @else if (Form.get('userName')?.hasError('minlength')) {
+              <mat-error> Email Is MinLength Is 5 Char </mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email</mat-label>
 
               <input
@@ -89,7 +87,7 @@
               </mat-icon>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>confirm Password</mat-label>
+              <mat-label>Confirm Password</mat-label>
 
               <input
                 matInput
@@ -126,7 +124,7 @@
               type="submit"
               (click)="Registeration()"
             >
-              Login
+              Registration
             </button>
           </form>
         </div>
