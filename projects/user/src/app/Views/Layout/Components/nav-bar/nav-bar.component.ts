@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { GetUserIdModel } from '../../../../Services/User/Queries/Models/GetUserIdModels';
 import { SharedDataService } from '../../../../Services/SharedDataService/shared-data.service';
 import { UserQuereisService } from '../../../../Services/User/Queries/Handler/user-quereis.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
 })
@@ -35,5 +36,11 @@ export class NavBarComponent implements OnInit {
         this.sharedDataService.updatesuer(this.user);
       },
     });
+  }
+
+  Logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    location.reload();
   }
 }

@@ -6,9 +6,10 @@ import { AuthCommendService } from '../../../Services/Auth/Commend/Handler/auth-
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from '../../../Services/Navigation/navigation.service';
 import { RegisterModel } from '../../../Services/Auth/Commend/Models/RegisterModel';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-register',
-  imports: [MatFormSharedModule, CommonModule],
+  imports: [MatFormSharedModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

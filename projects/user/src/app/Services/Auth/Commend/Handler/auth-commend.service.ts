@@ -16,16 +16,14 @@ export class AuthCommendService {
   Registration(request: RegisterModel): Observable<Response<string>> {
     return this.Api.Post<Response<string>>(
       Routing.Authentication.RegisterUser,
-      request,
-      { withCredentials: true }
+      request
     );
   }
 
   Login(request: LoginModel): Observable<Response<AuthResponse>> {
     return this.Api.Post<Response<AuthResponse>>(
       Routing.Authentication.LoginUser,
-      request,
-      { withCredentials: true }
+      request
     );
   }
 }

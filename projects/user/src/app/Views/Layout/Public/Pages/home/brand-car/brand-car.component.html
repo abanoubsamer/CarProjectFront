@@ -1,0 +1,29 @@
+<div class="car-brands-wrapper">
+  <h2>Find out what fits your type of car</h2>
+
+  <div class="carousel-container">
+    <button class="nav-button prev" (click)="scrollLeft()">
+      <span aria-hidden="true">‹</span>
+    </button>
+
+    <div class="brands-container">
+      @for ( brand of carBrands; track brand.id) {
+      <div class="brand-item" (click)="selectBrand(brand.id)">
+        <div class="brand-logo-container">
+          <img [src]="brand.logo" [alt]="brand.name" class="brand-logo" />
+        </div>
+      </div>
+      }
+    </div>
+
+    <button class="nav-button next" (click)="scrollRight()">
+      <span aria-hidden="true">›</span>
+    </button>
+  </div>
+
+  <div class="show-all-container">
+    <a href="#" class="show-all-link">
+      Show all Cars <span class="arrow">›</span>
+    </a>
+  </div>
+</div>

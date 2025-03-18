@@ -1,0 +1,16 @@
+<div class="categories-section">
+  <div class="container">
+    <h2 class="section-title">What are you looking for?</h2>
+
+    <div class="categories-grid">
+      @for ( category of categories; track category.id) {
+      <div class="category-card" (click)="selectCategory(category.id)">
+        <div class="category-icon">
+          <img [src]="category.icon" [alt]="category.name" />
+        </div>
+        <h3 class="category-name">{{ category.name }}</h3>
+      </div>
+      }
+    </div>
+  </div>
+</div>

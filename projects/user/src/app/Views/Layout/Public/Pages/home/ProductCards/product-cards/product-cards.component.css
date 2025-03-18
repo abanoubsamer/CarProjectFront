@@ -26,7 +26,7 @@
   transform: scale(1.05);
 }
 .btn-cart {
-  background-color: #213a59;
+  background-color: #264e7e;
   color: #fff;
   transition: background-color 0.3s ease;
   &:hover {
