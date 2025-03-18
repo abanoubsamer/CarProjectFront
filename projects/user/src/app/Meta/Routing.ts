@@ -1,6 +1,8 @@
+import { environment } from '../../environments/environment';
+
 export class Routing {
-  static Ip = 'https://17b2-197-55-39-142.ngrok-free.app/';
-  static Root = 'Api/';
+  static Ip = environment.Ip;
+  static Root = '/Api/';
   static Version = 'V1/';
   static Role = Routing.Ip + Routing.Root + Routing.Version;
 
