@@ -16,7 +16,18 @@ export class Routing {
     RegisterUser: Routing.Role + 'Auth/Register/User',
   };
 
+  static Car = {
+    GetCarBrandsWithPagination: Routing.Role + 'CarBrand/Pagination',
+  };
+  static Category = {
+    GetCategoryPagination: Routing.Role + 'Category/Pagination',
+    GetCategoryById: Routing.Role + 'Category/{Id}',
+  };
   static User = {
     GetUserById: Routing.Role + 'User/{Id}',
+  };
+  static Model = {
+    GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
+    GetModelById: Routing.Role + 'Model/GetModelById/{Id}',
   };
 }

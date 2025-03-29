@@ -31,22 +31,6 @@ h2:after {
   padding: 10px 0;
 }
 
-.brands-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  gap: 25px;
-  padding: 15px 0;
-  margin: 0 40px;
-  transition: scroll-left 0.5s ease-in-out; /* إضافة انتقال للتمرير */
-}
-
-.brands-container::-webkit-scrollbar {
-  display: none;
-}
-
 .brand-item {
   flex: 0 0 auto;
   position: relative;
@@ -85,70 +69,6 @@ h2:after {
   transform: scale(1.1);
 }
 
-.nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 24px;
-  color: #555;
-  z-index: 10;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-}
-
-.nav-button:hover {
-  background-color: #0088cc;
-  color: white;
-  box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
-}
-
-.nav-button.prev {
-  left: 0;
-}
-
-.nav-button.next {
-  right: 0;
-}
-
-.show-all-container {
-  margin-top: 30px;
-}
-
-.show-all-link {
-  display: inline-flex;
-  align-items: center;
-  color: #0088cc;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  padding: 8px 16px;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-}
-
-.show-all-link:hover {
-  background-color: rgba(0, 136, 204, 0.1);
-}
-
-.show-all-link .arrow {
-  margin-left: 8px;
-  font-size: 18px;
-  transition: transform 0.3s ease;
-}
-
-.show-all-link:hover .arrow {
-  transform: translateX(3px);
-}
-
 /* تحسين التمرير باللمس */
 @media (hover: none) {
   .brands-container {
@@ -180,12 +100,6 @@ h2:after {
 
   h2 {
     font-size: 22px;
-  }
-
-  .nav-button {
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
   }
 
   .brands-container {

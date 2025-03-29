@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { GetCarBrandModel } from '../../../../../../Services/Car/Queries/Models/GetCarBrandModel';
+import { CarBrandQueriesService } from '../../../../../../Services/Car/Queries/Handler/car-brand-queries.service';
 
 @Component({
   selector: 'app-brand-car',
@@ -6,26 +8,16 @@ import { Component } from '@angular/core';
   templateUrl: './brand-car.component.html',
   styleUrl: './brand-car.component.css',
 })
-export class BrandCarComponent {
-  carBrands = [
-    { id: 3, name: 'Audi', logo: 'Brands/BMW.webp' },
-    { id: 4, name: 'BMW', logo: 'Brands/byd.webp' },
-    { id: 5, name: 'Brilliance', logo: 'Brands/Chevrolet.webp' },
-    { id: 6, name: 'BYD', logo: 'Brands/Daion.webp' },
-    { id: 7, name: 'Geely', logo: 'Brands/Datsun-Logo-1965.webp' },
-    { id: 8, name: 'Changan', logo: 'Brands/dfsk.webp' },
-    { id: 9, name: 'BMW', logo: 'Brands/byd.webp' },
-    { id: 10, name: 'Brilliance', logo: 'Brands/Chevrolet.webp' },
-    { id: 11, name: 'BYD', logo: 'Brands/Dodg.webp' },
-    { id: 12, name: 'Geely', logo: 'Brands/البينا.webp' },
-    { id: 12, name: 'Changan', logo: 'Brands/الفاروميو.webp' },
-    { id: 14, name: 'Audi', logo: 'Brands/BMW.webp' },
-    { id: 15, name: 'BMW', logo: 'Brands/byd.webp' },
-    { id: 16, name: 'Brilliance', logo: 'Brands/Chevrolet.webp' },
-    { id: 17, name: 'BYD', logo: 'Brands/Daion.webp' },
-    { id: 18, name: 'Geely', logo: 'Brands/Datsun-Logo-1965.webp' },
-  ];
+export class BrandCarComponent implements OnInit {
+  carBrands: GetCarBrandModel[] = [];
 
+  showAllBrands: boolean = false;
+  private readonly _carBrandQuereisService = inject(CarBrandQueriesService);
+  ngOnInit(): void {
+    this._carBrandQuereisService
+      .GeTCarBrandsWithPagination(1, 50)
+      .subscribe((res) => (this.carBrands = res.data));
+  }
   scrollLeft() {
     const container = document.querySelector('.brands-container');
     if (container) {
@@ -69,7 +61,10 @@ export class BrandCarComponent {
     requestAnimationFrame(animateScroll);
   }
 
-  selectBrand(brandId: number) {
+  selectBrand(brandId: string) {
     console.log('Selected brand:', brandId);
+  }
+  ShowAll() {
+    this.showAllBrands = !this.showAllBrands;
   }
 }

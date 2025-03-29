@@ -1,0 +1,28 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* تقسيم الصفحة إلى 3 أعمدة */
+  grid-template-rows: auto auto; /* صفين */
+  gap: 15px;
+  align-items: center;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* الصور الصغيرة فوق بعض */
+.small {
+  grid-column: 1; /* أول عمود */
+}
+
+.large {
+  grid-column: 2 / span 1; /* الصورة العريضة تأخذ عمودين */
+  grid-row: 1 / span 2; /* تمتد على الصفين */
+}
+
+.tall {
+  grid-column: 3; /* آخر عمود */
+  grid-row: 1 / span 2; /* تمتد على الصفين */
+}

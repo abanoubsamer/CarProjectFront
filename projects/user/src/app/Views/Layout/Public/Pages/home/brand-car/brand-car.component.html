@@ -1,6 +1,6 @@
 <div class="car-brands-wrapper">
   <h2>Find out what fits your type of car</h2>
-
+  @if(!showAllBrands){
   <div class="carousel-container">
     <button class="nav-button prev" (click)="scrollLeft()">
       <span aria-hidden="true">‹</span>
@@ -10,7 +10,11 @@
       @for ( brand of carBrands; track brand.id) {
       <div class="brand-item" (click)="selectBrand(brand.id)">
         <div class="brand-logo-container">
-          <img [src]="brand.logo" [alt]="brand.name" class="brand-logo" />
+          <img
+            [src]="'https://localhost:7154/images/CarBrand/' + brand.image"
+            [alt]="brand.name"
+            class="brand-logo"
+          />
         </div>
       </div>
       }
@@ -21,9 +25,25 @@
     </button>
   </div>
 
+  } @if(showAllBrands){
+  <div class="carousel-container">
+    <div class="brands-grid">
+      @for (brand of carBrands; track brand.id) {
+      <div class="container brand-logo-container">
+        <img
+          [src]="'https://localhost:7154/images/CarBrand/' + brand.image"
+          [alt]="brand.name"
+          class="brand-logo"
+        />
+      </div>
+      }
+    </div>
+  </div>
+  }
   <div class="show-all-container">
-    <a href="#" class="show-all-link">
-      Show all Cars <span class="arrow">›</span>
-    </a>
+    <button (click)="ShowAll()" class="show-all-link">
+      @if(!showAllBrands){ Show all Cars <span class="arrow">›</span> }@else
+      {Show Less Cars <span class="arrow">‹</span> }
+    </button>
   </div>
 </div>
