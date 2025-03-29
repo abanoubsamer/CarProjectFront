@@ -4,6 +4,7 @@ import { GetCarBrandModel } from '../../../../../../../Services/Car/Queries/Mode
 import { NavigationService } from '../../../../../../../Services/Navigation/navigation.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryDto } from '../../../../../../../Core/Dtos/CategoryDto';
+import { Routing } from '../../../../../../../Meta/Routing';
 
 @Component({
   selector: 'app-select-car-brand',
@@ -14,6 +15,7 @@ import { CategoryDto } from '../../../../../../../Core/Dtos/CategoryDto';
 export class SelectCarBrandComponent {
   carBrands: GetCarBrandModel[] = [];
   categoryId!: CategoryDto;
+  IP: string = Routing.Ip;
   private readonly route = inject(ActivatedRoute); // Inject the route
   private readonly _carBrandQuereisService = inject(CarBrandQueriesService);
   private readonly Navigation = inject(NavigationService);

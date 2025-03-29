@@ -11,7 +11,7 @@
       <div class="brand-item" (click)="selectBrand(brand.id)">
         <div class="brand-logo-container">
           <img
-            [src]="'https://localhost:7154/images/CarBrand/' + brand.image"
+            [src]="IP + '/images/CarBrand/' + brand.image"
             [alt]="brand.name"
             class="brand-logo"
           />
@@ -31,7 +31,7 @@
       @for (brand of carBrands; track brand.id) {
       <div class="container brand-logo-container">
         <img
-          [src]="'https://localhost:7154/images/CarBrand/' + brand.image"
+          [src]="IP + '/images/CarBrand/' + brand.image"
           [alt]="brand.name"
           class="brand-logo"
         />

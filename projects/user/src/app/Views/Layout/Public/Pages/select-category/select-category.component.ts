@@ -4,6 +4,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { CategoryDto } from '../../../../../Core/Dtos/CategoryDto';
 
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Routing } from '../../../../../Meta/Routing';
 
 @Component({
   selector: 'app-select-category',
@@ -14,6 +15,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 export class SelectCategoryComponent implements OnInit {
   category: CategoryDto = {} as CategoryDto;
   currentStep = 1;
+  IP: string = Routing.Ip;
   private readonly route = inject(ActivatedRoute);
   ngOnInit(): void {
     this.route.data.subscribe(({ CategoryId }) => {

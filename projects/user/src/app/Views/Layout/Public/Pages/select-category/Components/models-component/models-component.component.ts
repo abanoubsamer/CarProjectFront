@@ -3,6 +3,7 @@ import { Component, inject, input, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetModelWithBrand } from '../../../../../../../Services/Models/Quereis/Models/GetModelWithBrand';
 import { NavigationService } from '../../../../../../../Services/Navigation/navigation.service';
+import { Routing } from '../../../../../../../Meta/Routing';
 
 @Component({
   selector: 'app-models-component',
@@ -14,6 +15,7 @@ export class ModelsComponentComponent implements OnInit {
   models: GetModelWithBrand[] = [];
   categoryId!: string;
   brandId!: string;
+  IP: string = Routing.Ip;
 
   private readonly route = inject(ActivatedRoute);
   private readonly navigation = inject(NavigationService);

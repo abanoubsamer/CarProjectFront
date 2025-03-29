@@ -5,6 +5,7 @@ import { CategoryQuereisService } from '../../../../../../Services/Category/Quer
 import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
 import { SelectCarService } from '../../../../../../Services/SharedDataService/select-car.service';
 import { CategoryDto } from '../../../../../../Core/Dtos/CategoryDto';
+import { Routing } from '../../../../../../Meta/Routing';
 
 @Component({
   selector: 'app-car-parts-selector',
@@ -17,6 +18,7 @@ export class CarPartsSelectorComponent implements OnInit {
   selectedCategory: GetCategoryModel | null = null;
   selectedPart: GetCategoryModel | null = null;
   categorys: GetCategoryModel[] = [];
+  IP: string = Routing.Ip;
   private readonly CateogryQuereisService = inject(CategoryQuereisService);
   private readonly Navigation = inject(NavigationService);
   private readonly Selector = inject(SelectCarService);

@@ -14,9 +14,7 @@
         >
           <img
             class="category-icon img-fluid"
-            [src]="
-              'https://localhost:7154/' + 'Images/Category/' + category.image
-            "
+            [src]="IP + '/Images/Category/' + category.image"
             [alt]="category.name"
           />
           <span>{{ category.name }}</span>
@@ -38,9 +36,7 @@
               <li (click)="selectPart(item)">
                 <img
                   *ngIf="item.image"
-                  [src]="
-                    'https://localhost:7154/' + 'Images/Category/' + item.image
-                  "
+                  [src]="IP + '/Images/Category/' + item.image"
                   [alt]="item.name"
                 />
                 <span>{{ item.name }}</span>

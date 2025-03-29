@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { GetCarBrandModel } from '../../../../../../Services/Car/Queries/Models/GetCarBrandModel';
 import { CarBrandQueriesService } from '../../../../../../Services/Car/Queries/Handler/car-brand-queries.service';
+import { Routing } from '../../../../../../Meta/Routing';
 
 @Component({
   selector: 'app-brand-car',
@@ -10,7 +11,7 @@ import { CarBrandQueriesService } from '../../../../../../Services/Car/Queries/H
 })
 export class BrandCarComponent implements OnInit {
   carBrands: GetCarBrandModel[] = [];
-
+  IP: string = Routing.Ip;
   showAllBrands: boolean = false;
   private readonly _carBrandQuereisService = inject(CarBrandQueriesService);
   ngOnInit(): void {
