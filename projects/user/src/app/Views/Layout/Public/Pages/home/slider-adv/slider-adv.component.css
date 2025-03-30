@@ -1,0 +1,44 @@
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background-color: #f9f9f9;
+  height: 100%;
+}
+
+.custom-slide-img {
+  width: 48%;
+  height: 100%;
+
+  object-fit: contain; /* ضمان ظهور الصورة بالكامل بدون قص */
+  border-radius: 8px;
+}
+
+.swiper-container {
+  width: 100%;
+  height: auto;
+
+  overflow: hidden;
+}
+
+swiper-container {
+  width: 100%;
+  background-color: #f9f9f9;
+  height: 300px; /* تعديل الارتفاع حسب الحاجة */
+}
+swiper-container::part(button-next) {
+  color: #1f4c7a !important;
+}
+
+swiper-container::part(button-prev) {
+  color: #1f4c7a !important;
+}
+
+swiper-slide {
+  display: flex;
+  background-color: #f9f9f9;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

@@ -4,6 +4,7 @@ import { CarPartsSelectorComponent } from './car-parts-selector/car-parts-select
 import { AdvertisingComponent } from './advertising/advertising.component';
 import { ModelsComponentComponent } from '../select-category/Components/models-component/models-component.component';
 import { ProductCardsComponent } from './ProductCards/product-cards.component';
+import { SliderAdvComponent } from './slider-adv/slider-adv.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { ProductCardsComponent } from './ProductCards/product-cards.component';
     BrandCarComponent,
     CarPartsSelectorComponent,
     AdvertisingComponent,
-    ModelsComponentComponent,
+    SliderAdvComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

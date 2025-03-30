@@ -28,7 +28,14 @@ a {
   -o-transition: 0.3s all ease;
   transition: 0.3s all ease;
 }
-
+.img-fluid {
+  width: 100%;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  filter: contrast(1.1) brightness(1.1);
+  height: auto;
+  margin-bottom: 5px;
+}
 .content .register-link {
   color: #213a59;
   text-decoration: underline;

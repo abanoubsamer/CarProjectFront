@@ -1,0 +1,20 @@
+<swiper-container
+  loop="true"
+  navigation="true"
+  speed="1200"
+  pagination="true"
+  autoplay-delay="3000"
+  autoplay-disable-on-interaction="false"
+>
+  <swiper-slide *ngFor="let pair of imagePairs">
+    <div class="image-wrapper">
+      <img
+        *ngFor="let img of pair"
+        [src]="img"
+        class="custom-slide-img"
+        alt="Adv Image"
+        loading="lazy"
+      />
+    </div>
+  </swiper-slide>
+</swiper-container>
