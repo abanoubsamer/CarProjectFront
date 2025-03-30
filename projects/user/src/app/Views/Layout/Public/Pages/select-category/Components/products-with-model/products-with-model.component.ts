@@ -5,10 +5,11 @@ import { QueriesProductService } from '../../../../../../../Services/Product/Que
 import { ToastrService } from 'ngx-toastr';
 import { GetModelWithBrand } from '../../../../../../../Services/Models/Quereis/Models/GetModelWithBrand';
 import { ActivatedRoute } from '@angular/router';
+import { NotFoundComponent } from '../../../../../Components/not-found/not-found.component';
 
 @Component({
   selector: 'app-products-with-model',
-  imports: [],
+  imports: [NotFoundComponent],
   templateUrl: './products-with-model.component.html',
   styleUrl: './products-with-model.component.css',
 })

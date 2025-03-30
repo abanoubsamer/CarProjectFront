@@ -3,10 +3,11 @@ import { ToastrService } from 'ngx-toastr';
 import { GetProducts } from '../../../../../../Services/Product/Queries/Models/GetProducts';
 import { Routing } from '../../../../../../Meta/Routing';
 import { QueriesProductService } from '../../../../../../Services/Product/Queries/Handler/queries-product.service';
+import { NotFoundComponent } from '../../../../Components/not-found/not-found.component';
 
 @Component({
   selector: 'app-product-cards',
-  imports: [],
+  imports: [NotFoundComponent],
   templateUrl: './product-cards.component.html',
   styleUrl: './product-cards.component.css',
 })
