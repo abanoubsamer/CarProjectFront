@@ -4,6 +4,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   AfterViewInit,
   HostListener,
+  OnInit,
 } from '@angular/core';
 
 @Component({
@@ -14,7 +15,7 @@ import {
   imports: [CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SliderAdvComponent {
+export class SliderAdvComponent implements OnInit {
   imagePaths: string[] = [
     'Adv/cmHJM20106.webp',
     'Adv/dCcwq23810.webp',
@@ -25,12 +26,8 @@ export class SliderAdvComponent {
     'Adv/tpQ9F20706.webp',
     'Adv/UPYfU20206.webp',
   ];
-  // تقسيم الصور إلى أزواج
-  imagePairs: string[][] = [];
 
-  constructor() {
-    for (let i = 0; i < this.imagePaths.length; i += 2) {
-      this.imagePairs.push(this.imagePaths.slice(i, i + 2));
-    }
-  }
+  constructor() {}
+
+  ngOnInit() {}
 }

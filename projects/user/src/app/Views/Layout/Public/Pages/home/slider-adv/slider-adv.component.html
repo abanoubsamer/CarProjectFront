@@ -1,20 +1,63 @@
-<swiper-container
-  loop="true"
-  navigation="true"
-  speed="1200"
-  pagination="true"
-  autoplay-delay="3000"
-  autoplay-disable-on-interaction="false"
->
-  <swiper-slide *ngFor="let pair of imagePairs">
-    <div class="image-wrapper">
-      <img
-        *ngFor="let img of pair"
-        [src]="img"
-        class="custom-slide-img"
-        alt="Adv Image"
-        loading="lazy"
-      />
+<!-- slider-car-service.component.html -->
+<div class="wrapper">
+  <div class="car-service-container">
+    <!-- Left side: Promotion Banner Slider -->
+    <div class="banner-container">
+      <swiper-container
+        loop="true"
+        navigation="true"
+        speed="1200"
+        pagination="true"
+        autoplay-delay="3000"
+        autoplay-disable-on-interaction="false"
+      >
+        <swiper-slide *ngFor="let img of imagePaths">
+          <div class="image-wrapper">
+            <img
+              [src]="img"
+              class="custom-slide-img"
+              alt="إعلان صيانة السيارات"
+              loading="lazy"
+            />
+          </div>
+        </swiper-slide>
+      </swiper-container>
     </div>
-  </swiper-slide>
-</swiper-container>
+
+    <!-- Right side: Service Selection Panel -->
+    <div class="service-panel">
+      <!-- Tabs for service types -->
+      <div class="service-tabs">
+        <div class="tab active">
+          <div class="tab-icon">🔍</div>
+          <div class="tab-text">Book a Service Center</div>
+          <div class="tab-description">
+            Certified service centers for your car
+          </div>
+        </div>
+        <div class="tab">
+          <div class="tab-icon">🔧</div>
+          <div class="tab-text">Buy Spare Parts</div>
+          <div class="tab-description">
+            Find spare parts and products for your car
+          </div>
+        </div>
+      </div>
+
+      <!-- Car selection dropdowns -->
+      <div class="car-selection">
+        <div class="selection-item">
+          <button class="dropdown-btn">Select Brand</button>
+        </div>
+        <div class="selection-item">
+          <button class="dropdown-btn">Select Model</button>
+        </div>
+        <div class="selection-item">
+          <button class="dropdown-btn">Select Category</button>
+        </div>
+      </div>
+      <!-- Action button -->
+      <button class="action-btn">Buy Spare Parts</button>
+    </div>
+  </div>
+</div>
