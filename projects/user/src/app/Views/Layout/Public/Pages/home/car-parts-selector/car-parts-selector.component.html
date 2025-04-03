@@ -2,7 +2,7 @@
   <div class="container parts-mega-menu">
     <h2 class="title">CAR PARTS: MOST POPULAR WITH USERS</h2>
 
-    <div class="categories-container">
+    <div class="categories-container mb-5">
       <div class="row">
         @for ( category of categorys ; track category.categoryID) {
         <div
@@ -15,7 +15,8 @@
           >
             <img
               class="category-icon img-fluid"
-              [src]="IP + '/Images/Category/' + category.image"
+              [lazyLoad]="IP + '/Images/Category/' + category.image"
+              [defaultImage]="'Loding.svg'"
               [alt]="category.name"
             />
             <span>{{ category.name }}</span>
@@ -37,7 +38,8 @@
                 <li (click)="selectPart(item)">
                   <img
                     *ngIf="item.image"
-                    [src]="IP + '/Images/Category/' + item.image"
+                    [lazyLoad]="IP + '/Images/Category/' + item.image"
+                    [defaultImage]="'Loding.svg'"
                     [alt]="item.name"
                   />
                   <span>{{ item.name }}</span>

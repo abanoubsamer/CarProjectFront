@@ -5,10 +5,11 @@ import { NavigationService } from '../../../../../../../Services/Navigation/navi
 import { ActivatedRoute } from '@angular/router';
 import { CategoryDto } from '../../../../../../../Core/Dtos/CategoryDto';
 import { Routing } from '../../../../../../../Meta/Routing';
+import { SharedModuleModule } from '../../../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-select-car-brand',
-  imports: [],
+  imports: [SharedModuleModule],
   templateUrl: './select-car-brand.component.html',
   styleUrl: './select-car-brand.component.css',
 })

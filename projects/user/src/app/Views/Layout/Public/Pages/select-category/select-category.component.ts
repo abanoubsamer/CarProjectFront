@@ -5,10 +5,11 @@ import { CategoryDto } from '../../../../../Core/Dtos/CategoryDto';
 
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Routing } from '../../../../../Meta/Routing';
+import { SharedModuleModule } from '../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-select-category',
-  imports: [CommonModule, RouterModule],
+  imports: [SharedModuleModule, RouterModule],
   templateUrl: './select-category.component.html',
   styleUrl: './select-category.component.css',
 })

@@ -23,7 +23,8 @@
           <div class="manufacturers-logos">
             <img
               *ngFor="let manufacturer of manufacturers"
-              [src]="manufacturer.logo"
+              [lazyLoad]="manufacturer.logo"
+              [defaultImage]="'Loding.svg'"
               [alt]="manufacturer.name"
               class="manufacturer-logo"
             />

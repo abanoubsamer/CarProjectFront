@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { GetModelWithBrand } from '../../../../../../../Services/Models/Quereis/Models/GetModelWithBrand';
 import { NavigationService } from '../../../../../../../Services/Navigation/navigation.service';
 import { Routing } from '../../../../../../../Meta/Routing';
+import { SharedModuleModule } from '../../../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-models-component',
-  imports: [CommonModule],
+  imports: [SharedModuleModule],
   templateUrl: './models-component.component.html',
   styleUrl: './models-component.component.css',
 })

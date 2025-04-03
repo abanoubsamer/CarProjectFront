@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { GetCarBrandModel } from '../../../../../../Services/Car/Queries/Models/GetCarBrandModel';
 import { CarBrandQueriesService } from '../../../../../../Services/Car/Queries/Handler/car-brand-queries.service';
 import { Routing } from '../../../../../../Meta/Routing';
+import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-brand-car',
-  imports: [],
+  imports: [SharedModuleModule],
   templateUrl: './brand-car.component.html',
   styleUrl: './brand-car.component.css',
 })

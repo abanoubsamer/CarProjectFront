@@ -3,7 +3,8 @@
     <div class="row align-items-center">
       <div class="col-md-3 text-center">
         <img
-          src="{{ Ip }}/images/Models/{{ model.image }}"
+          [lazyLoad]="Ip + '/images/Models/' + model.image"
+          [defaultImage]="'Loding.svg'"
           class="img-fluid"
           alt="Car Image"
         />
@@ -27,7 +28,8 @@
 
       <div class="col-md-3 text-center">
         <img
-          src="{{ Ip }}/images/CarBrand/{{ model.brandImage }}"
+          [lazyLoad]="Ip + '/images/CarBrand/' + model.brandImage"
+          [defaultImage]="'Loding.svg'"
           class="img-fluid"
           style="max-width: 120px"
           alt="Skoda Logo"
@@ -50,7 +52,8 @@
           <div class="position-relative overflow-hidden">
             <span class="badge bg-danger badge-floating">Sale!</span>
             <img
-              [src]="Ip + '/images/' + Product.images[0].image"
+              [lazyLoad]="Ip + '/images/' + Product.images[0].image"
+              [defaultImage]="'Loding.svg'"
               class="product-image card-img-top mt-2"
               alt="Product Image"
             />

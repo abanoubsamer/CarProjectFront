@@ -9,7 +9,8 @@
         (click)="selectBrand(brand.id)"
       >
         <img
-          [src]="IP + '/images/CarBrand/' + brand.image"
+          [lazyLoad]="IP + '/images/CarBrand/' + brand.image"
+          [defaultImage]="'Loding.svg'"
           [alt]="brand.name"
           class="brand-logo"
         />

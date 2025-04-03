@@ -6,11 +6,12 @@ import { NavigationService } from '../../../../../../Services/Navigation/navigat
 import { SelectCarService } from '../../../../../../Services/SharedDataService/select-car.service';
 import { CategoryDto } from '../../../../../../Core/Dtos/CategoryDto';
 import { Routing } from '../../../../../../Meta/Routing';
+import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-car-parts-selector',
   standalone: true,
-  imports: [CommonModule],
+  imports: [SharedModuleModule],
   templateUrl: './car-parts-selector.component.html',
   styleUrl: './car-parts-selector.component.css',
 })

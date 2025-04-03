@@ -6,10 +6,11 @@ import { ToastrService } from 'ngx-toastr';
 import { GetModelWithBrand } from '../../../../../../../Services/Models/Quereis/Models/GetModelWithBrand';
 import { ActivatedRoute } from '@angular/router';
 import { NotFoundComponent } from '../../../../../Components/not-found/not-found.component';
+import { SharedModuleModule } from '../../../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-products-with-model',
-  imports: [NotFoundComponent],
+  imports: [NotFoundComponent, SharedModuleModule],
   templateUrl: './products-with-model.component.html',
   styleUrl: './products-with-model.component.css',
 })

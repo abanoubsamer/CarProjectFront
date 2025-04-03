@@ -125,17 +125,18 @@
                 }
               </ul>
             </li>
-            @if(this .userid) { @if(this.user.picture ){
+            @if(this .userid) { @if(this.user.picture){
             <img
-              loading="lazy"
-              [src]="this.user.picture"
+              [defaultImage]="'Loding.svg'"
+              [lazyLoad]="this.user.picture"
               class="rounded-circle profile-pic"
               alt="Profile Picture"
             />
             }@else {
             <img
               loading="lazy"
-              src="307ce493-b254-4b2d-8ba4-d12c080d6651.jpg"
+              [defaultImage]="'Loding.svg'"
+              [lazyLoad]="'307ce493-b254-4b2d-8ba4-d12c080d6651.jpg'"
               class="rounded-circle profile-pic"
               alt="Profile Picture"
             />

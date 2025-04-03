@@ -11,7 +11,8 @@
       <div class="brand-item" (click)="selectBrand(brand.id)">
         <div class="brand-logo-container">
           <img
-            [src]="IP + '/images/CarBrand/' + brand.image"
+            [lazyLoad]="IP + '/images/CarBrand/' + brand.image"
+            [defaultImage]="'Loding.svg'"
             [alt]="brand.name"
             class="brand-logo"
           />
@@ -31,7 +32,8 @@
       @for (brand of carBrands; track brand.id) {
       <div class="container brand-logo-container">
         <img
-          [src]="IP + '/images/CarBrand/' + brand.image"
+          [lazyLoad]="IP + '/images/CarBrand/' + brand.image"
+          [defaultImage]="'Loding.svg'"
           [alt]="brand.name"
           class="brand-logo"
         />

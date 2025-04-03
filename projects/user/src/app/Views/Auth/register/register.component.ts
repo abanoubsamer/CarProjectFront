@@ -1,15 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatFormSharedModule } from '../../../Shared/Modules/mat-form-shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { AuthCommendService } from '../../../Services/Auth/Commend/Handler/auth-commend.service';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from '../../../Services/Navigation/navigation.service';
 import { RegisterModel } from '../../../Services/Auth/Commend/Models/RegisterModel';
 import { RouterModule } from '@angular/router';
+import { SharedModuleModule } from '../../../Shared/Modules/shared-module.module';
 @Component({
   selector: 'app-register',
-  imports: [MatFormSharedModule, CommonModule, RouterModule],
+  imports: [MatFormSharedModule, SharedModuleModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

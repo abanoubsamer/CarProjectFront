@@ -4,7 +4,11 @@
     @for (model of models; track model.id) {
     <div (click)="selectModel(model.id)" class="model-card">
       <div class="car-image">
-        <img [src]="IP + '/images/Models/' + model.image" [alt]="model.name" />
+        <img
+          [lazyLoad]="IP + '/images/Models/' + model.image"
+          [defaultImage]="'Loding.svg'"
+          [alt]="model.name"
+        />
       </div>
       <div class="model-details">
         <span class="model-name">{{ model.name }}</span>

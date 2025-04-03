@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-const Modules = [CommonModule];
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+const Modules = [CommonModule, LazyLoadImageModule];
 
 @NgModule({
   declarations: [],

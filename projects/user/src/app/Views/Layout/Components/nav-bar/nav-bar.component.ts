@@ -3,10 +3,11 @@ import { GetUserIdModel } from '../../../../Services/User/Queries/Models/GetUser
 import { SharedDataService } from '../../../../Services/SharedDataService/shared-data.service';
 import { UserQuereisService } from '../../../../Services/User/Queries/Handler/user-quereis.service';
 import { RouterModule } from '@angular/router';
+import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterModule],
+  imports: [RouterModule, SharedModuleModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
 })
