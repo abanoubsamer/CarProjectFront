@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { GetCarBrandModel } from '../../../../../../Services/Car/Queries/Models/GetCarBrandModel';
 import { CarBrandQueriesService } from '../../../../../../Services/Car/Queries/Handler/car-brand-queries.service';
 import { Routing } from '../../../../../../Meta/Routing';
@@ -14,11 +14,15 @@ export class BrandCarComponent implements OnInit {
   carBrands: GetCarBrandModel[] = [];
   IP: string = Routing.Ip;
   showAllBrands: boolean = false;
+  @Output() CarBrandsEvent = new EventEmitter<GetCarBrandModel[]>();
   private readonly _carBrandQuereisService = inject(CarBrandQueriesService);
   ngOnInit(): void {
     this._carBrandQuereisService
       .GeTCarBrandsWithPagination(1, 50)
-      .subscribe((res) => (this.carBrands = res.data));
+      .subscribe((res) => {
+        this.carBrands = res.data;
+        this.CarBrandsEvent.emit(this.carBrands);
+      });
   }
   scrollLeft() {
     const container = document.querySelector('.brands-container');

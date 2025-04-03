@@ -241,3 +241,46 @@ swiper-slide {
     height: 350px;
   }
 }
+/* General styling */
+.car-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.selection-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+ng-select {
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+ng-select .ng-select-container {
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+ng-select .ng-select-container .ng-placeholder {
+  color: #bbb;
+  font-size: 14px;
+}
+
+ng-select .ng-arrow-wrapper {
+  color: #555;
+}
+::ng-deep .ng-option-disabled.ng-optgroup.ng-star-inserted {
+  color: #1b3d5f !important;
+  font-size: 16px !important; /* حجم الخط */
+  font-family: "Arial", sans-serif !important; /* نوع الخط */
+  font-weight: bold !important  ; /* جعل الخط عريض */
+  padding-left: 20px !important; /* إضافة مسافة من اليسار */
+}

@@ -43,21 +43,60 @@
           </div>
         </div>
       </div>
-
-      <!-- Car selection dropdowns -->
       <div class="car-selection">
+        <!-- Select Brand -->
         <div class="selection-item">
-          <button class="dropdown-btn">Select Brand</button>
+          <ng-select
+            [items]="CarBrands"
+            bindLabel="name"
+            bindValue="id"
+            placeholder="Select Brand"
+            [(ngModel)]="selectedBrand"
+            [searchable]="true"
+            [clearable]="true"
+            [virtualScroll]="true"
+            [selectOnTab]="true"
+            (change)="GetModelsWithBrands($event)"
+          ></ng-select>
         </div>
+
+        <!-- Select Model -->
         <div class="selection-item">
-          <button class="dropdown-btn">Select Model</button>
+          <ng-select
+            [items]="Models"
+            bindLabel="name"
+            bindValue="id"
+            placeholder="Select Model"
+            [placeholder]="'Select Model'"
+            [(ngModel)]="selectedModel"
+            [searchable]="true"
+            [clearable]="true"
+            [virtualScroll]="true"
+            [selectOnTab]="true"
+          ></ng-select>
         </div>
+
+        <!-- Select Category -->
         <div class="selection-item">
-          <button class="dropdown-btn">Select Category</button>
+          <ng-select
+            [items]="Categorys"
+            bindLabel="name"
+            bindValue="id"
+            groupBy="subCategories"
+            [searchable]="true"
+            [selectOnTab]="true"
+            placeholder="Select Category"
+            (change)="SelectCategory($event)"
+          >
+            <ng-template ng-optgroup-tmp let-item="item">
+              {{ item.name || "Unnamed group" }}
+            </ng-template>
+          </ng-select>
         </div>
       </div>
+
       <!-- Action button -->
-      <button class="action-btn">Buy Spare Parts</button>
+      <button (click)="Search()" class="action-btn">Buy Spare Parts</button>
     </div>
   </div>
 </div>

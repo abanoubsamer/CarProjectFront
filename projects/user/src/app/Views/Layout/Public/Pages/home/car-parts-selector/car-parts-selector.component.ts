@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  inject,
+  OnInit,
+  Output,
+  output,
+} from '@angular/core';
 import { GetCategoryModel } from '../../../../../../Services/Category/Queries/Models/GetCategoryModel';
 import { CategoryQuereisService } from '../../../../../../Services/Category/Queries/Handler/category-quereis.service';
 import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
@@ -20,6 +28,8 @@ export class CarPartsSelectorComponent implements OnInit {
   selectedPart: GetCategoryModel | null = null;
   categorys: GetCategoryModel[] = [];
   IP: string = Routing.Ip;
+  @Output() CategorysEvent = new EventEmitter<GetCategoryModel[]>();
+
   private readonly CateogryQuereisService = inject(CategoryQuereisService);
   private readonly Navigation = inject(NavigationService);
   private readonly Selector = inject(SelectCarService);
@@ -27,6 +37,7 @@ export class CarPartsSelectorComponent implements OnInit {
     this.CateogryQuereisService.GetCategoriesWithPagination(1, 15).subscribe(
       (response) => {
         this.categorys = response.data;
+        this.CategorysEvent.emit(this.categorys);
       }
     );
   }
