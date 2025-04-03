@@ -4,10 +4,11 @@ import { GetProducts } from '../../../../../../Services/Product/Queries/Models/G
 import { Routing } from '../../../../../../Meta/Routing';
 import { QueriesProductService } from '../../../../../../Services/Product/Queries/Handler/queries-product.service';
 import { NotFoundComponent } from '../../../../Components/not-found/not-found.component';
+import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-product-cards',
-  imports: [NotFoundComponent],
+  imports: [NotFoundComponent, SharedModuleModule],
   templateUrl: './product-cards.component.html',
   styleUrl: './product-cards.component.css',
 })

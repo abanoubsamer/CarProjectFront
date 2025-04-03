@@ -11,7 +11,8 @@
           <div class="position-relative overflow-hidden">
             <span class="badge bg-danger badge-floating">Sale!</span>
             <img
-              [src]="Ip + '/images/' + Product.images[0].image"
+              [lazyLoad]="Ip + '/images/' + Product.images[0].image"
+              [defaultImage]="'Loding.svg'"
               class="product-image card-img-top mt-2"
               alt="Product Image"
             />
