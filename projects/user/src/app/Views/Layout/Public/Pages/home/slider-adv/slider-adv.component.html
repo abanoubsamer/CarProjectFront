@@ -57,23 +57,44 @@
             [virtualScroll]="true"
             [selectOnTab]="true"
             (change)="GetModelsWithBrands($event)"
-          ></ng-select>
+          >
+            <ng-template ng-option-tmp let-item="item">
+              <img
+                [lazyLoad]="Ip + '/images/CarBrand/' + item.image"
+                [defaultImage]="'Loding.svg'"
+                class="brand-logo"
+                style="width: 30px; height: 30px; margin: 20px 10px"
+              />
+              {{ item.name }}
+            </ng-template>
+          </ng-select>
         </div>
 
         <!-- Select Model -->
         <div class="selection-item">
           <ng-select
             [items]="Models"
-            bindLabel="name"
+            bindLabel="displayName"
             bindValue="id"
             placeholder="Select Model"
             [placeholder]="'Select Model'"
             [(ngModel)]="selectedModel"
+            [disabled]="!selectedBrand"
             [searchable]="true"
             [clearable]="true"
             [virtualScroll]="true"
             [selectOnTab]="true"
-          ></ng-select>
+          >
+            <ng-template ng-option-tmp let-item="item">
+              <img
+                [lazyLoad]="Ip + '/images/Models/' + item.image"
+                [defaultImage]="'Loding.svg'"
+                class="brand-logo"
+                style="width: auto; height: 40px; margin: 20px 10px"
+              />
+              {{ item.displayName }}
+            </ng-template>
+          </ng-select>
         </div>
 
         <!-- Select Category -->
@@ -89,14 +110,39 @@
             (change)="SelectCategory($event)"
           >
             <ng-template ng-optgroup-tmp let-item="item">
-              {{ item.name || "Unnamed group" }}
+              <hr />
+              <img
+                [lazyLoad]="Ip + '/images/Category/' + item.image"
+                [defaultImage]="'Loding.svg'"
+                class="brand-logo"
+                style="width: auto; height: 120px; margin: 0 20px"
+              />
+
+              {{ item.name }}
+              <hr />
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <img
+                [lazyLoad]="Ip + '/images/Category/' + item.image"
+                [defaultImage]="'Loding.svg'"
+                class="subcat-logo"
+                style="width: 40px; height: 40px; margin-right: 8px"
+              />
+              {{ item.name }}
             </ng-template>
           </ng-select>
         </div>
       </div>
 
       <!-- Action button -->
-      <button (click)="Search()" class="action-btn">Buy Spare Parts</button>
+      <button
+        (click)="Search()"
+        class="action-btn"
+        [disabled]="!selectedModel || !selectedBrand || !selectedCategory"
+      >
+        Buy Spare Parts
+      </button>
     </div>
   </div>
 </div>

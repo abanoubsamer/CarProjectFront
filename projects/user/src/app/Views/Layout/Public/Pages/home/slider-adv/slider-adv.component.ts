@@ -14,12 +14,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ModelQuereisService } from '../../../../../../Services/Models/Quereis/Handler/model-quereis.service';
 import { GetModelWithBrand } from '../../../../../../Services/Models/Quereis/Models/GetModelWithBrand';
 import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
+import { Routing } from '../../../../../../Meta/Routing';
+import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
 @Component({
   selector: 'app-slider-adv',
   templateUrl: './slider-adv.component.html',
   styleUrls: ['./slider-adv.component.css'],
   standalone: true,
-  imports: [CommonModule, MatFormSharedModule, NgSelectModule],
+  imports: [SharedModuleModule, MatFormSharedModule, NgSelectModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SliderAdvComponent implements OnChanges {
@@ -28,6 +30,7 @@ export class SliderAdvComponent implements OnChanges {
   selectedBrand: any;
   selectedModel: any;
   selectedCategory: any;
+  Ip = Routing.Ip;
 
   private readonly _ModelQuereisService = inject(ModelQuereisService);
   private readonly _Navigation = inject(NavigationService);
@@ -56,6 +59,10 @@ export class SliderAdvComponent implements OnChanges {
   GetModelsWithBrands(event: any) {
     this._ModelQuereisService.GetModelsWithBarnd(event.id).subscribe((res) => {
       this.Models = res.data;
+      this.Models = this.Models.map((model) => ({
+        ...model,
+        displayName: `${model.name}  (${model.minYear} -- ${model.maxYear})`,
+      }));
     });
   }
   Search() {
@@ -65,5 +72,8 @@ export class SliderAdvComponent implements OnChanges {
   }
   SelectCategory(even: any) {
     this.selectedCategory = even.categoryID;
+  }
+  getModelLabel(model: any): string {
+    return `${model.name} (${model.minYear}-${model.maxYear})`;
   }
 }

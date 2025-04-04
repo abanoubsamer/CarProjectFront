@@ -284,3 +284,9 @@ ng-select .ng-arrow-wrapper {
   font-weight: bold !important  ; /* جعل الخط عريض */
   padding-left: 20px !important; /* إضافة مسافة من اليسار */
 }
+.brand-logo {
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
