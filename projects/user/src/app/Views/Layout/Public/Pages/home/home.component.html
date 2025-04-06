@@ -1,9 +1,11 @@
 <!-- <app-categories></app-categories> -->
-<app-advertising></app-advertising>
-<app-car-parts-selector
-  (CategorysEvent)="handleCategorys($event)"
-></app-car-parts-selector>
-<app-slider-adv [CarBrands]="brands" [Categorys]="category"></app-slider-adv>
-<app-brand-car (CarBrandsEvent)="handleCarBrands($event)"></app-brand-car>
-<app-product-cards></app-product-cards>
-<app-info></app-info>
+<div class="Wrapper">
+  <app-advertising></app-advertising>
+  <app-car-parts-selector
+    (CategorysEvent)="handleCategorys($event)"
+  ></app-car-parts-selector>
+  <app-slider-adv [CarBrands]="brands" [Categorys]="category"></app-slider-adv>
+  <app-brand-car (CarBrandsEvent)="handleCarBrands($event)"></app-brand-car>
+  <app-product-cards></app-product-cards>
+  <app-info></app-info>
+</div>

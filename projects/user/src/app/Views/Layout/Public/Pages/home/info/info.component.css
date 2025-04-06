@@ -5,11 +5,12 @@
 }
 
 .brand-carousel {
+  border-top: 2px solid #bab7b7;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 0;
-  border-bottom: 1px solid #bab7b7;
+  border-bottom: 2px solid #bab7b7;
 }
 
 .brands-container {
@@ -42,8 +43,9 @@
 
 .features-section {
   display: flex;
-  flex-wrap: wrap;
-  margin: 30px 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
   gap: 20px;
 }
 
@@ -73,7 +75,7 @@
 .feature-description {
   font-size: 14px;
   color: #666;
-  margin: 0;
+  margin-bottom: 15px;
 }
 
 @media (max-width: 768px) {
