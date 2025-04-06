@@ -31,7 +31,7 @@
   width: 100%;
   height: 250px;
   object-fit: contain;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   padding: 1px;
   transition: transform 0.3s ease;
 }
