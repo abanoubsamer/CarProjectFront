@@ -7,6 +7,7 @@ import { ProductCardsComponent } from './ProductCards/product-cards.component';
 import { SliderAdvComponent } from './slider-adv/slider-adv.component';
 import { GetCarBrandModel } from '../../../../../Services/Car/Queries/Models/GetCarBrandModel';
 import { GetCategoryModel } from '../../../../../Services/Category/Queries/Models/GetCategoryModel';
+import { InfoComponent } from './info/info.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { GetCategoryModel } from '../../../../../Services/Category/Queries/Model
     CarPartsSelectorComponent,
     AdvertisingComponent,
     SliderAdvComponent,
+    InfoComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

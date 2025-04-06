@@ -52,4 +52,24 @@
     font-size: 12px;
     padding: 8px 10px;
   }
+  .nav-item {
+    display: flex;
+    justify-content: center;
+
+    margin: auto;
+  }
+  .profile-pic {
+    margin-top: 5px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .nav-item {
+    display: flex;
+    justify-content: center;
+
+    margin: auto;
+  }
+  .profile-pic {
+    margin-top: 5px;
+  }
 }
