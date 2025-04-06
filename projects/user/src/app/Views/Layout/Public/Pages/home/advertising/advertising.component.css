@@ -1,9 +1,10 @@
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* تقسيم الصفحة إلى 3 أعمدة */
-  grid-template-rows: auto auto; /* صفين */
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto auto;
   gap: 15px;
   align-items: center;
+  margin-bottom: -10px;
 }
 
 .grid-item img {
@@ -12,17 +13,16 @@
   display: block;
 }
 
-/* الصور الصغيرة فوق بعض */
 .small {
-  grid-column: 1; /* أول عمود */
+  grid-column: 1;
 }
 
 .large {
-  grid-column: 2 / span 1; /* الصورة العريضة تأخذ عمودين */
-  grid-row: 1 / span 2; /* تمتد على الصفين */
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 3;
 }
 
 .tall {
-  grid-column: 3; /* آخر عمود */
-  grid-row: 1 / span 2; /* تمتد على الصفين */
+  grid-column: 3;
+  grid-row: 1 / span 2;
 }
