@@ -22,6 +22,12 @@ export class SelectCategoryComponent implements OnInit {
     this.route.data.subscribe(({ CategoryId }) => {
       this.category = CategoryId;
     });
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 0);
   }
 
   manufacturers: Manufacturer[] = [

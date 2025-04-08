@@ -46,7 +46,8 @@
       <div class="col-md-12">
         <h4 class="mb-4">Our Products</h4>
       </div>
-      @for (Product of Products; track Product.productID) {
+      @for (Product of Products | paginate: { id: 'foo', itemsPerPage:pageSize,
+      currentPage: p, totalItems: total } ; track Product.productID) {
       <div class="col-md-3 col-sm-6 mb-4">
         <div class="card product-card shadow-sm h-100 d-flex flex-column">
           <div class="position-relative overflow-hidden">
@@ -121,6 +122,17 @@
       </div>
       }
     </div>
+    <pagination-controls
+      id="foo"
+      (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
     }@else {
     <app-not-found></app-not-found>
     }

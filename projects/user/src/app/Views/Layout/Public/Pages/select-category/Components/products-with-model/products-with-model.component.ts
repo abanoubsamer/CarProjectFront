@@ -7,10 +7,10 @@ import { GetModelWithBrand } from '../../../../../../../Services/Models/Quereis/
 import { ActivatedRoute } from '@angular/router';
 import { NotFoundComponent } from '../../../../../Components/not-found/not-found.component';
 import { SharedModuleModule } from '../../../../../../../Shared/Modules/shared-module.module';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-products-with-model',
-  imports: [NotFoundComponent, SharedModuleModule],
+  imports: [NotFoundComponent, SharedModuleModule, NgxPaginationModule],
   templateUrl: './products-with-model.component.html',
   styleUrl: './products-with-model.component.css',
 })
@@ -20,6 +20,9 @@ export class ProductsWithModelComponent {
   Products: Array<GetProducts> = new Array<GetProducts>();
   Totalitems: number = 0;
   Ip = Routing.Ip;
+  pageSize = 5;
+  p = 1;
+  total: number = 0;
   //#endregion
 
   private readonly AcativeRoute = inject(ActivatedRoute);
@@ -75,4 +78,5 @@ export class ProductsWithModelComponent {
   emptyStars(rate: number) {
     return 5 - Math.floor(rate);
   }
+  pageChanged(event: number) {}
 }

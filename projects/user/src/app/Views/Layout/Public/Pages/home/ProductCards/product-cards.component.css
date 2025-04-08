@@ -48,3 +48,54 @@
 .color-option.active {
   box-shadow: 0 0 0 2px #213a59;
 }
+::ng-deep .ngx-pagination .current {
+  padding: 8px 14px;
+  background: #264e7e !important;
+  border-radius: 10px;
+  color: #fefefe;
+  cursor: default;
+}
+/* Modern Rounded Pagination Theme */
+::ng-deep .ngx-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  gap: 8px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+::ng-deep.ngx-pagination li {
+  list-style: none;
+}
+
+::ng-deep.ngx-pagination li a,
+.ngx-pagination li span {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f1f3f5;
+  color: #333;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+::ng-deep.ngx-pagination li a:hover {
+  background-color: #264e7e;
+  color: white;
+  transform: translateY(-2px);
+}
+
+::ng-deep.ngx-pagination .disabled a,
+.ngx-pagination .disabled span {
+  background-color: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+html {
+  scroll-behavior: smooth !important;
+}
