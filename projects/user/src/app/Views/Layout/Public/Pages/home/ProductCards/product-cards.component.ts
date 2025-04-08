@@ -20,11 +20,12 @@ export class ProductCardsComponent implements OnInit {
   p = 1;
   total: number = 0;
 
+  //cache
   private pageCache = new Map<number, GetProducts[]>();
 
-  _ProductService = inject(QueriesProductService);
+  private _ProductService = inject(QueriesProductService);
 
-  _totservice = inject(ToastrService);
+  private _totservice = inject(ToastrService);
 
   ngOnInit(): void {
     this.GetProductPagination(this.p, this.pageSize);
@@ -39,7 +40,6 @@ export class ProductCardsComponent implements OnInit {
       this.Products = this.pageCache.get(PageNumber)!;
       return;
     }
-
     this._ProductService
       .GetProuctsWihtPagination(PageNumber, PageSize, filter)
       .subscribe({
@@ -51,7 +51,7 @@ export class ProductCardsComponent implements OnInit {
           }
         },
         error: (err) => {
-          this._totservice.error('فشل في تحميل المنتجات');
+          this._totservice.error(err.message);
         },
       });
   }

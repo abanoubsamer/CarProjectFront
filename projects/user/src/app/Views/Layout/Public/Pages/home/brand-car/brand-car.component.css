@@ -88,26 +88,22 @@ h2:after {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background-color: white;
+  width: 30px;
+  height: 30px;
+  background-color: #f9f9f9;
   border: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 24px;
-  color: #555;
+  font-size: 28px;
+  color: #24598f;
   z-index: 10;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
 }
 
 .nav-button:hover {
-  background-color: #0088cc;
-  color: white;
-  box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
+  color: #1c3f63;
 }
 
 .nav-button.prev {
@@ -125,17 +121,18 @@ h2:after {
 .show-all-link {
   display: inline-flex;
   align-items: center;
-  color: #0088cc;
-  text-decoration: none;
+  color: #ffffff;
   font-weight: 600;
   font-size: 16px;
   padding: 8px 16px;
   border-radius: 30px;
   transition: all 0.3s ease;
+  background-color: #264e7e;
+  border: #f9f9f9;
 }
 
 .show-all-link:hover {
-  background-color: rgba(0, 136, 204, 0.1);
+  background-color: #1c3f63;
 }
 
 .show-all-link .arrow {
