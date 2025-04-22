@@ -16,6 +16,13 @@ const routes: Routes = [
           import('./Pages/home/home.component').then((m) => m.HomeComponent),
       },
       {
+        path: 'Product/:id',
+        loadComponent: () =>
+          import('./Pages/product-detials/product-detials.component').then(
+            (m) => m.ProductDetialsComponent
+          ),
+      },
+      {
         path: 'Selector/:id',
         loadComponent: () =>
           import('./Pages/select-category/select-category.component').then(
