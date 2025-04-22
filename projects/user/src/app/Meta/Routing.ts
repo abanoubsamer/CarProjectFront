@@ -10,7 +10,7 @@ export class Routing {
     AddProduct: Routing.Role + 'Product/Add',
     UpdateProduct: Routing.Role + 'Product/Update',
     GetProductPagination: Routing.Role + 'Product/Pagination',
-    GetProductDetails: Routing.Role + '',
+    GetProductDetails: Routing.Role + 'Product/{Id}',
   };
   static Authentication = {
     LoginUser: Routing.Role + 'Auth/Login',
@@ -31,4 +31,15 @@ export class Routing {
     GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
     GetModelById: Routing.Role + 'Model/GetModelById/{Id}',
   };
+
+  static Cart = {
+    GetCart: Routing.Role + "card/{Id}",
+    AddToCart: Routing.Role + 'UserCard/Add',
+    UpdateItem: Routing.Role + "UserCard/Update",
+    RemoveItem: Routing.Role + "UserCard/{Id}",
+  };
+
+  static Review = {
+    GetReviewStatistic: Routing.Role + "Review/GetRatingStatistics/{Id}"
+  }
 }

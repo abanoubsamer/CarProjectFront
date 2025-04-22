@@ -1,48 +1,28 @@
 import { Injectable } from '@angular/core';
-import { CartItem } from './CartItem';
-import { BehaviorSubject } from 'rxjs';
-
+import { GetcartUser } from './CartItem';
+import { Observable } from 'rxjs';
+import { ApiService } from '../Api/api.service';
+import { Routing } from '../../Meta/Routing';
+import { Response } from '../../Core/BasicResponse/Response';
 @Injectable({
   providedIn: 'root',
 })
-export class CartService {
-  private items: CartItem[] = [];
-  private cartItems = new BehaviorSubject<CartItem[]>([]);
-  cartItems$ = this.cartItems.asObservable();
-  addToCart(product: CartItem): void {
-    if (product.quantity <= 0) return;
-    const existingItem = this.items.find((item) => item.id === product.id);
-    if (existingItem) {
-      existingItem.quantity += product.quantity;
-    } else {
-      this.items.push(product);
+
+  export class CartService {
+    constructor(private Api: ApiService) {}
+    getCart(userid: string): Observable<Response<GetcartUser>> {
+      return this.Api.Get<Response<GetcartUser>>(Routing.Cart.GetCart.replace("{Id}",userid));
     }
-    this.cartItems.next(this.items);
+    // addToCart(item: CartItem): Observable<CartItem[]> {
+    //   return this.Api.Post<CartItem[]>(Routing.Cart.AddToCart, item);
+    // }
+    // updateCartItem(productId: string, quantity: number): Observable<CartItem[]> {
+    //   return this.Api.Put<CartItem[]>(
+    //     `${Routing.Cart.UpdateItem}/${productId}`,
+    //     { quantity }
+    //   );
+    // }
+    // removeFromCart(productId: string): Observable<CartItem[]> {
+    //   return this.Api.Delete<CartItem[]>(Routing.Cart.RemoveItem, productId);
+    // }
   }
-  removeFromCart(productId: string): void {
-    this.items = this.items.filter((item) => item.id !== productId);
-    this.cartItems.next(this.items);
-  }
-  clearCart(): void {
-    this.items = [];
-    this.cartItems.next(this.items);
-  }
-  getCartItems(): CartItem[] {
-    return this.items;
-  }
-  updateQuantity(productId: string, quantity: number): void {
-    const item = this.items.find((item) => item.id === productId);
-    if (item && quantity > 0) {
-      item.quantity = quantity;
-    } else if (item && quantity === 0) {
-      this.removeFromCart(productId);
-      return;
-    }
-  }
-  getTotal(): number {
-    return this.items.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-  }
-}

@@ -4,6 +4,8 @@ import { map, Observable } from 'rxjs';
 import { PaginationResponse } from '../../../../Core/BasicResponse/PaginationResponse';
 import { GetProducts } from '../Models/GetProducts';
 import { Routing } from '../../../../Meta/Routing';
+import { Response } from '../../../../Core/BasicResponse/Response';
+import { GetProductById } from '../Models/GetProductById';
 
 @Injectable({
   providedIn: 'root',
@@ -32,9 +34,9 @@ export class QueriesProductService {
   }
   //#endregion
 
-  getProductDetails(productID: string): Observable<GetProducts> {
-    return this.Api.Get<GetProducts>(
-      `${Routing.Product.GetProductDetails}/${productID}`
+  getProductDetails(productID: string): Observable<Response<GetProductById>> {
+    return this.Api.Get<Response<GetProductById>>(
+      Routing.Product.GetProductDetails.replace("{Id}",productID)
     );
   }
 }

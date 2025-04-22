@@ -1,7 +1,21 @@
-export interface CartItem {
-  id: string;
+import { ProductImagesDto } from "../../Core/Dtos/ProductImagesDto";
+
+export interface GetcartUser {
+  cardId: string;
+  cardItemsDtos: CardItemDtos[]
+}
+
+export interface CardItemDtos{
+ id: string;
+ product: ProductDtos[];
+ quantity: number;
+ price: number;
+}
+export interface ProductDtos {
+  productID: string;
   name: string;
+  description: string;
   price: number;
-  quantity: number;
-  imageUrl?: string;
+  averageRating: number;
+  imageDto:  ProductImagesDto[];
 }
