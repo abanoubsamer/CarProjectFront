@@ -10,6 +10,7 @@ export class Routing {
     AddProduct: Routing.Role + 'Product/Add',
     UpdateProduct: Routing.Role + 'Product/Update',
     GetProductPagination: Routing.Role + 'Product/Pagination',
+    GetProductDetails: Routing.Role + '',
   };
   static Authentication = {
     LoginUser: Routing.Role + 'Auth/Login',

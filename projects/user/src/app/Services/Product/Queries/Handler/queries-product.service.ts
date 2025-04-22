@@ -31,4 +31,10 @@ export class QueriesProductService {
     );
   }
   //#endregion
+
+  getProductDetails(productID: string): Observable<GetProducts> {
+    return this.Api.Get<GetProducts>(
+      `${Routing.Product.GetProductDetails}/${productID}`
+    );
+  }
 }
