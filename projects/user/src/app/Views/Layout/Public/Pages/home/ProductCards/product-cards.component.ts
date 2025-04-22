@@ -6,6 +6,7 @@ import { QueriesProductService } from '../../../../../../Services/Product/Querie
 import { NotFoundComponent } from '../../../../Components/not-found/not-found.component';
 import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
 
 @Component({
   selector: 'app-product-cards',
@@ -26,9 +27,14 @@ export class ProductCardsComponent implements OnInit {
   private _ProductService = inject(QueriesProductService);
 
   private _totservice = inject(ToastrService);
+  private readonly NavigationUrl = inject(NavigationService);
 
   ngOnInit(): void {
     this.GetProductPagination(this.p, this.pageSize);
+  }
+
+  GetProductDetails(ProductId: string) {
+    this.NavigationUrl.NavigationByUrl('Public/Product/' + ProductId);
   }
 
   GetProductPagination(

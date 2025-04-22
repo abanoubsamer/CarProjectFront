@@ -9,7 +9,10 @@
       currentPage: p, totalItems: total } ; track Product.productID) {
       <div class="col-md-3 col-sm-6 mb-4">
         <div class="card product-card shadow-sm h-100 d-flex flex-column">
-          <div class="position-relative overflow-hidden">
+          <div
+            class="position-relative overflow-hidden"
+            (click)="GetProductDetails(Product.productID)"
+          >
             <span class="badge bg-danger badge-floating">Sale!</span>
             <img
               [lazyLoad]="Ip + '/images/' + Product.images[0].image"

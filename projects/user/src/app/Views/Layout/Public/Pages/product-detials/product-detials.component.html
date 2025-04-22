@@ -1,126 +1,97 @@
-<!-- <link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-  rel="stylesheet"
-/> -->
-
-<div class="container py-5">
-  <div class="row">
-    <!-- Product Images -->
-    <div class="col-md-6 mb-4">
-      <div class="card">
+<div class="py-3 py-md-5">
+  <div class="container">
+    <div class="row">
+      <!-- Product Images -->
+      <div class="col-md-6 mb-4">
         <img
-          src="https://images.unsplash.com/photo-1444881421460-d838c3b98f95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw1fHx3YXRjaHxlbnwwfDB8fHwxNzM0OTY1MTc4fDA&ixlib=rb-4.0.3&q=80&w=1080"
-          class="card-img-top"
-          alt="Product Image"
+          [src]="selectedImage || Ip + '/images/' + product.images[0].image"
+          alt="Product"
+          class="img-fluid rounded mb-3 product-image"
+          id="mainImage"
         />
-        <div class="card-body">
-          <div class="row g-2">
-            <div class="col-3">
-              <img
-                src="https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwyfHx3YXRjaHxlbnwwfDB8fHwxNzM0OTY1MTc4fDA&ixlib=rb-4.0.3&q=80&w=1080"
-                class="img-thumbnail"
-                alt="Thumbnail 1"
-              />
-            </div>
-            <div class="col-3">
-              <img
-                src="https://images.unsplash.com/photo-1495857000853-fe46c8aefc30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHx3YXRjaHxlbnwwfDB8fHwxNzM0OTY1MTc4fDA&ixlib=rb-4.0.3&q=80&w=1080"
-                class="img-thumbnail"
-                alt="Thumbnail 2"
-              />
-            </div>
-            <div class="col-3">
-              <img
-                src="https://images.unsplash.com/photo-1451859757691-f318d641ab4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw3fHx3YXRjaHxlbnwwfDB8fHwxNzM0OTY1MTc4fDA&ixlib=rb-4.0.3&q=80&w=1080"
-                class="img-thumbnail"
-                alt="Thumbnail 3"
-              />
-            </div>
-            <div class="col-3">
-              <img
-                src="https://images.unsplash.com/photo-1490915785914-0af2806c22b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwzfHx3YXRjaHxlbnwwfDB8fHwxNzM0OTY1MTc4fDA&ixlib=rb-4.0.3&q=80&w=1080"
-                class="img-thumbnail"
-                alt="Thumbnail 4"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Product Details -->
-    <div class="col-md-6">
-      <h1 class="h2 mb-3">Elegant Watch Classic Edition</h1>
-      <div class="mb-3">
-        <span class="h4 me-2">$299.99</span>
-        <span class="text-muted text-decoration-line-through">$399.99</span>
-        <span class="badge bg-danger ms-2">25% OFF</span>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-flex align-items-center">
-          <div class="text-warning me-2">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
-          </div>
-          <span class="text-muted">(128 reviews)</span>
-        </div>
-      </div>
-
-      <p class="mb-4">
-        Timeless elegance meets modern functionality in this classic timepiece.
-        Features premium materials, water resistance, and sophisticated design.
-      </p>
-
-      <!-- Color Selection -->
-
-      <!-- Quantity -->
-      <div class="mb-4">
-        <div class="d-flex align-items-center">
-          <label class="me-2">Quantity:</label>
-          <select class="form-select w-auto">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Actions -->
-      <div class="d-grid gap-2">
-        <button
-          class="btn btn-primary"
-          style="background-color: #243a58; border: none"
-          type="button"
+        <div
+          class="d-flex thumbnails-container flex-wrap justify-content-center"
         >
-          Add to Cart
-        </button>
-        <button class="btn btn-outline-secondary" type="button">
-          <i class="far fa-heart me-2"></i>Add to Wishlist
-        </button>
+          @for (image of product.images; track image.id) {
+          <img
+            [src]="Ip + '/images/' + image.image"
+            alt="Thumbnail"
+            class="thumbnail rounded"
+            (mousemove)="changeImage($event, Ip + '/images/' + image.image)"
+          />
+          }
+        </div>
       </div>
+      <!-- Product Details -->
+      <div class="col-md-6">
+        <h2 class="mb-3">{{ product.name }}</h2>
+        <p class="text-muted mb-4">SKU: WH1000XM4</p>
+        <div class="mb-3">
+          <span class="h4 me-2">${{ product.price }}</span>
+          <span class="text-muted"><s>$399.99</s></span>
+        </div>
+        <div class="mb-3">
+          <div class="text-warning">
+            @for (i of [1,2,3,4,5] ; track i) {
+            <i
+              class="
+                  {{
+                i <= fullStars(product.averageRating)
+                  ? 'fa-solid fa-star'
+                  : fullStars(product.averageRating) &&
+                    i - 0.5 <= product.averageRating
+                  ? 'fa-solid fa-star-half-alt'
+                  : 'fa-regular fa-star'
+              }} "
+              aria-hidden="true"
+            ></i>
+            }
+          </div>
+          <span class="ms-2"
+            >{{ product.averageRating.toFixed(2) }} ({{
+              product.reviewDto.length
+            }}
+            reviews)</span
+          >
+        </div>
 
-      <!-- Additional Info -->
-      <div class="mt-4">
-        <div class="d-flex align-items-center mb-2">
-          <i class="fas fa-truck text-primary me-2"></i>
-          <span>Free shipping on orders over $50</span>
+        <div class="mb-4 description" [innerHTML]="product.description"></div>
+
+        <div class="mb-4">
+          <label for="quantity" class="form-label">Quantity:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantity"
+            #quantity
+            value="1"
+            min="1"
+            style="width: 80px"
+          />
         </div>
-        <div class="d-flex align-items-center mb-2">
-          <i class="fas fa-undo text-primary me-2"></i>
-          <span>30-day return policy</span>
-        </div>
-        <div class="d-flex align-items-center">
-          <i class="fas fa-shield-alt text-primary me-2"></i>
-          <span>2-year warranty</span>
+        <button class="btn btn-cart btn-lg mb-3 me-2">
+          <i class="bi bi-cart-plus"></i> Add to Cart
+        </button>
+        <button class="btn btn-outline-secondary btn-lg mb-3 me-2">
+          <i class="bi bi-heart"></i> Add to Wishlist
+        </button>
+
+        <div class="mt-4">
+          <h5>Key Features:</h5>
+          <ul>
+            <li>Industry-leading noise cancellation</li>
+            <li>30-hour battery life</li>
+            <li>Touch sensor controls</li>
+            <li>Speak-to-chat technology</li>
+          </ul>
         </div>
       </div>
     </div>
+
+    <!-- <app-product-rating
+      [Productid]="product.productID"
+      [Ratings]="product.reviewDto"
+    ></app-product-rating> -->
   </div>
 </div>
 
