@@ -7,7 +7,7 @@ export interface GetcartUser {
 
 export interface CardItemDtos{
  id: string;
- product: ProductDtos[];
+ product: ProductDtos;
  quantity: number;
  price: number;
 }
