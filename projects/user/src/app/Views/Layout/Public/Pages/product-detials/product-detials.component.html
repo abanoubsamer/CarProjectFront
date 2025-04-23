@@ -1,1 +1,100 @@
-<p>product-detials works!</p>
+<div class="py-3 py-md-5">
+  <div class="container">
+    <div class="row">
+      <!-- Product Images -->
+      <div class="col-md-6 mb-4">
+        <img
+          [src]="selectedImage || Ip + '/images/' + product.images[0].image"
+          alt="Product"
+          class="img-fluid rounded mb-3 product-image"
+          id="mainImage"
+        />
+        <div
+          class="d-flex thumbnails-container flex-wrap justify-content-center"
+        >
+          @for (image of product.images; track image.id) {
+          <img
+            [src]="Ip + '/images/' + image.image"
+            alt="Thumbnail"
+            class="thumbnail rounded"
+            (mousemove)="changeImage($event, Ip + '/images/' + image.image)"
+          />
+          }
+        </div>
+      </div>
+      <!-- Product Details -->
+      <div class="col-md-6">
+        <h2 class="mb-3">{{ product.name }}</h2>
+        <p class="text-muted mb-4">SKU: WH1000XM4</p>
+        <div class="mb-3">
+          <span class="h4 me-2">${{ product.price }}</span>
+          <span class="text-muted"><s>$399.99</s></span>
+        </div>
+        <div class="mb-3">
+          <div class="text-warning">
+            @for (i of [1,2,3,4,5] ; track i) {
+            <i
+              class="
+                  {{
+                i <= fullStars(product.averageRating)
+                  ? 'fa-solid fa-star'
+                  : fullStars(product.averageRating) &&
+                    i - 0.5 <= product.averageRating
+                  ? 'fa-solid fa-star-half-alt'
+                  : 'fa-regular fa-star'
+              }} "
+              aria-hidden="true"
+            ></i>
+            }
+          </div>
+          <span class="ms-2"
+            >{{ product.averageRating.toFixed(2) }} ({{
+              product.reviewDto.length
+            }}
+            reviews)</span
+          >
+        </div>
+
+        <div class="mb-4 description" [innerHTML]="product.description"></div>
+
+        <div class="mb-4">
+          <label for="quantity" class="form-label">Quantity:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantity"
+            #quantity
+            value="1"
+            min="1"
+            style="width: 80px"
+          />
+        </div>
+        <button class="btn btn-cart btn-lg mb-3 me-2">
+          <i class="bi bi-cart-plus"></i> Add to Cart
+        </button>
+        <button class="btn btn-outline-secondary btn-lg mb-3 me-2">
+          <i class="bi bi-heart"></i> Add to Wishlist
+        </button>
+
+        <div class="mt-4">
+          <h5>Key Features:</h5>
+          <ul>
+            <li>Industry-leading noise cancellation</li>
+            <li>30-hour battery life</li>
+            <li>Touch sensor controls</li>
+            <li>Speak-to-chat technology</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-product-rating
+      [Productid]="product.productID"
+      [Ratings]="product.reviewDto"
+    ></app-product-rating> -->
+  </div>
+</div>
+
+<app-product-rating> </app-product-rating>
+
+<app-customer-reviews></app-customer-reviews>

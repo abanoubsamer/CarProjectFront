@@ -4,6 +4,7 @@ import { PublicComponent } from './public.component';
 import { categoryResolver } from '../../../Resolver/category.resolver';
 import { modelWithBrandResolver } from '../../../Resolver/model-with-brand.resolver';
 import { modelByIdResolver } from '../../../Resolver/model-by-id.resolver';
+import { getProductByIdResolver } from '../../../Resolver/get-product-by-id.resolver';
 
 const routes: Routes = [
   {
@@ -14,6 +15,14 @@ const routes: Routes = [
         path: 'Home',
         loadComponent: () =>
           import('./Pages/home/home.component').then((m) => m.HomeComponent),
+      },
+      {
+        path: 'Product/:id',
+        loadComponent: () =>
+          import('./Pages/product-detials/product-detials.component').then(
+            (m) => m.ProductDetialsComponent
+          ),
+        resolve: { ProductId: getProductByIdResolver },
       },
       {
         path: 'Selector/:id',

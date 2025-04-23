@@ -1,0 +1,149 @@
+.product-reviews {
+  margin-top: 30px;
+
+  h5 {
+    font-size: 18px;
+    color: #2874f0;
+  }
+
+  .reviews-list {
+    margin-top: 15px;
+  }
+
+  .review-item {
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 10%);
+    margin-bottom: 20px;
+
+    .d-flex {
+      justify-content: space-between;
+    }
+
+    .review-author {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .review-rating {
+      font-size: 14px;
+      color: #f39c12;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+  }
+
+  .add-review {
+    margin-top: 30px;
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      resize: none;
+    }
+  }
+}
+.btn-cart {
+  background-color: #264e7e;
+  color: #fff;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #213a59;
+  }
+}
+/* Product View */
+.product-view .product-name {
+  font-size: 24px;
+  color: #2874f0;
+}
+.product-view .product-name .label-stock {
+  font-size: 13px;
+  padding: 4px 13px;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+  float: right;
+}
+.product-view .product-path {
+  font-size: 13px;
+  font-weight: 500;
+  color: #252525;
+  margin-bottom: 16px;
+}
+.product-view .selling-price {
+  font-size: 26px;
+  color: #000;
+  font-weight: 600;
+  margin-right: 8px;
+}
+.product-view .original-price {
+  font-size: 18px;
+  color: #937979;
+  font-weight: 400;
+  text-decoration: line-through;
+}
+.product-view .btn1 {
+  border: 1px solid;
+  margin-right: 3px;
+  border-radius: 0px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.product-view .btn1:hover {
+  background-color: #2874f0;
+  color: #fff;
+}
+.product-view .input-quantity {
+  border: 1px solid #000;
+  margin-right: 3px;
+  font-size: 12px;
+  margin-top: 10px;
+  width: 58px;
+  outline: none;
+  text-align: center;
+}
+.product-image {
+  width: 100%; /* اجعل العرض 100% ليتناسب مع حجم العنصر الأب */
+  height: 400px; /* ارتفاع ثابت */
+  object-fit: contain; /* احتواء الصورة داخل الإطار بدون قص */
+  border-radius: 10px; /* تحسين المظهر */
+
+  display: block;
+}
+
+.thumbnails-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.thumbnail {
+  width: calc(25% - 10px); /* يجعل كل صورة تأخذ ربع العرض مع احتساب المسافات */
+  max-width: 150px; /* حد أقصى للحجم */
+  height: auto;
+  width: 80px;
+
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  opacity: 1;
+}
+.description {
+  span {
+    white-space: pre-wrap;
+    word-break: break-word;
+    width: 10px;
+  }
+}

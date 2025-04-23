@@ -1,0 +1,65 @@
+.rating-container {
+   background: linear-gradient(145deg, #ffffff, #f0f0f0);
+   border-radius: 20px;
+   padding: 2rem;
+   box-shadow: 10px 10px 20px #d1d1d1,
+      -10px -10px 20px #ffffff;
+   max-width: 400px;
+   margin: 2rem auto;
+}
+
+.star-rating {
+   direction: rtl;
+   display: inline-block;
+   padding: 20px;
+}
+
+.star-rating input {
+   display: none;
+}
+
+.star-rating label {
+   color: #bbb;
+   cursor: pointer;
+   font-size: 30px;
+   padding: 5px;
+   transition: all 0.3s ease;
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label,
+.star-rating input:checked~label {
+   color: #f7b731;
+}
+
+.rating-title {
+   color: #2d3436;
+   font-weight: 600;
+   margin-bottom: 1.5rem;
+}
+
+.rating-feedback {
+   margin-top: 1.5rem;
+   color: #636e72;
+}
+
+.submit-rating {
+   background: linear-gradient(145deg, #f7b731, #f0932b);
+   border: none;
+   padding: 10px 25px;
+   border-radius: 25px;
+   color: white;
+   font-weight: 600;
+   margin-top: 1rem;
+   transition: all 0.3s ease;
+}
+
+.submit-rating:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 5px 15px rgba(247, 183, 49, 0.4);
+}
+
+.rating-emoji {
+   font-size: 2rem;
+   margin-bottom: 1rem;
+}

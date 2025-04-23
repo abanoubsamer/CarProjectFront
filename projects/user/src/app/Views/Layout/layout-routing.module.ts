@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
-import { ProfileComponent } from './security/profile/profile.component';
-import { EditprofileComponent } from './security/editprofile/editprofile.component';
-import { ChangepasswordComponent } from './security/changepassword/changepassword.component';
 import { OrdersComponent } from './security/orders/orders.component';
+import { ChangepasswordComponent } from './security/changepassword/changepassword.component';
+import { EditprofileComponent } from './security/editprofile/editprofile.component';
+import { ProfileComponent } from './security/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
           import('./Public/public.module').then((c) => c.PublicModule),
       },
       {
-        path: 'Sucurity',
+        path: 'Security',
         loadChildren: () =>
           import('./security/security.module').then((c) => c.SecurityModule),
       },
