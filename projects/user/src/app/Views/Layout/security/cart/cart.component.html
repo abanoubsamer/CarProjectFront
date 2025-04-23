@@ -3,64 +3,67 @@
     <div class="row g-4">
       <!-- Cart Items Section -->
       <div class="col-lg-8">
-        <div
-          class="d-flex justify-content-between align-items-center mb-4"
-        >
+        <div class="d-flex justify-content-between align-items-center mb-4">
           <h4 class="mb-0">Shopping Cart</h4>
-          <span class="text-muted">{{cartItems.cardItemsDtos.length}} items</span>
+          <span class="text-muted">{{ Card.cardItemsDtos.length }} items</span>
         </div>
+        @for (cardItems of Card.cardItemsDtos ; track cardItems.id ) {
         <!-- Product Cards -->
         <div class="d-flex flex-column gap-3">
-          <!-- Product 1 -->
-          <div class="product-card p-3 shadow-sm"*ngFor="let item of cartItems.cardItemsDtos">
+          <!-- Product 3 -->
+          <div class="product-card p-3 shadow-sm mb-3">
             <div class="row align-items-center">
               <div class="col-md-2">
                 <img
-                [src]="item.product.imageDto[0].image"
-
+                  [src]="Ip + '/images/' + cardItems.product.imagesDto[0].image"
+                  alt="Product"
                   class="product-image"
                 />
               </div>
               <div class="col-md-4">
-                <h6 class="mb-1">{{item.product.name}}</h6>
-
-
+                <h6 class="mb-1">{{ cardItems.product.name }}</h6>
+                <p class="text-muted mb-0">
+                  {{ cardItems.product.description.slice(0, 50) }}
+                </p>
               </div>
               <div class="col-md-3">
                 <div class="d-flex align-items-center gap-2">
                   <button
                     class="quantity-btn"
+                    (click)="
+                      updateQuantity(cardItems.id, cardItems.quantity - 1)
+                    "
                   >
                     -
-                </button>
+                  </button>
                   <input
                     type="number"
                     class="quantity-input"
-                    [(ngModel)]="item.quantity" min="1"readonly
-
+                    value="{{ cardItems.quantity }}"
+                    disabled
+                    min="1"
                   />
                   <button
                     class="quantity-btn"
-
-
+                    (click)="
+                      updateQuantity(cardItems.id, cardItems.quantity + 1)
+                    "
                   >
                     +
                   </button>
                 </div>
               </div>
               <div class="col-md-2">
-                <span class="fw-bold">${{item.price}}</span>
+                <span class="fw-bold">${{ cardItems.product.price }}</span>
               </div>
-              <div class="col-md-1">
-                <i class="bi bi-trash remove-btn"></i>
+              <div (click)="DeleteCartItems(cardItems.id)" class="col-md-1">
+                <i class="fa-solid fa-trash" style="color: red"></i>
               </div>
             </div>
           </div>
-
-
-
-
-
+        </div>
+        }
+      </div>
 
       <!-- Summary Section -->
       <div class="col-lg-4">
@@ -69,21 +72,22 @@
 
           <div class="d-flex justify-content-between mb-3">
             <span class="text-muted">Subtotal</span>
-            <span>${{subtotal.toFixed(2)}}</span>
+            <span>${{ orderSummary.Subtotal.toFixed(2) }}</span>
           </div>
           <div class="d-flex justify-content-between mb-3">
             <span class="text-muted">Discount</span>
-        <span class="text-success">-${{discount.toFixed(2)}}</span>
-        <span class="text-success"></span>
+            <span class="text-success"
+              >-${{ orderSummary.Discount.toFixed(2) }}</span
+            >
           </div>
           <div class="d-flex justify-content-between mb-3">
             <span class="text-muted">Shipping</span>
-            <span>${{shipping.toFixed(2)}}</span>
+            <span>${{ orderSummary.Shipping.toFixed(2) }}</span>
           </div>
           <hr />
           <div class="d-flex justify-content-between mb-4">
             <span class="fw-bold">Total</span>
-            <span class="fw-bold">${{subtotal.toFixed(2)}}</span>
+            <span class="fw-bold">${{ orderSummary.Total.toFixed(2) }}</span>
           </div>
 
           <!-- Promo Code -->
@@ -93,22 +97,60 @@
                 type="text"
                 class="form-control"
                 placeholder="Promo code"
-                [(ngModel)]="promoCode"
               />
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-
-              >
+              <button class="btn btn-outline-secondary" type="button">
                 Apply
               </button>
             </div>
           </div>
 
-          <button class="btn btn-primary checkout-btn w-100 mb-3" >
-            Proceed to Checkout
-          </button>
+          <!-- <mat-vertical-stepper
+            [linear]="false"
+            #stepper
+            [animationDuration]="'1500'"
+          >
+            <mat-step>
+              <ng-template matStepLabel>Your Address</ng-template>
+              <button
+                class="btn btn-warning w-100 mb-3 mt-3"
+                (click)="openPopupIfLocationEnabled(stepper)"
+              >
+                Address
+              </button>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Your Phone</ng-template>
+              <button
+                [disabled]="isPhoneDisabled"
+                class="btn btn-success w-100 mb-3 mt-3"
+                (click)="openPhoneDialog(stepper)"
+              >
+                Phone
+              </button>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Checkout</ng-template>
+              <button
+                [disabled]="isCheckoutDisabled"
+                (click)="Checkout()"
+                class="btn btn-primary checkout-btn w-100 mb-3 mt-3"
+              >
+                Proceed to Checkout
+              </button>
 
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper> -->
           <div class="d-flex justify-content-center gap-2">
             <i class="bi bi-shield-check text-success"></i>
             <small class="text-muted">Secure checkout</small>
@@ -118,5 +160,3 @@
     </div>
   </div>
 </div>
-
-

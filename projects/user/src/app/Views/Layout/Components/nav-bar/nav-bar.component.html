@@ -33,7 +33,7 @@
         <div class="col-md-5 my-auto">
           <ul class="nav justify-content-end">
             <li class="nav-item">
-              <button class="nav-link" href="#">
+              <button class="nav-link" (click)="GetCart()">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -106,7 +106,7 @@
                   >
                 </li>
                 <li>
-                  <button class="dropdown-item" (click)="GetCart()">
+                  <button class="dropdown-item">
                     <i class="fa fa-shopping-cart"></i> My Cart
                   </button>
                 </li>

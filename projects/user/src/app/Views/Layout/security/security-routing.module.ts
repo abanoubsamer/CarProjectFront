@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SecurityComponent } from './security.component';
+import { userCardResolver } from '../../../Resolver/user-card.resolver';
 
 const routes: Routes = [
   {
@@ -8,9 +9,10 @@ const routes: Routes = [
     component: SecurityComponent,
     children: [
       {
-        path: 'Cart/:id',
+        path: 'Cart',
         loadComponent: () =>
           import('./cart/cart.component').then((m) => m.CartComponent),
+        resolve: { CardUser: userCardResolver },
       },
     ],
   },

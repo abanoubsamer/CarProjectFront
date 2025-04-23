@@ -7,7 +7,8 @@ import { NotFoundComponent } from '../../../../Components/not-found/not-found.co
 import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
-
+import { CartService } from '../../../../../../Services/Cart/cart.service';
+import { AddIteamCart } from '../../../../../../Services/Cart/AddToCart';
 @Component({
   selector: 'app-product-cards',
   imports: [NotFoundComponent, SharedModuleModule, NgxPaginationModule],
@@ -20,17 +21,32 @@ export class ProductCardsComponent implements OnInit {
   pageSize = 4;
   p = 1;
   total: number = 0;
+  userId = localStorage.getItem('userId');
 
   //cache
   private pageCache = new Map<number, GetProducts[]>();
 
   private _ProductService = inject(QueriesProductService);
+  private readonly _CartServices = inject(CartService);
 
   private _totservice = inject(ToastrService);
   private readonly NavigationUrl = inject(NavigationService);
 
   ngOnInit(): void {
     this.GetProductPagination(this.p, this.pageSize);
+  }
+
+  AddToCart(productId: string) {
+    let requset = {
+      productID: productId,
+      userId: this.userId,
+      quantity: 1,
+    } as AddIteamCart;
+    this._CartServices.addToCart(requset).subscribe((res) => {
+      if (res.success) {
+        this._totservice.success('Success Add To Cart');
+      }
+    });
   }
 
   GetProductDetails(ProductId: string) {

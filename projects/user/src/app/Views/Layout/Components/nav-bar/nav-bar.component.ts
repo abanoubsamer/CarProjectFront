@@ -48,6 +48,6 @@ export class NavBarComponent implements OnInit {
   }
 
   GetCart() {
-    this._Navigation.NavigationByUrl('Security/Cart/' + this.userid);
+    this._Navigation.NavigationByUrl(`Security/Cart`);
   }
 }
