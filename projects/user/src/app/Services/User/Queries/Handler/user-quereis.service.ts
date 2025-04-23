@@ -16,4 +16,10 @@ export class UserQuereisService {
       Routing.User.GetUserById.replace('{Id}', id)
     );
   }
+  UpdateUser(id: string, data: any): Observable<any> {
+    return this._apiService.Put(
+      Routing.User.UpdateUser.replace('{Id}', id),
+      data
+    );
+  }
 }

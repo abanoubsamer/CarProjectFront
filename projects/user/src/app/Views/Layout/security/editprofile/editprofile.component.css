@@ -1,0 +1,96 @@
+/* استايلات صفحة Edit Profile */
+
+:root {
+    --primary-color: #007bff;
+    --background-light: #f8f9fa;
+    --text-color: #212529;
+    --input-bg: #fff;
+    --input-border: #ced4da;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --hover-shadow: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* الحاوية */
+  .container {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  /* الكارت */
+  .card {
+    background-color: var(--input-bg);
+    border: none;
+    box-shadow: 0 8px 20px var(--shadow-light);
+    border-radius: 1.5rem;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    box-shadow: 0 12px 24px var(--hover-shadow);
+  }
+  
+  /* العنوان */
+  h3 {
+    font-weight: bold;
+    color: var(--text-color);
+    text-align: center;
+  }
+  
+  /* المدخلات */
+  .form-group label {
+    font-weight: 600;
+    color: var(--text-color);
+  }
+  
+  .form-control {
+    border-radius: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    transition: border-color 0.3s;
+  }
+  
+  .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  /* زر الحفظ */
+  .btn-primary {
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #a4c8f0;
+    cursor: not-allowed;
+  }
+  
+  /* رسالة النجاح */
+  .alert-success {
+    border-radius: 12px;
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  /* استجابة للشاشات الصغيرة */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+  
+    h3 {
+      font-size: 20px;
+    }
+  
+    .form-control {
+      font-size: 14px;
+    }
+  
+    .btn-primary {
+      font-size: 14px;
+    }
+  }
+  

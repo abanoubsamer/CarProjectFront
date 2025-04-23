@@ -25,6 +25,8 @@ export class Routing {
   };
   static User = {
     GetUserById: Routing.Role + 'User/{Id}',
+    UpdateUser: '/api/user/update',
+
   };
   static Model = {
     GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
