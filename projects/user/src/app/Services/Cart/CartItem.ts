@@ -1,15 +1,15 @@
-import { ProductImagesDto } from "../../Core/Dtos/ProductImagesDto";
+import { ProductImagesDto } from '../../Core/Dtos/ProductImagesDto';
 
 export interface GetcartUser {
   cardId: string;
-  cardItemsDtos: CardItemDtos[]
+  cardItemsDtos: CardItemDtos[];
 }
 
-export interface CardItemDtos{
- id: string;
- product: ProductDtos[];
- quantity: number;
- price: number;
+export interface CardItemDtos {
+  id: string;
+  product: ProductDtos;
+  quantity: number;
+  price: number;
 }
 export interface ProductDtos {
   productID: string;
@@ -17,5 +17,5 @@ export interface ProductDtos {
   description: string;
   price: number;
   averageRating: number;
-  imageDto:  ProductImagesDto[];
+  imageDto: ProductImagesDto[];
 }

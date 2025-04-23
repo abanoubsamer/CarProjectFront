@@ -4,6 +4,7 @@ import { SharedDataService } from '../../../../Services/SharedDataService/shared
 import { UserQuereisService } from '../../../../Services/User/Queries/Handler/user-quereis.service';
 import { RouterModule } from '@angular/router';
 import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
+import { NavigationService } from '../../../../Services/Navigation/navigation.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -25,6 +26,7 @@ export class NavBarComponent implements OnInit {
   userid = localStorage.getItem('userId');
   private readonly sharedDataService = inject(SharedDataService);
   private readonly _UserQuereisService = inject(UserQuereisService);
+  private readonly _Navigation = inject(NavigationService);
   ngOnInit(): void {
     this.getUserData();
   }
@@ -43,5 +45,9 @@ export class NavBarComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     location.reload();
+  }
+
+  GetCart() {
+    this._Navigation.NavigationByUrl('Security/Cart/' + this.userid);
   }
 }

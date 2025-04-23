@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-security',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './security.component.html',
-  styleUrl: './security.component.css'
+  styleUrl: './security.component.css',
 })
-export class SecurityComponent {
-
-}
+export class SecurityComponent {}
