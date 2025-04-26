@@ -36,7 +36,7 @@ export class QueriesProductService {
 
   getProductDetails(productID: string): Observable<Response<GetProductById>> {
     return this.Api.Get<Response<GetProductById>>(
-      Routing.Product.GetProductDetails.replace("{Id}",productID)
+      Routing.Product.GetProductDetails.replace('{Id}', productID)
     );
   }
 }

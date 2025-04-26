@@ -1,13 +1,8 @@
-<!--Link For Google Icons  -->
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=keyboard_arrow_down"
-/>
-
-<button id="chatbot-toggler">
+@if(!show){
+<button id="chatbot-toggler" (click)="ShowPopup()">
   <span><i class="fa-solid fa-message"></i></span>
-  <span><i class="fa-solid fa-xmark"></i></span>
 </button>
+} @if(show){
 <div class="chatbot-popup">
   <!-----------------------------Chatbot Header------------------------->
   <div class="chat-header">
@@ -25,13 +20,18 @@
       </svg>
       <h2 class="logo-text">Chatbot</h2>
     </div>
-    <button id="close-chatbot" class="material-symbols-rounded">
-      keyboard_arrow_down
+    <button
+      id="close-chatbot"
+      class="material-symbols-rounded"
+      (click)="closePopup()"
+    >
+      <i class="fa-solid fa-angle-down"></i>
     </button>
   </div>
   <!-----------------------------Chatbot Body--------------------------->
   <div class="chat-body">
     <!-- Start bot Message -->
+    @for (chat of Chat ; track chat.Id) { @if(chat.Sender=="system"){
     <div class="message bot-message">
       <svg
         class="bot-icon"
@@ -44,58 +44,55 @@
           d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"
         ></path>
       </svg>
-      <div class="message-text">
-        Hey there <br />
-        How Can I Help You Today ?
-      </div>
+      <div class="message-text" [innerHTML]="chat.Massage"></div>
     </div>
+    }@else {
+    <div class="message user-message">
+      <div class="message-text" [innerHTML]="chat.Massage"></div>
+    </div>
+
+    } }
+
     <!-- End Of Bot Message -->
 
     <!-- Start  Remove -->
     <!-- Start User MEssage -->
 
-    <!-- <div class="message user-message">
-					<div class="message-text">
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad
-						sunt explicabo dicta consequatur voluptas ab delectus
-						blanditiis voluptatem similique, nihil cupiditate est porro
-						inventore reprehenderit eligendi. Quod harum corporis aliquid.
-					</div>
-				</div> -->
     <!-- End User MEssage -->
 
     <!---------------------------Start Animation Of bot Message------------------>
     <!-- <div class="message bot-message thinking">
-					<svg
-						class="bot-icon"
-						xmlns="http://www.w3.org/2000/svg"
-						width="50"
-						height="50"
-						viewBox="0 0 1024 1024"
-					>
-						<path
-							d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"
-						></path>
-					</svg>
-					<div class="message-text">
-						<div class="thinking-indicator">
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-						</div>
-					</div>
-				</div> -->
+          <svg
+            class="bot-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            viewBox="0 0 1024 1024"
+          >
+            <path
+              d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"
+            ></path>
+          </svg>
+          <div class="message-text">
+            <div class="thinking-indicator">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div> -->
     <!-- End Remove -->
     <!---------------------------Start Animation Of bot Message------------------>
   </div>
 
   <!------------------------------Start Chatbot footer------------------------------->
   <div class="chat-footer">
-    <form action="#" class="chat-form">
+    <div class="chat-form">
       <textarea
         placeholder="Message..."
         class="message-input"
         required
+        [(ngModel)]="newMassage"
       ></textarea>
       <div class="chat-controls">
         <button type="button" class="material-symbols-rounded">
@@ -105,6 +102,7 @@
           <i class="fa-solid fa-paperclip"></i>
         </button>
         <button
+          (click)="SendMassage()"
           type="submit"
           id="send-message"
           class="material-symbols-rounded"
@@ -112,8 +110,9 @@
           <i class="fa-solid fa-arrow-up"></i>
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 <!------------------------------End Chatbot footer------------------------------->
-<script src="main.js"></script>
+
+}

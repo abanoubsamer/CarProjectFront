@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-submit-rate',
   imports: [],
   templateUrl: './submit-rate.component.html',
-  styleUrl: './submit-rate.component.css'
+  styleUrl: './submit-rate.component.css',
 })
-export class SubmitRateComponent {
-
-}
+export class SubmitRateComponent {}
