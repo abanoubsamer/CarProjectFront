@@ -1,57 +1,213 @@
-import { Component, OnInit } from '@angular/core';
-import { timestamp } from 'rxjs';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatFormSharedModule } from '../../../../Shared/Modules/mat-form-shared.module';
+import { SharedDataService } from '../../../../Services/SharedDataService/shared-data.service';
+import { ChatService } from '../../../../Services/Chat/chat.service';
+import { SendMassgeToCahtModel } from '../../../../Services/Chat/Models/SendMassgeToCahtModel';
+import { MarkdownPipe } from '../../../../Shared/pipe/markdown.pipe';
+import { NavigationService } from '../../../../Services/Navigation/navigation.service';
 
 @Component({
   selector: 'app-chatbot',
-  imports: [MatFormSharedModule],
+  imports: [MatFormSharedModule, MarkdownPipe],
   templateUrl: './chatbot.component.html',
   styleUrl: './chatbot.component.css',
 })
-export class ChatbotComponent implements OnInit {
-  show: boolean = false;
-  Chat: MassageBody[] = [];
-  newMassage = '';
+export class ChatbotComponent implements OnInit, AfterViewChecked {
+  //#region Variables
+  private chatSubscription: Subscription | null = null; // متغير لتخزين الاشتراك
+  user: any;
+  isOpen: boolean = false;
+  chatStarted: boolean = false;
+  newMessage: string = '';
+  userInput: string = '';
+  autoScrollEnabled: boolean = true;
+  selectedFile: File | null = null;
+  previewImage: string | null = null;
+  tempmsg: string = '';
+  botResponse: string = '';
+  isTyping: boolean = false;
+  index = 0;
+  typingInterval: any = null;
+  messages: {
+    sender: string;
+    content: string;
+    time: string;
+    image?: string | null;
+  }[] = [];
+
+  @ViewChild('chatBox') chatBox!: ElementRef;
+  //#endregion
+
+  //#region Lifecycle Hooks
+
+  ngAfterViewChecked() {
+    if (this.autoScrollEnabled) {
+      this.scrollToBottom();
+    }
+  }
+  //#endregion
+
+  //#region Dependencies
+  private readonly _ChatServcies = inject(ChatService);
+  private readonly _sharedServices = inject(SharedDataService);
+  private readonly _Navigation = inject(NavigationService);
+  //#endregion
+
+  //#region Methods
+  toggleChat() {
+    this.isOpen = !this.isOpen;
+  }
+
+  startChat() {
+    if (localStorage.getItem('userId')) {
+      this.chatStarted = true;
+      this.messages.push({
+        sender: 'Tech Support',
+        content: '👋 Hello! How can we assist you today?',
+        time: new Date().toLocaleTimeString(),
+      });
+    } else {
+      this._Navigation.NavigationByUrl('Auth/Login');
+    }
+  }
+
+  clearImage() {
+    this.selectedFile = null;
+    this.previewImage = null;
+  }
+
+  sendMessage() {
+    if (!this.userInput.trim()) return;
+    const userMessage = {
+      sender: 'You',
+      content: this.userInput,
+      image: this.previewImage,
+      time: new Date().toLocaleTimeString(),
+    };
+
+    this.messages.push(userMessage);
+
+    if (this.chatSubscription) {
+      this.chatSubscription.unsubscribe();
+    }
+    const request: SendMassgeToCahtModel = {
+      UserId: this.user.id,
+      Text: this.userInput,
+      File: this.selectedFile ? this.selectedFile : null,
+    };
+
+    this.isTyping = true;
+
+    let typingMessage = {
+      sender: 'Support',
+      content: '',
+      time: new Date().toLocaleTimeString(),
+    };
+
+    this.messages.push(typingMessage);
+    this.tempmsg = '';
+    this.index = 0;
+    this.chatSubscription = this._ChatServcies.getResponse(request).subscribe({
+      next: (response) => {
+        this.simulateTyping(response, typingMessage);
+      },
+      error: (err) => {
+        console.error('Error receiving stream:', err);
+        this.isTyping = false;
+      },
+    });
+    this.userInput = '';
+    this.previewImage = null;
+    this.selectedFile = null;
+  }
+
+  simulateTyping(response: any, typingMessage: any) {
+    this.isTyping = true;
+    if (this.typingInterval) {
+      clearInterval(this.typingInterval);
+      this.typingInterval = null;
+    }
+    this.tempmsg += response;
+    this.typingInterval = setInterval(() => {
+      if (this.index < this.tempmsg.length) {
+        typingMessage.content += this.tempmsg[this.index];
+        this.index++;
+      } else {
+        clearInterval(this.typingInterval);
+        this.typingInterval = null;
+        this.isTyping = false;
+        this.tempmsg = '';
+        this.index = 0;
+      }
+    }, 50);
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onScroll(): void {
+    const chatBox = this.chatBox.nativeElement;
+    const nearBottom =
+      chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 50;
+
+    if (!nearBottom) {
+      this.autoScrollEnabled = false;
+    } else {
+      this.autoScrollEnabled = true;
+    }
+  }
+
+  scrollToBottom(): void {
+    try {
+      if (this.chatBox && this.chatBox.nativeElement) {
+        this.chatBox.nativeElement.scrollTop =
+          this.chatBox.nativeElement.scrollHeight;
+      }
+    } catch (err) {
+      console.error('Scrolling error:', err);
+    }
+  }
+
+  StopMassage() {
+    if (this.typingInterval) {
+      clearInterval(this.typingInterval);
+      this.typingInterval = null;
+      this.isTyping = false;
+      this.tempmsg = '';
+      this.index = 0;
+
+      if (this.chatSubscription) {
+        this.chatSubscription.unsubscribe();
+        this.chatSubscription = null;
+      }
+    }
+    this.isTyping = false;
+  }
   ngOnInit(): void {
-    this.Chat.push({
-      Id: this.generateUniqueId(),
-      Massage: ' Hey there How Can <br> I Help You Today 👋?',
-      Sender: 'system',
-      Date: Date.now().toString(),
-    } as MassageBody);
+    this._sharedServices.currentCUser.subscribe((res) => {
+      this.user = res;
+    });
   }
-
-  closePopup() {
-    // إضافة الكلاس fade-out لإخفاء الـ popup
-    const popupElement = document.querySelector('.chatbot-popup');
-    if (popupElement) {
-      popupElement.classList.add('fade-out');
-    }
-
-    setTimeout(() => {
-      this.show = false;
-    }, 200);
+  adjustTextareaHeight(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
   }
-  ShowPopup() {
-    this.show = !this.show;
-  }
-  SendMassage() {
-    if (this.newMassage !== '') {
-      this.Chat.push({
-        Id: this.generateUniqueId(),
-        Massage: this.newMassage,
-        Sender: 'user',
-        Date: Date.now().toString(),
-      } as MassageBody);
-    }
-  }
-  generateUniqueId(): string {
-    return Date.now() + '-' + Math.floor(Math.random() * 1000);
-  }
-}
-interface MassageBody {
-  Id: string;
-  Massage: string;
-  Sender: string;
-  Date: string;
 }

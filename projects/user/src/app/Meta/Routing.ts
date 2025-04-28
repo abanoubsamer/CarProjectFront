@@ -27,7 +27,6 @@ export class Routing {
   static User = {
     GetUserById: Routing.Role + 'User/{Id}',
     UpdateUser: '/api/user/update',
-
   };
   static Model = {
     GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
@@ -35,13 +34,17 @@ export class Routing {
   };
 
   static Cart = {
-    GetCart: Routing.Role + "card/{Id}",
+    GetCart: Routing.Role + 'card/{Id}',
     AddToCart: Routing.Role + 'UserCard/Add',
-    UpdateItem: Routing.Role + "UserCard/Update",
-    RemoveItem: Routing.Role + "UserCard/{Id}",
+    UpdateItem: Routing.Role + 'UserCard/Update',
+    RemoveItem: Routing.Role + 'UserCard/{Id}',
   };
 
   static Review = {
-    GetReviewStatistic: Routing.Role + "Review/GetRatingStatistics/{Id}"
-  }
+    GetReviewStatistic: Routing.Role + 'Review/GetRatingStatistics/{Id}',
+  };
+  static Chat = {
+    Prefix: Routing.Role + 'Chat/',
+    SendMassage: Routing.Role + 'Chat/SendMassage',
+  };
 }
