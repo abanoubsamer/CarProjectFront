@@ -207,10 +207,27 @@ code.inline-code {
   width: 500px;
   max-width: 100%;
   max-height: 650px;
-
   border-radius: 12px;
   background-color: #fff;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform-origin: bottom right;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tech-support-widget .chat-window.opening {
+  animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .tech-support-widget .chat-window .header {
@@ -405,17 +422,6 @@ code.inline-code {
   animation: fadeIn 0.3s ease forwards;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -503,4 +509,19 @@ code.inline-code {
 
 .new-chat-btn i {
   font-size: 16px;
+}
+
+@keyframes slideOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.tech-support-widget .chat-window.closing {
+  animation: slideOut 0.3s ease forwards;
 }

@@ -23,10 +23,13 @@
         </div>
       </div>
       <div class="header__actions">
+        @if(chatStarted){
         <button class="new-chat-btn" (click)="startNewChat()">
           <i class="fas fa-plus-circle"></i>
           <span>New Chat</span>
         </button>
+        }
+
         <a
           class="btn close-btn"
           style="color: rgb(255, 255, 255)"
@@ -113,7 +116,7 @@
 
     @if(!chatStarted){
     <div class="message-area">
-      <button class="chat-now" (click)="startChat()">
+      <button class="chat-now" (click)="startNewChat()">
         <i class="fas fa-paper-plane"></i> Chat Now
       </button>
     </div>

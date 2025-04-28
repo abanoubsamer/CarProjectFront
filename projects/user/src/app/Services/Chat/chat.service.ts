@@ -1,7 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiService } from '../Api/api.service';
 import { SendMassgeToCahtModel } from './Models/SendMassgeToCahtModel';
 import { Routing } from '../../Meta/Routing';
@@ -54,8 +52,14 @@ export class ChatService {
   }
 
   NewChat(Id: string): Observable<string> {
-    return this._ApiServices.Get<string>(
-      Routing.Chat.NewChat.replace('{Id}', Id)
+    return this._ApiServices.Post<string>(
+      Routing.Chat.NewChat.replace('{Id}', Id),
+      Object,
+      {
+        headers: {
+          'Skip-Loader': 'true',
+        },
+      }
     );
   }
 

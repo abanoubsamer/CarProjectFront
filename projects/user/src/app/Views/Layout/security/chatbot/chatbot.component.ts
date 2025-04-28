@@ -66,19 +66,25 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
 
   //#region Methods
   toggleChat() {
-    this.isOpen = !this.isOpen;
-  }
-
-  startChat() {
-    if (this.Userid) {
-      this.chatStarted = true;
-      this.messages.push({
-        sender: 'Tech Support',
-        content: '👋 Hello! How can we assist you today?',
-        time: new Date().toLocaleTimeString(),
-      });
+    if (this.isOpen) {
+      const chatWindow = document.querySelector('.chat-window');
+      if (chatWindow) {
+        chatWindow.classList.add('closing');
+        setTimeout(() => {
+          this.isOpen = false;
+          chatWindow.classList.remove('closing');
+        }, 300);
+      }
     } else {
-      this._Navigation.NavigationByUrl('Auth/Login');
+      this.isOpen = true;
+      const chatWindow = document.querySelector('.chat-window');
+      if (chatWindow) {
+        chatWindow.classList.add('opening');
+
+        setTimeout(() => {
+          chatWindow.classList.remove('opening');
+        }, 300);
+      }
     }
   }
 
@@ -215,15 +221,24 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   }
   startNewChat() {
     if (this.Userid) {
-      this._ChatServcies.NewChat(this.Userid).subscribe({
-        next: () => {
-          this.messages = [];
-          this.startChat();
-        },
-        error: (error) => {
-          this._tostar.error(error.error.message);
-        },
-      });
+      if (!this.chatStarted || this.messages.length > 1) {
+        this._ChatServcies.NewChat(this.Userid).subscribe({
+          next: () => {
+            this.chatStarted = true;
+            this.messages = [];
+            this.messages.push({
+              sender: 'Tech Support',
+              content: '👋 Hello! How can we assist you today?',
+              time: new Date().toLocaleTimeString(),
+            });
+          },
+          error: (error) => {
+            this._tostar.error(error.error.message);
+          },
+        });
+      }
+    } else {
+      this._Navigation.NavigationByUrl('Auth/Login');
     }
   }
 }
