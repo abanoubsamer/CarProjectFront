@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 
 projects/user/src/environments/
+projects/seller/src/environments/
