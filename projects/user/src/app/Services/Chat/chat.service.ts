@@ -53,6 +53,12 @@ export class ChatService {
     });
   }
 
+  NewChat(Id: string): Observable<string> {
+    return this._ApiServices.Get<string>(
+      Routing.Chat.NewChat.replace('{Id}', Id)
+    );
+  }
+
   // getResponse(request: SendMassgeToCahtModel): Observable<string> {
   //   const form = new FormData();
   //   form.append('Text', request.Text);

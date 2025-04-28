@@ -46,5 +46,6 @@ export class Routing {
   static Chat = {
     Prefix: Routing.Role + 'Chat/',
     SendMassage: Routing.Role + 'Chat/SendMassage',
+    NewChat: Routing.Role + 'Chat/NewChat/{Id}',
   };
 }

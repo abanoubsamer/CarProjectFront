@@ -22,15 +22,20 @@
           <p>Available 9:00 - 18:00 (GMT)</p>
         </div>
       </div>
-      <a
-        class="btn close-btn"
-        style="color: rgb(255, 255, 255)"
-        (click)="toggleChat()"
-      >
-        <i class="fas fa-times"></i>
-      </a>
+      <div class="header__actions">
+        <button class="new-chat-btn" (click)="startNewChat()">
+          <i class="fas fa-plus-circle"></i>
+          <span>New Chat</span>
+        </button>
+        <a
+          class="btn close-btn"
+          style="color: rgb(255, 255, 255)"
+          (click)="toggleChat()"
+        >
+          <i class="fas fa-times"></i>
+        </a>
+      </div>
     </div>
-
     <div #chatBox class="message-area" (scroll)="onScroll()">
       @for (msg of messages; track msg) { @if(msg.sender === 'You'){
       <div class="d-flex flex-row justify-content-end mb-4">

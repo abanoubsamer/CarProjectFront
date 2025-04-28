@@ -13,6 +13,7 @@ import { ChatService } from '../../../../Services/Chat/chat.service';
 import { SendMassgeToCahtModel } from '../../../../Services/Chat/Models/SendMassgeToCahtModel';
 import { MarkdownPipe } from '../../../../Shared/pipe/markdown.pipe';
 import { NavigationService } from '../../../../Services/Navigation/navigation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chatbot',
@@ -42,6 +43,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     time: string;
     image?: string | null;
   }[] = [];
+  Userid = localStorage.getItem('userId');
 
   @ViewChild('chatBox') chatBox!: ElementRef;
   //#endregion
@@ -59,6 +61,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   private readonly _ChatServcies = inject(ChatService);
   private readonly _sharedServices = inject(SharedDataService);
   private readonly _Navigation = inject(NavigationService);
+  private readonly _tostar = inject(ToastrService);
   //#endregion
 
   //#region Methods
@@ -67,7 +70,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   }
 
   startChat() {
-    if (localStorage.getItem('userId')) {
+    if (this.Userid) {
       this.chatStarted = true;
       this.messages.push({
         sender: 'Tech Support',
@@ -209,5 +212,18 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     const textarea = event.target as HTMLTextAreaElement;
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
+  }
+  startNewChat() {
+    if (this.Userid) {
+      this._ChatServcies.NewChat(this.Userid).subscribe({
+        next: () => {
+          this.messages = [];
+          this.startChat();
+        },
+        error: (error) => {
+          this._tostar.error(error.error.message);
+        },
+      });
+    }
   }
 }
