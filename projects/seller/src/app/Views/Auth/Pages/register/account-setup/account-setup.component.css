@@ -9,7 +9,15 @@
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #1e1b2e 0%, #2b5384 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: "Arial", sans-serif;
 }
 
 .form-subtitle {

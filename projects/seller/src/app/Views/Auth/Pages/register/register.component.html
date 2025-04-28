@@ -1,4 +1,11 @@
 <div class="main-container">
+  <div class="language-selector">
+    <span class="icon">🌐</span>
+    <select>
+      <option>English</option>
+      <option>العربية</option>
+    </select>
+  </div>
   <div class="left-panel">
     <div class="store-illustration">
       <img src="E-comerce.svg" alt="" />
@@ -11,13 +18,6 @@
     </div>
   </div>
   <div class="right-panel">
-    <div class="language-selector">
-      <span class="icon">🌐</span>
-      <select>
-        <option>English</option>
-        <option>العربية</option>
-      </select>
-    </div>
     @switch (currentStep) { @case (1) {
     <app-country-selection
       (submitted)="handleFormSubmission($event)"

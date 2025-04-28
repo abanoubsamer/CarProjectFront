@@ -16,6 +16,6 @@ export class AuthQueriresService {
     return this.ApiServices.Post<Response<AuthResponse>>(
       Routing.Authentication.LoginSeller,
       request
-    ).pipe(map((res: Response<AuthResponse>) => res));
+    );
   }
 }
