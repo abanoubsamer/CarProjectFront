@@ -42,7 +42,7 @@
 }
 
 .progress-step {
-  width: 32px;
+  width: 30px;
   height: 30px;
   border-radius: 50%;
   background-color: #e0e0e0;
@@ -59,7 +59,7 @@
   top: 50%;
   left: 100%;
   width: 340%;
-  height: 5px;
+  height: 4px;
   background-color: #e0e0e0;
   transform: translateY(-50%);
 }
