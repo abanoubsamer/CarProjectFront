@@ -1,1 +1,40 @@
-<p>register works!</p>
+<div class="main-container">
+  <div class="left-panel">
+    <div class="store-illustration">
+      <img src="E-comerce.webp" alt="" />
+    </div>
+    <div class="progress-bar">
+      <div class="progress-step" [class]="{ active: currentStep >= 1 }"></div>
+      <div class="progress-step" [class]="{ active: currentStep >= 2 }"></div>
+      <div class="progress-step" [class]="{ active: currentStep >= 3 }"></div>
+      <div class="progress-step" [class]="{ active: currentStep >= 4 }"></div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="language-selector">
+      <span class="icon">🌐</span>
+      <select>
+        <option>English</option>
+        <option>العربية</option>
+      </select>
+    </div>
+    @switch (currentStep) { @case (1) {
+    <app-country-selection
+      (submitted)="handleFormSubmission($event)"
+    ></app-country-selection>
+    } @case (2) {
+    <app-account-setup
+      (submitted)="handleFormSubmission($event)"
+    ></app-account-setup>
+    } @case (3) {
+    <app-personal-information
+      (submitted)="handleFormSubmission($event)"
+    ></app-personal-information>
+
+    } @case (4) {
+    <app-shop-information
+      (submitted)="completeRegistration()"
+    ></app-shop-information>
+    } }
+  </div>
+</div>

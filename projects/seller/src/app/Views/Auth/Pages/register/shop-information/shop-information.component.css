@@ -1,0 +1,301 @@
+/* shop-information.component.scss */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Header Section */
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .form-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #1e1b2e;
+    line-height: 1.3;
+  }
+
+  .form-subtitle {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
+
+/* Account Type Selection */
+.account-type {
+  margin-bottom: 2rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: #444;
+  }
+
+  .info-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e1b2e 0%, #2b5384 100%);
+    color: white;
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .account-options {
+    display: flex;
+    gap: 1rem;
+
+    .option {
+      flex: 1;
+      padding: 1.25rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: white;
+
+      &:hover {
+        border-color: #b3b1c2;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      &.selected {
+        border-color: #2b5384;
+        background-color: #f8f7ff;
+        box-shadow: 0 2px 8px rgba(92, 77, 195, 0.1);
+
+        .radio-button {
+          background: linear-gradient(135deg, #1e1b2e 0%, #2b5384 100%);
+          border-color: #2b5384;
+        }
+      }
+
+      .icon {
+        margin-right: 0.75rem;
+        font-size: 1.5rem;
+        color: #2b5384;
+      }
+
+      .label {
+        flex-grow: 1;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .radio-button {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}
+
+/* Form Fields */
+.form-field {
+  margin-bottom: 1.75rem;
+  position: relative;
+
+  label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #444;
+
+    .required {
+      color: #e53935;
+      margin-left: 0.2rem;
+    }
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: white;
+
+    &:focus {
+      outline: none;
+      border-color: #2b5384;
+      box-shadow: 0 0 0 2px rgba(92, 77, 195, 0.1);
+    }
+  }
+
+  .info-icon {
+    position: absolute;
+    right: -25px;
+    top: 32px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e1b2e 0%, #2b5384 100%);
+    color: white;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .dropdown {
+    position: relative;
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .dropdown-arrow {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #666;
+      font-size: 1rem;
+    }
+  }
+
+  .error-message {
+    display: block;
+    color: #e53935;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    min-height: 1em;
+  }
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  margin-bottom: 2.5rem;
+
+  .checkbox {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+
+    input {
+      margin-top: 0.25rem;
+      margin-right: 0.75rem;
+      accent-color: #2b5384;
+      cursor: pointer;
+    }
+
+    label {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #444;
+      cursor: pointer;
+
+      a {
+        color: #2b5384;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+
+        &:hover {
+          text-decoration: underline;
+          color: #3a2d8a;
+        }
+      }
+    }
+  }
+
+  .error-message {
+    display: block;
+    color: #e53935;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #1e1b2e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+
+  &:disabled {
+    background-color: #bdbdbd;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      background: linear-gradient(135deg, #1e1b2e 0%, #2b5384 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .form-header {
+    .form-title {
+      font-size: 1.6rem;
+    }
+
+    .form-subtitle {
+      max-width: 100%;
+    }
+  }
+
+  .account-options {
+    flex-direction: column;
+
+    .option {
+      width: 100%;
+    }
+  }
+
+  .form-field .info-icon {
+    right: -20px;
+  }
+}
