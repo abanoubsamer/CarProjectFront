@@ -226,6 +226,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
           next: () => {
             this.chatStarted = true;
             this.messages = [];
+            this.StopMassage();
             this.messages.push({
               sender: 'Tech Support',
               content: '👋 Hello! How can we assist you today?',
