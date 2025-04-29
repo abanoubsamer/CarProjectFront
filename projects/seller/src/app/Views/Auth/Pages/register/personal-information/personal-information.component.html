@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="form-container" [@slideInOut]>
   <h1 class="form-title">Personal Information</h1>
   <p class="form-subtitle">Setup your password and provide your phone number</p>
 
@@ -41,6 +41,7 @@
           type="tel"
           formControlName="phoneNumber"
           placeholder="1234567890"
+          autocomplete="new-password"
         />
       </div>
     </div>
@@ -51,6 +52,7 @@
         <input
           [type]="showPassword ? 'text' : 'password'"
           formControlName="password"
+          autocomplete="new-password"
         />
         <button
           type="button"
@@ -72,6 +74,7 @@
         <input
           [type]="showConfirmPassword ? 'text' : 'password'"
           formControlName="confirmPassword"
+          autocomplete="new-password"
         />
         <button
           type="button"

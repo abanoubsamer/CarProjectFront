@@ -2,12 +2,14 @@ import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthCommendService } from '../../../../../Services/Auth/Commend/Handler/auth-commend.service';
 import { MatFormSharedModule } from '../../../../../Shared/Modules/mat-form-shared.module';
+import { slideInOutAnimation } from '../animations';
 
 @Component({
   selector: 'app-shop-information',
   imports: [MatFormSharedModule],
   templateUrl: './shop-information.component.html',
   styleUrl: './shop-information.component.css',
+  animations: [slideInOutAnimation],
 })
 export class ShopInformationComponent {
   shopForm: FormGroup = new FormGroup({});
@@ -20,11 +22,13 @@ export class ShopInformationComponent {
 
   // تهيئة النموذج
   initializeForm(): void {
-    this.shopForm = this.fb.group({
-      accountType: ['', Validators.required], // نوع الحساب (مطلوب)
-      shopName: ['', Validators.required], // اسم المتجر (مطلوب)
-      referralSource: ['', Validators.required], // مصدر الإحالة (مطلوب)
-      termsAccepted: [false, Validators.requiredTrue], // الموافقة على الشروط (مطلوب)
+    this._AuthCommendServcies.getRegistrationData().subscribe((res) => {
+      this.shopForm = this.fb.group({
+        accountType: [res.accountType ?? '', Validators.required], // نوع الحساب (مطلوب)
+        shopName: [res.shopName ?? '', Validators.required], // اسم المتجر (مطلوب)
+        referralSource: [res.referralSource ?? '', Validators.required], // مصدر الإحالة (مطلوب)
+        termsAccepted: [false, Validators.requiredTrue], // الموافقة على الشروط (مطلوب)
+      });
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthCommendService } from '../../../../Services/Auth/Commend/Handler/auth-commend.service';
 import { NavigationService } from '../../../../Services/Navigation/navigation.service';
 import { ToastrService } from 'ngx-toastr';

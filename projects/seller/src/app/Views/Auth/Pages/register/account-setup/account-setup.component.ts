@@ -5,12 +5,14 @@ import { AuthCommendService } from '../../../../../Services/Auth/Commend/Handler
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormSharedModule } from '../../../../../Shared/Modules/mat-form-shared.module';
+import { slideInOutAnimation } from '../animations';
 
 @Component({
   selector: 'app-account-setup',
   imports: [MatFormSharedModule],
   templateUrl: './account-setup.component.html',
   styleUrl: './account-setup.component.css',
+  animations: [slideInOutAnimation],
 })
 export class AccountSetupComponent implements OnInit {
   //#region Fialds
@@ -31,22 +33,24 @@ export class AccountSetupComponent implements OnInit {
 
   //#region LiveHooks
   ngOnInit(): void {
-    this.accountForm = this.InitEmailForm();
+    this.InitEmailForm();
     this.otpForm = this.InitOtpForm();
   }
   //#endregion
 
   //#region intiForm
-  InitEmailForm(): FormGroup {
-    return this.fb.group({
-      email: [
-        '',
-        {
-          validators: [Validators.required, Validators.email],
-          asyncValidators: [this._Validation.EmailIsExist(this._authCommend)],
-          updateOn: 'blur',
-        },
-      ],
+  InitEmailForm() {
+    this._authCommend.getRegistrationData().subscribe((res) => {
+      this.accountForm = this.fb.group({
+        email: [
+          res.email ?? '',
+          {
+            validators: [Validators.required, Validators.email],
+            asyncValidators: [this._Validation.EmailIsExist(this._authCommend)],
+            updateOn: 'blur',
+          },
+        ],
+      });
     });
   }
   InitOtpForm(): FormGroup {

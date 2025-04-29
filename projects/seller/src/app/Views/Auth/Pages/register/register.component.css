@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   height: 100vh;
   background-color: #ffffff;
+  overflow: hidden; /* منع ظهور scrollbar */
 }
 
 .left-panel {
@@ -92,6 +93,9 @@
   background: transparent;
   cursor: pointer;
   font-size: 0.9rem;
+}
+.Pointer {
+  cursor: pointer;
 }
 
 /* 📱 **Media Queries لتحسين الاستجابة** */

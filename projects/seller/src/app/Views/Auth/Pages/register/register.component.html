@@ -11,10 +11,30 @@
       <img src="E-comerce.svg" alt="" />
     </div>
     <div class="progress-bar">
-      <div class="progress-step" [class]="{ active: currentStep >= 1 }"></div>
-      <div class="progress-step" [class]="{ active: currentStep >= 2 }"></div>
-      <div class="progress-step" [class]="{ active: currentStep >= 3 }"></div>
-      <div class="progress-step" [class]="{ active: currentStep >= 4 }"></div>
+      <div
+        class="progress-step"
+        (click)="currentStep >= 1 ? (currentStep = 1) : currentStep"
+        [class.active]="currentStep > 1"
+        [class.Pointer]="currentStep > 1"
+      ></div>
+      <div
+        class="progress-step"
+        (click)="currentStep >= 2 ? (currentStep = 2) : currentStep"
+        [class.active]="currentStep > 2"
+        [class.Pointer]="currentStep > 2"
+      ></div>
+      <div
+        class="progress-step"
+        (click)="currentStep >= 3 ? (currentStep = 3) : currentStep"
+        [class.active]="currentStep > 3"
+        [class.Pointer]="currentStep > 3"
+      ></div>
+      <div
+        class="progress-step"
+        (click)="currentStep >= 4 ? (currentStep = 4) : currentStep"
+        [class.active]="currentStep > 4"
+        [class.Pointer]="currentStep > 4"
+      ></div>
     </div>
   </div>
   <div class="right-panel">
