@@ -1,0 +1,67 @@
+/* خلفية الصفحة */
+body {
+    background: linear-gradient(135deg, #213a59 0%, #4a5d78 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* تظبيط الصورة */
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+  }
+  
+  /* الفورم من جوه */
+  .bg-white {
+    background-color: #ffffff !important;
+  }
+  
+  /* العناوين */
+  h2, h3 {
+    color: #213a59;
+    font-weight: bold;
+  }
+  
+  /* الأزرار */
+  .btn-primary {
+    background-color: #213a59;
+    border-color: #213a59;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2d4867;
+    border-color: #192a3f;
+  }
+  
+  /* الرسائل */
+  .text-danger {
+    font-size: 0.875rem;
+  }
+  
+  /* الروابط */
+  .text-center a {
+    color: #213a59;
+    transition: color 0.3s;
+  }
+  
+  .text-center a:hover {
+    color: #1a2f47;
+  }
+  
+  /* أيقونة الباسورد */
+  .bi {
+    font-size: 1.1rem;
+    color: #6c757d;
+    transition: color 0.2s ease;
+  }
+  
+  .bi:hover {
+    color: #213a59;
+  }
+  
