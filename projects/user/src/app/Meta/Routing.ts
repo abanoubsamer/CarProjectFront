@@ -48,4 +48,8 @@ export class Routing {
     SendMassage: Routing.Role + 'Chat/SendMassage',
     NewChat: Routing.Role + 'Chat/NewChat/{Id}',
   };
+
+  static Order = {
+    GetUserOrder :Routing.Role + 'Order/UserOrders/{id}',
+  }
 }
