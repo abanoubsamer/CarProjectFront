@@ -12,8 +12,6 @@ export class OrderCommendService {
   private readonly ApiServices = inject(ApiService);
 
   UpdateOrderStatus(requst: UpdateStatsOrder): Observable<Response<string>> {
-    return this.ApiServices.Put(Routing.Order.UpdateStatus, requst).pipe(
-      map((res: Response<string>) => res)
-    );
+    return this.ApiServices.Put(Routing.Orders.UpdateStatus, requst);
   }
 }

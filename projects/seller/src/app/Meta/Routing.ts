@@ -42,6 +42,13 @@ export class Routing {
     UserNameExist: Routing.Role + 'Auth/UserNameExist/{Name}',
   };
   static Orders = {
+    Prefix: Routing.Role + 'Order/',
+    Update: Routing.Role + 'Order/Update',
+    UpdateStatus: Routing.Role + 'Order/UpdateStatus',
+    Delete: Routing.Role + 'Order/{Id}',
+    Cancel: Routing.Role + 'Order/Cancel/{Id}',
+    GetById: Routing.Role + 'Order/{Id}',
+    GetUserOrders: Routing.Role + 'Order/UserOrders/{Id}',
     GetSellerOrders: Routing.Role + 'Order/SellerOrders/',
   };
 }
