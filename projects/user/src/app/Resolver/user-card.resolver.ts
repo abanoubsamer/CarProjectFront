@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
-import { CartService } from '../Services/Cart/cart.service';
+import { CartService } from '../Services/Cart/Handler/cart.service';
 import { GetcartUser } from '../Services/Cart/CartItem';
 import { map } from 'rxjs';
 

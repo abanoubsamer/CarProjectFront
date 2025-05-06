@@ -7,8 +7,8 @@ import { NotFoundComponent } from '../../../../Components/not-found/not-found.co
 import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
-import { CartService } from '../../../../../../Services/Cart/cart.service';
-import { AddIteamCart } from '../../../../../../Services/Cart/AddToCart';
+import { CartService } from '../../../../../../Services/Cart/Handler/cart.service';
+import { AddIteamCart } from '../../../../../../Services/Cart/Models/AddToCart';
 @Component({
   selector: 'app-product-cards',
   imports: [NotFoundComponent, SharedModuleModule, NgxPaginationModule],

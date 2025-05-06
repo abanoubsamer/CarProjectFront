@@ -1,12 +1,12 @@
-import { GetcartUser } from './../../../../Services/Cart/CartItem';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CartService } from '../../../../Services/Cart/cart.service';
+import { CartService } from '../../../../Services/Cart/Handler/cart.service';
 import { NavigationService } from '../../../../Services/Navigation/navigation.service';
 import { ToastrService } from 'ngx-toastr';
 import { Routing } from '../../../../Meta/Routing';
+import { GetcartUser } from '../../../../Services/Cart/Models/CartItem';
 
 @Component({
   selector: 'app-cart',

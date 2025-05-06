@@ -12,6 +12,7 @@ export class Routing {
     GetProductPagination: Routing.Role + 'Product/Pagination',
     GetProductDetails: Routing.Role + 'Product/{Id}',
   };
+
   static Authentication = {
     LoginUser: Routing.Role + 'Auth/Login',
     RegisterUser: Routing.Role + 'Auth/Register/User',
@@ -20,14 +21,17 @@ export class Routing {
   static Car = {
     GetCarBrandsWithPagination: Routing.Role + 'CarBrand/Pagination',
   };
+
   static Category = {
     GetCategoryPagination: Routing.Role + 'Category/Pagination',
     GetCategoryById: Routing.Role + 'Category/{Id}',
   };
+
   static User = {
     GetUserById: Routing.Role + 'User/{Id}',
     UpdateUser: '/api/user/update',
   };
+
   static Model = {
     GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
     GetModelById: Routing.Role + 'Model/GetModelById/{Id}',
@@ -43,6 +47,7 @@ export class Routing {
   static Review = {
     GetReviewStatistic: Routing.Role + 'Review/GetRatingStatistics/{Id}',
   };
+
   static Chat = {
     Prefix: Routing.Role + 'Chat/',
     SendMassage: Routing.Role + 'Chat/SendMassage',
