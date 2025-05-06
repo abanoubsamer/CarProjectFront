@@ -1,4 +1,4 @@
-import { ProductImagesDto } from '../../Core/Dtos/ProductImagesDto';
+import { ProductImagesDto } from "../../../Core/Dtos/ProductImagesDto";
 
 export interface GetcartUser {
   cardID: string;
