@@ -55,9 +55,9 @@ export class LoginComponent {
 
         if (responseData?.token) {
           localStorage.setItem('token', responseData.token);
-          localStorage.setItem('userID', responseData.userID);
+          localStorage.setItem('sellerID', responseData.userID);
           this.toastr.success('Login successful!');
-          this.router.navigateByUrl('Security/Dashboard');
+          this.router.navigateByUrl('/Security/Dashboard');
         } else {
           this.errorMessage = 'Login failed: token not found.';
         }
