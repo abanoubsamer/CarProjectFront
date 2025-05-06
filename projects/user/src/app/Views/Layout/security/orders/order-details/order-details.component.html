@@ -1,0 +1,91 @@
+<div id="popupOverlay" class="overlay-container mt-5">
+  <div class="popup-box">
+    <mat-dialog-content>
+      <!-- Saved Addresses List -->
+
+      <div class="card-body">
+        <div class="shipping-activity">
+          <div class="popup-box-Centre">
+            <h3>Shipping Activity</h3>
+          </div>
+
+          <div class="shipping-timeline">
+            <div class="timeline-item">
+              <div class="dot"></div>
+              <div class="content">
+                <h4>Order Placed (Order #: #{{ orderDetails.orderID }})</h4>
+                <p>Your order has been successfully placed.</p>
+                <div class="time">{{ orderDetails.orderDate }}</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="dot"></div>
+              <div class="content">
+                <h4>Pickup Scheduled</h4>
+                <p>Pickup scheduled with the shipping company.</p>
+                <div class="time">Wednesday 11:29 AM</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="dot"></div>
+              <div class="content">
+                <h4>Shipped</h4>
+                <p>Order received by the shipping company.</p>
+                <div class="time">Thursday 11:29 AM</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="dot"></div>
+              <div class="content">
+                <h4>Package Arrived</h4>
+                <p>Package arrived at Amazon warehouse, New York.</p>
+                <div class="time">Saturday 10:20 AM</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="dot"></div>
+              <div class="content">
+                <h4>Out for Delivery</h4>
+                <p>Package left Amazon warehouse, New York.</p>
+                <div class="time">Today 2:12 PM</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="dot incomplete"></div>
+              <div class="content">
+                <h4>Delivery</h4>
+                <p>Delivery scheduled for tomorrow.</p>
+                <div class="time">Pending</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card popup-box-Centre">
+          <div class="order-details">
+            <h3>Shipping Address</h3>
+
+            <p>{{ orderDetails.shippingAddresses.street }}</p>
+            <p>{{ orderDetails.shippingAddresses.city }}</p>
+
+            <p>{{ orderDetails.shippingAddresses.country }}</p>
+
+            <h3>Billing Address</h3>
+            <p>
+              {{ orderDetails.shippingAddresses.houseNumber }}:
+              {{ orderDetails.shippingAddresses.street }}
+            </p>
+
+            <h3>Payment Details</h3>
+            <p>{{ orderDetails.payment.paymentMethod }}</p>
+            <p># {{ orderDetails.payment.transactionID }}</p>
+            <p>Amount :{{ orderDetails.payment.amount }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="mt-3">
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+  </div>
+</div>

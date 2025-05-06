@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { loadingHandlerInterceptor } from './Core/Interceptores/loading-handler.interceptor';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([loadingHandlerInterceptor])),
     provideToastr(),
     provideAnimationsAsync(),
+    provideNativeDateAdapter(),
   ],
 };

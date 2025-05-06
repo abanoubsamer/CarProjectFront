@@ -1,5 +1,7 @@
 .main-navbar {
   border-bottom: 1px solid #ccc;
+
+  z-index: 1000; /* أقل من z-index بتاع Angular Material dialog */
 }
 .main-navbar .top-navbar {
   background: #213a59;

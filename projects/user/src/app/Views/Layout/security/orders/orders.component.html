@@ -1,78 +1,88 @@
-<main class="container">
-    <div class="page-title">
-        <h1>My Orders</h1>
-        <p>Track your vehicle spare parts purchases and shipping status</p>
+<div class="container">
+  <div class="main-content">
+    <div class="header"></div>
+    @for (order of OrdersUser ; track order.orderID) {
+    <div class="card">
+      <div class="card-header">
+        <h2>Order</h2>
+      </div>
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>Products</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (orderItems of order.orderItems ; track orderItems.productID) {
+          <tr>
+            <td>
+              <div class="product">
+                <img
+                  [src]="Ip + '/images/' + orderItems.imagesDto"
+                  alt="Oneplus 10"
+                />
+                <div class="details">
+                  <h3>{{ orderItems.name }}</h3>
+                </div>
+              </div>
+            </td>
+            <td>{{ orderItems.price }} $</td>
+            <td>{{ orderItems.quantity }}</td>
+            <td>{{ orderItems.price * orderItems.quantity }} $</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="totals">
+        <div class="total-row">
+          <span>Subtotal:</span>
+          <span>{{ order.totalAmount }} dollars</span>
+        </div>
+        <div class="total-row">
+          <span>Discount:</span>
+          <span>0 dollars</span>
+        </div>
+        <div class="total-row">
+          <span>Tax:</span>
+          <span>0 dollars</span>
+        </div>
+        <div class="total-row final">
+          <span>Total:</span>
+          <span>{{ order.totalAmount }} dollars</span>
+        </div>
+      </div>
+      <div class="card-header">
+        <h2></h2>
+        <button (click)="ShowDetails(order)" class="btn btn-primary">
+          Details
+        </button>
+      </div>
     </div>
-    
-    <div class="orders-container">
-        <!-- Order 1 -->
-        <div class="order">
-            <div class="order-header">
-                <div class="order-id">Order #PA-2023-0456</div>
-                <div class="order-date">Placed on: October 15, 2023</div>
-            </div>
-
-            <div class="order-details">
-                <img src="https://e117-41-238-84-212.ngrok-free.app/images/c0281591-5f79-4644-b487-0f41cc010bf5.jpg" alt="2023 Ford Mustang GT" class="car-image">
-                <div class="car-info">
-                    <h3>2023 Ford Mustang GT Premium Brakes</h3>
-                    <p>Color: Black</p>
-                    <p>VIN: 1FA6P8CF6M5101234</p>
-                    <p>Total: 120 USD</p>
-                </div>
-            </div>
-
-            <div class="order-status">
-                <div class="status status-shipped">Shipped</div>
-                <div class="expected-date">Estimated delivery: <span>November 5, 2023</span></div>
-            </div>
+    }
+  </div>
+  <!-- <div class="sidebar">
+    <div class="header"></div>
+    <div class="card customer-info">
+      <div class="card-header">
+        <h2>Customer Details</h2>
+        <a href="#" class="edit-link">Edit</a>
+      </div>
+      <div class="customer-header">
+        <img [src]="userInfo.picture" alt="" class="avatar" />
+        <div class="details">
+          <h3>{{ userInfo.name }}</h3>
+          <p>Customer Number: #{{ userInfo.id }}</p>
         </div>
-
-        <!-- Order 2 -->
-        <div class="order">
-            <div class="order-header">
-                <div class="order-id">Order #PA-2023-0455</div>
-                <div class="order-date">Placed on: September 28, 2023</div>
-            </div>
-
-            <div class="order-details">
-                <img src="https://e117-41-238-84-212.ngrok-free.app/images/d8be9f24-49f2-4127-bda9-32d2eb0adf2f.jpg" alt="2023 Tesla Model 3" class="car-image">
-                <div class="car-info">
-                    <h3>2023 Tesla Model 3 Performance Engine Water Pump </h3>
-                    <p>Color: Midnight Silver Metallic</p>
-                    <p>VIN: 5YJ3E1EA0PF123456</p>
-                    <p>Total: 170 USD</p>
-                </div>
-            </div>
-
-            <div class="order-status">
-                <div class="status status-delivered">Delivered</div>
-                <div class="expected-date">Delivered on: <span>October 12, 2023</span></div>
-            </div>
-        </div>
-
-        <!-- Order 3 -->
-        <div class="order">
-            <div class="order-header">
-                <div class="order-id">Order #PA-2023-0457</div>
-                <div class="order-date">Placed on: October 20, 2023</div>
-            </div>
-
-            <div class="order-details">
-                <img src="https://e117-41-238-84-212.ngrok-free.app/images/6e38ca2d-eeac-45fe-88f3-cdb130553ce0.jpg" alt="2024 Porsche 911 Carrera" class="car-image">
-                <div class="car-info">
-                    <h3>2024 Porsche 911 Carrera S Radiator</h3>
-                    <p>Color: Black</p>
-                    <p>VIN: WP0AB2A94PS123456</p>
-                    <p>Total: 200 USD</p>
-                </div>
-            </div>
-
-            <div class="order-status">
-                <div class="status status-processing">Processing</div>
-                <div class="expected-date">Expected to ship by: <span>November 15, 2023</span></div>
-            </div>
-        </div>
+      </div>
+      <div class="orders-badge">{{ OrdersUser.length }} Orders</div>
+      <div class="contact-info">
+        <p>Email: {{ userInfo.email }}</p>
+        <p>Mobile: {{ userInfo.phoneNumberDtos[0].phoneNumber }}</p>
+      </div>
     </div>
-</main>
-
+  </div> -->
+</div>

@@ -4,6 +4,7 @@ import { Routing } from '../../../../Meta/Routing';
 import { GetUserIdModel } from '../Models/GetUserIdModels';
 import { Observable } from 'rxjs';
 import { Response } from '../../../../Core/BasicResponse/Response';
+import { GetUserAddressModel } from '../Models/GetUserAddress.Models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,9 @@ export class UserQuereisService {
       Routing.User.GetUserById.replace('{Id}', id)
     );
   }
-  UpdateUser(id: string, data: any): Observable<any> {
-    return this._apiService.Put(
-      Routing.User.UpdateUser.replace('{Id}', id),
-      data
+  GetUserAddress(id: string): Observable<Response<Array<GetUserAddressModel>>> {
+    return this._apiService.Get<Response<Array<GetUserAddressModel>>>(
+      Routing.User.GetShippingAddresses.replace('{Id}', id)
     );
   }
 }

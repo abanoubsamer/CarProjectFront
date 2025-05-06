@@ -1,7 +1,7 @@
 export interface GetOrderItemsWithOrderDto {
-  productID: string,
-  name: string,
-  price : string,
-  quantity : number,
-  imagesDto : string,
+  productID: string;
+  name: string;
+  price: number;
+  quantity: number;
+  imagesDto: string;
 }

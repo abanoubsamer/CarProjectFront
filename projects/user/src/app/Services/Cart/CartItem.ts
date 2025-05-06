@@ -1,7 +1,7 @@
 import { ProductImagesDto } from '../../Core/Dtos/ProductImagesDto';
 
 export interface GetcartUser {
-  cardId: string;
+  cardID: string;
   cardItemsDtos: CardItemDtos[];
 }
 

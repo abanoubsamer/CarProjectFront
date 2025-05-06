@@ -21,16 +21,6 @@
   border-radius: 6px;
 }
 
-::ng-deep .transparent-dialog {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-::ng-deep .transparent-backdrop {
-  background-color: transparent !important;
-}
-
 .product-image {
   width: 100px;
   height: 100px;
@@ -78,19 +68,16 @@
   border: none;
   transition: all 0.2s;
 }
-/* ارفع ال z-index لكل الـ overlays بتاعة Angular Material */
-
-.custom-dialog-container {
-  z-index: 10001 !important;
-}
-::ng-deep .custom-dialog-container {
-  border-radius: 20px !important;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-}
 
 .quantity-btn:hover {
   background: #e5e7eb;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 .discount-badge {
@@ -99,4 +86,12 @@
   font-size: 0.875rem;
   padding: 4px 8px;
   border-radius: 6px;
+}
+
+.example-input-wrapper {
+  margin-bottom: 16px;
+}
+
+label {
+  margin-right: 4px;
 }

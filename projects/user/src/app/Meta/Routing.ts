@@ -26,7 +26,11 @@ export class Routing {
   };
   static User = {
     GetUserById: Routing.Role + 'User/{Id}',
-    UpdateUser: '/api/user/update',
+    UpdateUser: Routing.Role + 'User/update',
+    AddPhones: Routing.Role + 'User/AddPhones',
+    GetPhones: Routing.Role + 'User/GetPhones/{Id}',
+    AddShippingAddresses: Routing.Role + 'User/AddShippingAddresses',
+    GetShippingAddresses: Routing.Role + 'User/ShippingAddresses/{Id}',
   };
   static Model = {
     GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
@@ -48,8 +52,13 @@ export class Routing {
     SendMassage: Routing.Role + 'Chat/SendMassage',
     NewChat: Routing.Role + 'Chat/NewChat/{Id}',
   };
+  static Payment = {
+    Prefix: Routing.Role + 'Payment/',
+    GetUrlpayment: Routing.Role + 'Payment/GetUrlpayment',
+  };
 
   static Order = {
-    GetUserOrder :Routing.Role + 'Order/UserOrders/{id}',
-  }
+    GetUserOrder: Routing.Role + 'Order/UserOrders/{id}',
+    AddUserOrder: Routing.Role + 'Order/AddTest',
+  };
 }

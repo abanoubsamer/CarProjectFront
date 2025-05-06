@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           if (res.success) {
             localStorage.setItem('token', res.data.token);
-            localStorage.setItem('userId', res.data.userID);
+            localStorage.setItem('sellerID', res.data.userID);
             this.toastrService.success('Success Login');
             this.Navigation.NavigationByUrl('/Public/Home');
           }
