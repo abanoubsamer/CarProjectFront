@@ -1,0 +1,116 @@
+<div class="container">
+  <!-- شريط البحث -->
+  <div class="row g-3 row-cols-1 row-cols-md-2 row-cols-lg-3">
+    <div class="col">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>🔍 Order</mat-label>
+        <input matInput type="text" (keyup)="search($event.target)" />
+        <mat-icon matSuffix>category</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>⚡ Status</mat-label>
+        <mat-select (selectionChange)="SelectStatus($event)">
+          <mat-option value=""> ⚡ Status... </mat-option>
+          @for(status of Status ; track status.value){
+          <mat-option [value]="status.value">
+            {{ status.name }}
+          </mat-option>
+          }
+        </mat-select>
+        <mat-icon matSuffix>check_circle</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>🕒 Choose Date Range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input
+            matStartDate
+            placeholder="From date"
+            name="startDate"
+            (dateChange)="SelectDate($event, 'fromDate')"
+          />
+          <input
+            matEndDate
+            placeholder="To date"
+            name="endDate"
+            (dateChange)="SelectDate($event, 'toDate')"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- جدول الطلبات -->
+  <ngx-datatable
+    class="material"
+    [rows]="Orders"
+    [rowHeight]="'auto'"
+    [headerHeight]="50"
+    [columnMode]="'force'"
+    [footerHeight]="50"
+    [limit]="page.limit"
+    [count]="page.count"
+    [scrollbarH]="true"
+    [offset]="page.pageNumber - 1"
+    [externalPaging]="true"
+    [pagination]="true"
+    (page)="onPageChange($event)"
+  >
+    <ngx-datatable-column name="#" prop="orderID"></ngx-datatable-column>
+    <ngx-datatable-column
+      name="📌 العميل"
+      prop="user.email"
+    ></ngx-datatable-column>
+    <ngx-datatable-column
+      name="🛒 المنتج"
+      prop="product.name"
+    ></ngx-datatable-column>
+    <ngx-datatable-column name="🛒 كميه" prop="quantity"></ngx-datatable-column>
+    <ngx-datatable-column name="📦 الحالة">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <span class="status-badge" [ngClass]="getStatusClass(+row.status)">
+          {{ getStatus(row.status) }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="⚡ تغيير الحالة">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <select
+          [(ngModel)]="row.status"
+          (change)="changeOrderState(row, row.status)"
+          class="status-select"
+        >
+          <option value="0">🕒 قيد الانتظار</option>
+          <option value="1">📦 تم التأكيد</option>
+          <option value="2">🚚 تم الشحن</option>
+          <option value="3">✅ تم التسليم</option>
+          <option value="4">❌ تم الإلغاء</option>
+        </select>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-- 🔍 عمود زر التفاصيل -->
+    <ngx-datatable-column name="🔍 التفاصيل">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <button (click)="openDialog('300ms', '150ms', row)" class="details-btn">
+          📄 عرض التفاصيل
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+
+  <!-- رسالة عدم وجود نتائج -->
+  <!-- <div *ngIf="rows.length === 0" class="no-results">
+    🚫 لا توجد نتائج مطابقة للبحث.
+  </div> -->
+</div>

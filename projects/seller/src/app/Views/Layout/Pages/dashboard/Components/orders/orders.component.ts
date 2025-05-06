@@ -1,0 +1,181 @@
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { MatFormSharedModule } from '../../../../../../Shared/Modules/mat-form-shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { OrderCommendService } from '../../../../../../../../../user/src/app/Services/Orders/Commend/Handler/order-commend.service';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { GetSellerOrders } from '../../../../../../Services/Orders/Queries/Models/GetSellerOrders';
+import { OrderQueriesService } from '../../../../../../Services/Orders/Queries/Handler/order-queries.service';
+import { DetailsComponent } from './details/details.component';
+import { UpdateStatsOrder } from '../../../../../../Services/Orders/Commend/Models/UpdateStatsOrder';
+@Component({
+  selector: 'app-orders',
+  imports: [
+    NgxDatatableModule,
+    CommonModule,
+    FormsModule,
+    MatFormSharedModule,
+    NgxPaginationModule,
+    MatDatepickerModule,
+  ],
+  templateUrl: './orders.component.html',
+  styleUrl: './orders.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class OrdersComponent implements OnInit {
+  //#region Faildes
+  page = {
+    limit: 5, // عدد الطلبات في كل صفحة
+    pageNumber: 1, // الصفحة الحالية
+    count: 0,
+    offset: 0,
+  };
+  Orders: Array<GetSellerOrders> = [];
+  SellerId = localStorage.getItem('sellerID');
+  temp: any = [];
+  filter: any = {};
+  searchFilterid: any;
+  private readonly _currentYear = new Date().getFullYear();
+  readonly minDate = new Date(this._currentYear - 20, 0, 1);
+  readonly maxDate = new Date(this._currentYear + 1, 11, 31);
+  Status = [
+    { name: 'Pending 🕒', value: 0 },
+    { name: 'Confirm 📦', value: 1 },
+    { name: 'Shipped 🚚', value: 2 },
+    { name: 'Delivered ✅', value: 3 },
+    { name: 'Cancelled ❌', value: 4 },
+  ];
+
+  //#endregion
+
+  //#region Injectors
+  private readonly _OrderQueriesService = inject(OrderQueriesService);
+  private readonly _OrderCommendService = inject(OrderCommendService);
+  private readonly Toster = inject(ToastrService);
+  readonly dialog = inject(MatDialog);
+  //#endregion
+
+  //#region LiveHooks
+  ngOnInit(): void {
+    // this.GetOrders(this.page.pageNumber, this.page.limit);
+  }
+
+  //#endregion
+
+  //#region Methods
+
+  GetOrders(page: number, limit: number, filter?: any) {
+    if (this.SellerId) {
+      var prams = {
+        sellerId: this.SellerId,
+        PageNumber: page,
+        PageSize: limit,
+        filter,
+      };
+      // this._OrderQueriesService.GetOrderSeller(prams).subscribe((res) => {
+      //   this.Orders = res.data;
+      //   this.temp = res.data;
+      //   this.page.pageNumber = res.currentPage; // تحديث الصفحة الحالية
+      //   this.page.count = res.totalCount; // إجمالي الطلبات
+      //   this.page.limit = res.pageSize; // عدد الطلبات لكل صفحة
+      // });
+    }
+  }
+
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    Order: GetSellerOrders
+  ) {
+    const dialogRef = this.dialog.open(DetailsComponent, {
+      width: '700px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: Order,
+    });
+  }
+
+  changeOrderState(order: any, newState: string) {
+    order.state = newState;
+
+    var requst: UpdateStatsOrder = {
+      productID: order.product.id,
+      orderId: order.orderID,
+      status: Number(newState),
+    };
+
+    // this._OrderCommendService.UpdateOrderStatus(requst).subscribe((res) => {
+    //   if (res.success) {
+    //     this.Toster.success('تم تغيير حالة الطلب بنجاح');
+    //   }
+    // });
+  }
+
+  getStatusClass(status: number) {
+    return (
+      {
+        0: 'status-pending',
+        1: 'status-confirm',
+        2: 'status-shipped',
+        3: 'status-delivered',
+        4: 'status-cancelled',
+      }[status] || 'unknown-status'
+    );
+  }
+  getStatus(status: number) {
+    const statuses = [
+      'Pending',
+      'Confirm',
+      'Shipped',
+      'Delivered',
+      'Cancelled',
+    ];
+    return statuses[status] ?? ''; // استخدام مصفوفة بدلاً من `switch` لجعل الكود أنظف
+  }
+
+  onPageChange(event: any) {
+    this.page.pageNumber = event.offset + 1; // تحديث رقم الصفحة
+    this.GetOrders(this.page.pageNumber, this.page.limit);
+  }
+
+  // دالة تغيير الصفحة
+  onPageSizeChange(event: any) {
+    this.page.limit = event.target.value;
+    this.page.pageNumber = 1; // إعادة التهيئة للصفحة الأولى
+    this.GetOrders(this.page.pageNumber, this.page.limit);
+  }
+  //#endregion
+
+  //#region Filters
+  search(event: any) {
+    this.filter['SearchTearm'] = event.value;
+    this.page.pageNumber = 1;
+    clearTimeout(this.searchFilterid);
+    this.searchFilterid = setTimeout(() => {
+      this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
+    }, 1000);
+  }
+
+  SelectStatus(event: any) {
+    this.filter['Status'] = event.value;
+    this.page.pageNumber = 1;
+    this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
+  }
+  SelectDate(event: any, type: string) {
+    // this.filter[type] = moment(event.value).format('MM-DD-YYYY');
+    this.page.pageNumber = 1;
+    if (type == 'toDate' && this.filter['toDate'] !== 'Invalid date') {
+      this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
+    }
+  }
+  //#endregion
+}

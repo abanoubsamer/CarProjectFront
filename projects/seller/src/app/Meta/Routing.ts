@@ -41,7 +41,7 @@ export class Routing {
     EmailExist: Routing.Role + 'Auth/EmailExist/{Email}',
     UserNameExist: Routing.Role + 'Auth/UserNameExist/{Name}',
   };
-  static Orders ={
-    GetSellerOrdersPagination : Routing.Role + 'Order/SellerOrders',
-    };
+  static Orders = {
+    GetSellerOrders: Routing.Role + 'Order/SellerOrders/',
+  };
 }

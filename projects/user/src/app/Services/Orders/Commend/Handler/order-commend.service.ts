@@ -4,11 +4,15 @@ import { map, Observable } from 'rxjs';
 import { ApiService } from '../../../Api/api.service';
 import { Response } from '../../../../Core/BasicResponse/Response';
 import { Routing } from '../../../../Meta/Routing';
+import { UpdateStatsOrder } from '../../../../../../../seller/src/app/Services/Orders/Commend/Models/UpdateStatsOrder';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderCommendService {
+  UpdateOrderStatus(requst: UpdateStatsOrder) {
+    throw new Error('Method not implemented.');
+  }
   private readonly _apiServices = inject(ApiService);
 
   CheckOutServices(request: CheckOutModel): Observable<Response<string>> {
