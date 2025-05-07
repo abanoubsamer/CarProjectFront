@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
   inject,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import moment from 'moment';
 import { FormsModule } from '@angular/forms';
@@ -45,6 +47,7 @@ export class OrdersComponent implements OnInit {
   temp: any = [];
   filter: any = {};
   searchFilterid: any;
+
   private readonly _currentYear = new Date().getFullYear();
   readonly minDate = new Date(this._currentYear - 20, 0, 1);
   readonly maxDate = new Date(this._currentYear + 1, 11, 31);
@@ -67,7 +70,7 @@ export class OrdersComponent implements OnInit {
 
   //#region LiveHooks
   ngOnInit(): void {
-    this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
+    // this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
   }
 
   //#endregion
@@ -103,7 +106,6 @@ export class OrdersComponent implements OnInit {
 
   changeOrderState(order: any, newState: string) {
     order.state = newState;
-
     var requst: UpdateStatsOrder = {
       productID: order.product.id,
       orderId: order.orderID,
@@ -145,11 +147,11 @@ export class OrdersComponent implements OnInit {
   }
 
   // دالة تغيير الصفحة
-  onPageSizeChange(event: any) {
-    this.page.limit = event.target.value;
-    this.page.pageNumber = 1; // إعادة التهيئة للصفحة الأولى
-    this.GetOrders(this.page.pageNumber, this.page.limit);
-  }
+  // onPageSizeChange(event: any) {
+  //   this.page.limit = event.target.value;
+  //   this.page.pageNumber = 1; // إعادة التهيئة للصفحة الأولى
+  //   this.GetOrders(this.page.pageNumber, this.page.limit);
+  // }
   //#endregion
 
   //#region Filters

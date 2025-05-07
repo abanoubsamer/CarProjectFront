@@ -1,8 +1,9 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { CartService } from '../Services/Cart/Handler/cart.service';
-import { GetcartUser } from '../Services/Cart/CartItem';
+
 import { map } from 'rxjs';
+import { GetcartUser } from '../Services/Cart/Models/CartItem';
 
 export const userCardResolver: ResolveFn<GetcartUser | null> = (
   route,

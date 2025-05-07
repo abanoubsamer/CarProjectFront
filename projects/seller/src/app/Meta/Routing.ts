@@ -8,6 +8,15 @@ export class Routing {
   static Root = 'Api';
   static Version = 'V1';
   static Role = Routing.Ip + '/' + Routing.Root + '/' + Routing.Version + '/';
+  static Category = {
+    GetCategoryPagination: Routing.Role + 'Category/Pagination',
+    GetCategoryById: Routing.Role + 'Category/{Id}',
+  };
+  static Model = {
+    GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
+    GetModelById: Routing.Role + 'Model/GetModelById/{Id}',
+    AddModelCompatibility: Routing.Role + 'Model/AddModelCompatibility',
+  };
 
   static Seller = {
     Prefix: Routing.Role + 'Seller/',
@@ -15,6 +24,16 @@ export class Routing {
     GetSellersById: Routing.Role + 'Seller/{Id}',
     GetSellersProducts: Routing.Role + 'Seller/GetSellersProducts',
     SellerEamilIsExist: Routing.Role + 'Seller/SellerEamilIsExist',
+  };
+  static Review = {
+    Prefix: Routing.Role + 'Review/',
+    Add: Routing.Role + 'Review/Add',
+    Update: Routing.Role + 'Review/Update',
+    Pagination: Routing.Role + 'Review/Pagination',
+    ProductReview: Routing.Role + 'Review/ProductReview',
+    GetRatingStatistics: Routing.Role + 'Review/GetRatingStatistics/{Id}',
+    Delete: Routing.Role + 'Review/{Id}',
+    GetById: Routing.Role + 'Review/{Id}',
   };
 
   static Mail = {
@@ -34,12 +53,23 @@ export class Routing {
       Routing.Role + 'Notification/SendNotificationToUser',
   };
 
+  static Car = {
+    GetCarBrandsWithPagination: Routing.Role + 'CarBrand/Pagination',
+  };
+
   static Authentication = {
     RegisterSeller: Routing.Role + 'Auth/Register/Seller',
     LoginSeller: Routing.Role + 'Auth/LoginSeller',
 
     EmailExist: Routing.Role + 'Auth/EmailExist/{Email}',
     UserNameExist: Routing.Role + 'Auth/UserNameExist/{Name}',
+  };
+  static Product = {
+    Add: Routing.Role + 'Product/Add',
+    Update: Routing.Role + 'Product/Update',
+
+    Delete: Routing.Role + 'Product/{Id}',
+    GetById: Routing.Role + 'Product/{Id}',
   };
   static Orders = {
     Prefix: Routing.Role + 'Order/',

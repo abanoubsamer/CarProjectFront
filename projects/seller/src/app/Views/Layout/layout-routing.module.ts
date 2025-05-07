@@ -14,6 +14,13 @@ const routes: Routes = [
             (c) => c.DashboardComponent
           ),
       },
+      {
+        path: 'AddProduct',
+        loadComponent: () =>
+          import('./Pages/add-proudct/add-proudct.component').then(
+            (c) => c.AddProudctComponent
+          ),
+      },
 
       { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
     ],

@@ -1,0 +1,121 @@
+.notification-bell {
+  position: relative;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.notification-header {
+  font-weight: bold;
+  color: #333;
+  padding: 10px 15px;
+  background: #002a47;
+  color: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  transition: 0.3s;
+}
+
+.notification-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.notification-icon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.notification-text {
+  flex-grow: 1;
+}
+
+.notification-footer {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  color: #002a47;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.notification-footer:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.main-navbar {
+}
+.main-navbar .top-navbar {
+  background: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #002a47;
+}
+.main-navbar .top-navbar .brand-name {
+  color: #002a47;
+}
+.main-navbar .top-navbar .nav-link {
+  color: #002a47;
+  font-size: 16px;
+  font-weight: 500;
+}
+.profile-pic {
+  width: 40px;
+  cursor: pointer;
+  height: 40px;
+  border: 2px solid #fff;
+  background-color: #fff;
+}
+
+.main-navbar .top-navbar .dropdown-menu {
+  padding: 0px 0px;
+  border-radius: 0px;
+}
+.main-navbar .top-navbar .dropdown-menu .dropdown-item {
+  padding: 8px 16px;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+}
+.main-navbar .top-navbar .dropdown-menu .dropdown-item i {
+  width: 20px;
+  text-align: center;
+  color: #2874f0;
+  font-size: 14px;
+}
+.main-navbar .navbar {
+  padding: 0px;
+  background-color: #ddd;
+}
+.main-navbar .navbar .nav-item .nav-link {
+  padding: 8px 20px;
+  color: #000;
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-navbar .top-navbar .nav-link {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}

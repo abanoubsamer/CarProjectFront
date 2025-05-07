@@ -22,6 +22,7 @@ export class ApiService {
     Prams = Prams.append('PageSize', PageSize);
     if (Filter) {
       Object.entries(Filter).forEach(([key, value]: any) => {
+        if (key === 'Status' && value === 0) Prams = Prams.append(key, 0);
         if (value) Prams = Prams.append(key, value);
       });
     }
