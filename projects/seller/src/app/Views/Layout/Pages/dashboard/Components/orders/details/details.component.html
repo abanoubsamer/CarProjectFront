@@ -1,1 +1,89 @@
-<p>details works!</p>
+<h2 mat-dialog-title class="title">
+  <mat-icon>shopping_cart</mat-icon> Order Details
+</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-card class="order-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>assignment</mat-icon> Order ID: {{ order.orderID }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="order-details">
+        <mat-list>
+          <mat-list-item>
+            <mat-icon class="icon">person</mat-icon>
+            <strong>Customer:</strong> {{ order.user.name }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">email</mat-icon>
+            <strong>Email:</strong> {{ order.user.email }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">phone</mat-icon>
+            <strong>Phone Number:</strong> {{ order.phoneNumber }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">calendar_today</mat-icon>
+            <strong>Order Date:</strong>
+            {{ order.orderDate | date : "dd/MM/yyyy hh:mm a" }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">local_shipping</mat-icon>
+            <strong>Status:</strong>
+            <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+              {{ getStatusText(order.status) }}
+            </span>
+          </mat-list-item>
+        </mat-list>
+
+        <h3>🛒 Product Details</h3>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon class="icon">shopping_basket</mat-icon>
+            <strong>Product:</strong> {{ order.product.name }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">attach_money</mat-icon>
+            <strong>Price:</strong> {{ order.price | currency : "USD" }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">format_list_numbered</mat-icon>
+            <strong>Quantity:</strong> {{ order.quantity }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">monetization_on</mat-icon>
+            <strong>Total:</strong>
+            {{ order.totalAmount | currency : "USD" }}
+          </mat-list-item>
+        </mat-list>
+
+        <h3>📍 Shipping Address</h3>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon class="icon">location_on</mat-icon>
+            <strong>Street:</strong> {{ order.shippingAddresses.street }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">apartment</mat-icon>
+            <strong>City:</strong> {{ order.shippingAddresses.city }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">flag</mat-icon>
+            <strong>Country:</strong> {{ order.shippingAddresses.country }}
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon class="icon">markunread_mailbox</mat-icon>
+            <strong>Postal Code:</strong>
+            {{ order.shippingAddresses.postalCode }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="warn">Close</button>
+</mat-dialog-actions>

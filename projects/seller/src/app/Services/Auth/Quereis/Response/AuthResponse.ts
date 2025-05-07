@@ -3,6 +3,6 @@ export interface AuthResponse {
   expiration: Date;
   username: string;
   userID: string;
-  sellerID: string;
+  sellerId: string;
   roles: string[];
 }

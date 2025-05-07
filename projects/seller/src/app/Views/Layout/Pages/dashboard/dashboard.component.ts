@@ -7,7 +7,7 @@ import { OrdersComponent } from './Components/orders/orders.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, SaleAndRevenueComponent, OrdersComponent],
+  imports: [CommonModule, OrdersComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

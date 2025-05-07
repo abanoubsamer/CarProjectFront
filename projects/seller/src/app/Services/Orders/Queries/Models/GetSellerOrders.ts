@@ -1,17 +1,17 @@
-import { ProductDto } from '../../../../Core/Dtos/ProductDto';
-import { ShippingAddressesDto } from '../../../../Core/Dtos/ShippingAddressesDto';
-import { UserDtos } from '../../../../Core/Dtos/UserDtos';
-import { StatusEnum } from '../../../../Core/Enums/statusEnum';
+import { orderStatusDto } from '../../../../Core/Dtos/orderStatusDto';
+import { productDto } from '../../../../Core/Dtos/productDto';
+import { shippingAddressDto } from '../../../../Core/Dtos/shippingAddressDto';
+import { userDto } from '../../../../Core/Dtos/userDto';
 
 export interface GetSellerOrders {
   orderID: string;
-  user: UserDtos;
+  user: userDto;
   orderDate: string;
-  product: ProductDto;
+  product: productDto;
   phoneNumber: string;
   quantity: number;
   price: number;
   totalAmount: number;
-  status: StatusEnum;
-  shippingAddresses: ShippingAddressesDto;
+  status: orderStatusDto;
+  shippingAddresses: shippingAddressDto;
 }

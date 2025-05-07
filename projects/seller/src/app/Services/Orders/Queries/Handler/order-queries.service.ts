@@ -15,8 +15,9 @@ export class OrderQueriesService {
   GetOrderSeller(
     PageNumber: number,
     PageSize: number,
-    filter?: any
+    filter: any = {}
   ): Observable<PagintationResponse<GetSellerOrders>> {
+    filter['sellerID'] = localStorage.getItem('sellerID');
     return this.ApiServices.GetWithPagination<
       PagintationResponse<GetSellerOrders>
     >(Routing.Orders.GetSellerOrders, PageNumber, PageSize, filter);

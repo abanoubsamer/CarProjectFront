@@ -5,18 +5,19 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
+import moment from 'moment';
 import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatFormSharedModule } from '../../../../../../Shared/Modules/mat-form-shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { OrderCommendService } from '../../../../../../../../../user/src/app/Services/Orders/Commend/Handler/order-commend.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { GetSellerOrders } from '../../../../../../Services/Orders/Queries/Models/GetSellerOrders';
 import { OrderQueriesService } from '../../../../../../Services/Orders/Queries/Handler/order-queries.service';
 import { DetailsComponent } from './details/details.component';
 import { UpdateStatsOrder } from '../../../../../../Services/Orders/Commend/Models/UpdateStatsOrder';
+import { OrderCommendService } from '../../../../../../Services/Orders/Commend/Handler/order-commend.service';
 @Component({
   selector: 'app-orders',
   imports: [
@@ -66,7 +67,7 @@ export class OrdersComponent implements OnInit {
 
   //#region LiveHooks
   ngOnInit(): void {
-    // this.GetOrders(this.page.pageNumber, this.page.limit);
+    this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
   }
 
   //#endregion
@@ -75,19 +76,15 @@ export class OrdersComponent implements OnInit {
 
   GetOrders(page: number, limit: number, filter?: any) {
     if (this.SellerId) {
-      var prams = {
-        sellerId: this.SellerId,
-        PageNumber: page,
-        PageSize: limit,
-        filter,
-      };
-      // this._OrderQueriesService.GetOrderSeller(prams).subscribe((res) => {
-      //   this.Orders = res.data;
-      //   this.temp = res.data;
-      //   this.page.pageNumber = res.currentPage; // تحديث الصفحة الحالية
-      //   this.page.count = res.totalCount; // إجمالي الطلبات
-      //   this.page.limit = res.pageSize; // عدد الطلبات لكل صفحة
-      // });
+      this._OrderQueriesService
+        .GetOrderSeller(page, limit, filter)
+        .subscribe((res) => {
+          this.Orders = res.data;
+          this.temp = res.data;
+          this.page.pageNumber = res.currentPage;
+          this.page.count = res.totalCount;
+          this.page.limit = res.pageSize;
+        });
     }
   }
 
@@ -113,11 +110,11 @@ export class OrdersComponent implements OnInit {
       status: Number(newState),
     };
 
-    // this._OrderCommendService.UpdateOrderStatus(requst).subscribe((res) => {
-    //   if (res.success) {
-    //     this.Toster.success('تم تغيير حالة الطلب بنجاح');
-    //   }
-    // });
+    this._OrderCommendService.UpdateOrderStatus(requst).subscribe((res) => {
+      if (res.success) {
+        this.Toster.success('تم تغيير حالة الطلب بنجاح');
+      }
+    });
   }
 
   getStatusClass(status: number) {
@@ -171,7 +168,7 @@ export class OrdersComponent implements OnInit {
     this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
   }
   SelectDate(event: any, type: string) {
-    // this.filter[type] = moment(event.value).format('MM-DD-YYYY');
+    this.filter[type] = moment(event.value).format('MM-DD-YYYY');
     this.page.pageNumber = 1;
     if (type == 'toDate' && this.filter['toDate'] !== 'Invalid date') {
       this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);

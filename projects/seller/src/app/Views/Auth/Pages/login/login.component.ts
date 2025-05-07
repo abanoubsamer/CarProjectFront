@@ -55,7 +55,8 @@ export class LoginComponent {
 
         if (responseData?.token) {
           localStorage.setItem('token', responseData.token);
-          localStorage.setItem('sellerID', responseData.userID);
+          localStorage.setItem('sellerID', responseData.sellerId);
+          localStorage.setItem('userID', responseData.userID);
           this.toastr.success('Login successful!');
           this.router.navigateByUrl('/Security/Dashboard');
         } else {

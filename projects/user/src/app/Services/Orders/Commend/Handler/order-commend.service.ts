@@ -10,9 +10,6 @@ import { UpdateStatsOrder } from '../../../../../../../seller/src/app/Services/O
   providedIn: 'root',
 })
 export class OrderCommendService {
-  UpdateOrderStatus(requst: UpdateStatsOrder) {
-    throw new Error('Method not implemented.');
-  }
   private readonly _apiServices = inject(ApiService);
 
   CheckOutServices(request: CheckOutModel): Observable<Response<string>> {

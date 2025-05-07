@@ -1,7 +1,7 @@
-import { StatusEnum } from '../../../../Core/Enums/statusEnum';
+import { orderStatusDto } from '../../../../Core/Dtos/orderStatusDto';
 
 export interface UpdateStatsOrder {
   productID: string;
   orderId: string;
-  status: StatusEnum;
+  status: orderStatusDto;
 }
