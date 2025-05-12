@@ -21,6 +21,14 @@ const routes: Routes = [
             (c) => c.AddProudctComponent
           ),
       },
+      
+      {
+        path: 'EditProduct',
+        loadComponent: () =>
+          import('./Pages/managment-product/edit-product/edit-product.component').then(
+            (c) => c.EditProductComponent
+          ),
+      },
 
       { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
     ],
