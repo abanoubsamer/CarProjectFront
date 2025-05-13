@@ -1,12 +1,12 @@
 <!-- product-form.component.html -->
 <div class="product-form-container">
   <div class="header">
-    <h1>Add a new Product</h1>
+    <h1>Edit Product</h1>
     <p>Online product across your store</p>
     <div class="actions">
       <button class="btn-secondary" (click)="saveDraft()">Save draft</button>
       <button type="submit" (click)="publishProduct()" class="btn-primary">
-        Publish product
+        Update product
       </button>
     </div>
   </div>
@@ -101,7 +101,8 @@
               hidden
             />
 
-            <!-- رفع صورة من خلال رابط -->
+
+<!-- رفع صورة من خلال رابط -->
             <div class="url-link">
               <button
                 type="button"
@@ -216,7 +217,9 @@
                 type="text"
                 class="form-control"
                 disabled
-                value="{{ Model.MinYear }} - {{ Model.MaxYear }}"
+
+
+value="{{ Model.MinYear }} - {{ Model.MaxYear }}"
               />
               <div class="spec-row-actions">
                 <button (click)="remove(Model)" type="button" title="Remove">

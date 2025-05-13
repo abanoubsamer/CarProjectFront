@@ -4,6 +4,7 @@ import { AddCompatibilityModel } from '../Model/AddCompatibilityModel';
 import { Observable } from 'rxjs';
 import { Response } from '../../../../Core/BasicResponse/Response';
 import { Routing } from '../../../../Meta/Routing';
+import { UpdateCompatibilityModel } from '../Model/UpdateCompatibilityModel';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +19,9 @@ export class CompatibilityCommendService {
       Routing.Model.AddModelCompatibility,
       requst
     );
+  }
+  
+  UpdateModelCompatibility(request: UpdateCompatibilityModel): Observable<Response<string>> {
+    return this.ApiServices.Put<Response<string>>(Routing.Model.UpdateModelCompatibility, request);
   }
 }
