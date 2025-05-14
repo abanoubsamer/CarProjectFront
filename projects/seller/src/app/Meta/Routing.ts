@@ -12,10 +12,12 @@ export class Routing {
     GetCategoryPagination: Routing.Role + 'Category/Pagination',
     GetCategoryById: Routing.Role + 'Category/{Id}',
   };
+
   static Model = {
     GetModelsWithBarnd: Routing.Role + 'Model/GetModelWithBrand/{Id}',
     GetModelById: Routing.Role + 'Model/GetModelById/{Id}',
     AddModelCompatibility: Routing.Role + 'Model/AddModelCompatibility',
+    UpdateModelCompatibility: Routing.Role + ' ',
   };
 
   static Seller = {
@@ -25,6 +27,7 @@ export class Routing {
     GetSellersProducts: Routing.Role + 'Seller/GetSellersProducts',
     SellerEamilIsExist: Routing.Role + 'Seller/SellerEamilIsExist',
   };
+
   static Review = {
     Prefix: Routing.Role + 'Review/',
     Add: Routing.Role + 'Review/Add',
@@ -64,6 +67,7 @@ export class Routing {
     EmailExist: Routing.Role + 'Auth/EmailExist/{Email}',
     UserNameExist: Routing.Role + 'Auth/UserNameExist/{Name}',
   };
+
   static Product = {
     Add: Routing.Role + 'Product/Add',
     Update: Routing.Role + 'Product/Update',
@@ -72,6 +76,7 @@ export class Routing {
     GetMaster: Routing.Role + 'Product/GetMaster/{Id}',
     GetById: Routing.Role + 'Product/{Id}',
   };
+
   static Orders = {
     Prefix: Routing.Role + 'Order/',
     Update: Routing.Role + 'Order/Update',
