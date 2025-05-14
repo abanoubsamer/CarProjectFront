@@ -4,12 +4,19 @@ import { AddCompatibilityModel } from '../Model/AddCompatibilityModel';
 import { Observable } from 'rxjs';
 import { Response } from '../../../../Core/BasicResponse/Response';
 import { Routing } from '../../../../Meta/Routing';
+import { GetSKUModel } from '../Model/GetSKUModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompatibilityCommendService {
   private readonly ApiServices = inject(ApiService);
+
+  GetSKU(sku: string): Observable<Response<Array<GetSKUModel>>> {
+    return this.ApiServices.Get<Response<Array<GetSKUModel>>>(
+      Routing.Product.GetMaster.replace('{Id}', sku)
+    );
+  }
 
   AddModelCompatibility(
     requst: AddCompatibilityModel

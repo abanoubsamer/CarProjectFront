@@ -14,7 +14,7 @@
 }
 
 .dropzone {
-  border: 2px dashed #007bff;
+  border: 2px dashed #002a47;
   padding: 20px;
   cursor: pointer;
   background-color: #f8f9fa;
@@ -27,11 +27,11 @@
 
 .upload-icon i {
   font-size: 40px;
-  color: #007bff;
+  color: #002a47;
 }
 
 .btn-browse {
-  background-color: #007bff;
+  background-color: #002a47;
   color: white;
   border: none;
   padding: 10px;
@@ -159,7 +159,7 @@
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: #002a47;
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
@@ -215,7 +215,7 @@
 }
 
 .image-upload-area .dropzone:hover {
-  border-color: #6366f1;
+  border-color: #002a47;
 }
 
 .image-upload-area .dropzone .upload-icon {
@@ -236,7 +236,7 @@
 .image-upload-area .url-link .link-btn {
   background: none;
   border: none;
-  color: #6366f1;
+  color: #002a47;
   cursor: pointer;
   font-size: 14px;
 }
@@ -246,7 +246,7 @@
 }
 
 .btn-primary {
-  background-color: #6366f1;
+  background-color: #002a47;
   color: white;
   border: none;
   border-radius: 4px;
@@ -257,7 +257,7 @@
 }
 
 .btn-primary:hover {
-  background-color: #4f46e5;
+  background-color: #04395e;
 }
 
 .btn-secondary {
@@ -294,7 +294,7 @@
   align-items: center;
   gap: 5px;
   background-color: transparent;
-  color: #6366f1;
+  color: #002a47;
   border: none;
   font-size: 14px;
   cursor: pointer;
@@ -381,7 +381,7 @@
 }
 
 .toggle-switch input:checked + .toggle-label {
-  background-color: #6366f1;
+  background-color: #002a47;
 }
 
 .toggle-switch input:checked + .toggle-label:before {
@@ -528,4 +528,74 @@
 
 .add-more-btn .icon {
   margin-right: 5px;
+}
+.visible {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.visible.show {
+  opacity: 1;
+}
+
+.custom-search-container {
+  position: relative;
+}
+
+.search-results-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 0 0 4px 4px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-results-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-results-list li {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.search-results-list li:last-child {
+  border-bottom: none;
+}
+
+.search-results-list li:hover {
+  background-color: #f8f9fa;
+}
+
+.sku-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.loading-indicator {
+  padding: 15px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.selected-indicator {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #28a745;
+}
+
+input.form-control {
+  padding-right: 30px; /* إضافة مسافة إضافية للأيقونة في حالة وجودها */
 }

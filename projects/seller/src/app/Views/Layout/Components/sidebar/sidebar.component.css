@@ -11,6 +11,7 @@
 }
 .active {
   background-color: #002a47;
+  border: 0;
 }
 @media (max-width: 991.98px) {
   .sidebar {

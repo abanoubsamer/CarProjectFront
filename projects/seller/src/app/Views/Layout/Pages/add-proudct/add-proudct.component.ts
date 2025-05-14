@@ -1,13 +1,17 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AddProductModel } from '../../../../Services/Product/Commend/Models/AddProductModel';
 import { ProductCommendService } from '../../../../Services/Product/Commend/Handler/product-commend.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatFormSharedModule } from '../../../../Shared/Modules/mat-form-shared.module';
 import { QuillModule } from 'ngx-quill';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Routing } from '../../../../Meta/Routing';
-
 import { GetCategoryModel } from '../../../../Services/Category/Queries/Models/GetCategoryModel';
 import { GetCarBrandModel } from '../../../../Services/Car/Queries/Models/GetCarBrandModel';
 import { ModelQuereisService } from '../../../../Services/Models/Quereis/Handler/model-quereis.service';
@@ -18,6 +22,8 @@ import { CarBrandQueriesService } from '../../../../Services/Car/Queries/Handler
 import { modelCompatibilityDtos } from '../../../../Core/Dtos/modelCompatibilityDtos';
 import { SharedModuleModule } from '../../../../../../../user/src/app/Shared/Modules/shared-module.module';
 import { CompatibilityCommendService } from '../../../../Services/Compatibility/Commend/Handler/compatibility-commend.service';
+import { debounceTime, distinctUntilChanged, filter, Subject } from 'rxjs';
+import { GetSKUModel } from '../../../../Services/Compatibility/Commend/Model/GetSKUModel';
 @Component({
   selector: 'app-add-proudct',
   imports: [
@@ -49,6 +55,45 @@ export class AddProudctComponent implements OnInit {
   selectedModel: any;
   selectedCategory: any;
   Ip = Routing.Ip;
+  selectedSku: any;
+  items: any[] = [];
+  skuSelected: boolean = false;
+  searchControl = new FormControl();
+  showDropdown: boolean = false;
+  performSearch(term: string) {
+    console.log('Searching for:', term);
+    this._ModelCampatibilityServices.GetSKU(term).subscribe((results: any) => {
+      this.items = results.data || [];
+      console.log(this.items);
+
+      console.log('Search results:', this.items);
+      this.showDropdown = this.items.length > 0;
+      this.skuSelected = false;
+      this.selectedSku = null;
+    });
+  }
+
+  selectItem(item: any) {
+    this.selectedSku = item;
+    this.selectedCategory = item.categoryID;
+
+    this.searchControl.setValue(item.sku, { emitEvent: false });
+    this.showDropdown = false;
+    this.skuSelected = true;
+  }
+
+  onFocus() {
+    if (this.items.length > 0) {
+      this.showDropdown = true;
+    }
+  }
+
+  onBlur() {
+    setTimeout(() => {
+      this.showDropdown = false;
+    }, 200);
+  }
+
   activeSection: string = 'restock';
   private readonly _ModelQuereisService = inject(ModelQuereisService);
   private readonly _CategoryServices = inject(CategoryQuereisService);
@@ -57,6 +102,17 @@ export class AddProudctComponent implements OnInit {
     CompatibilityCommendService
   );
   private readonly _Navigation = inject(NavigationService);
+  AddNewModelCampatibility() {
+    if (!this.selectedSku) {
+      const visible = document.querySelector('.visible') as HTMLElement;
+      if (visible) {
+        visible.style.display = 'block'; // خلي العنصر ظاهر
+        setTimeout(() => {
+          visible.classList.add('show'); // أضف الكلاس اللي بيعمل أنيميشن
+        }, 10); // تأخير بسيط عشان الـ transition يتفعل
+      }
+    }
+  }
 
   GetMaxAndMinYearsWithBrands(event: any) {
     this.RangeYear = event.RnageYera;
@@ -64,6 +120,8 @@ export class AddProudctComponent implements OnInit {
     this.selectMaxYear = null;
   }
   click() {
+    console.log(this.selectedSku?.sku ?? '', this.searchControl?.value);
+
     if (this.selectMaxYear && this.selectMinYear && this.selectedModel) {
       if (
         this.ModelCampatibilityView.find(
@@ -88,7 +146,7 @@ export class AddProudctComponent implements OnInit {
         modelId: this.selectedModel.id,
         minYear: this.selectMinYear,
         maxYear: this.selectMaxYear,
-        productId: '',
+        sKU: this.selectedSku?.sku ?? this.searchControl?.value,
       });
       this.selectMaxYear = null;
       this.selectMinYear = null;
@@ -223,6 +281,15 @@ export class AddProudctComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        filter((term) => term && term.length >= 2)
+      )
+      .subscribe((term) => {
+        this.performSearch(term);
+      });
     this.LodingCategory();
     this.LodingCarBrand();
   }
@@ -234,8 +301,6 @@ export class AddProudctComponent implements OnInit {
   isActive(section: string): boolean {
     return this.activeSection === section;
   }
-
-  // confirmAddToStock(): void {
 
   // Method to save draft
   saveDraft() {
@@ -251,12 +316,17 @@ export class AddProudctComponent implements OnInit {
       this.Toster.error('Please select Category.');
       return;
     }
-    if (this.ModelCompatibility.length == 0) {
+    if (this.ModelCompatibility.length == 0 && !this.selectedSku?.sku) {
       this.Toster.error('Please select Model Compatibility.');
+      return;
+    }
+    if (!this.selectedSku?.sku && !this.searchControl?.value) {
+      this.Toster.error('Please Enter SKU');
       return;
     }
     if (this.productForm.valid) {
       var requst: AddProductModel = {
+        sKU: this.selectedSku?.sku ?? this.searchControl?.value,
         CategoryID: this.selectedCategory,
         Description: this.productForm.value.description,
         FormImages: this.images,
@@ -268,18 +338,19 @@ export class AddProudctComponent implements OnInit {
 
       this._ProductCommendService.AddProduct(requst).subscribe((res) => {
         if (res.success) {
-          this.ModelCompatibility.map((x) => {
-            x.productId = res.data;
-          });
-          this._ModelCampatibilityServices
-            .AddModelCompatibility({
-              modelCompatibilityDtos: this.ModelCompatibility,
-            })
-            .subscribe((res) => {
-              if (res.success) {
-                this.Toster.success(res.message);
-              }
-            });
+          if (!this.selectedSku?.sku) {
+            this._ModelCampatibilityServices
+              .AddModelCompatibility({
+                modelCompatibilityDtos: this.ModelCompatibility,
+              })
+              .subscribe((res) => {
+                if (res.success) {
+                  this.Toster.success(res.message);
+                }
+              });
+          } else {
+            this.Toster.success(res.message);
+          }
         } else {
           this.Toster.error(res.message);
         }

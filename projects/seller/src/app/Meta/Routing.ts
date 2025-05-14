@@ -69,6 +69,7 @@ export class Routing {
     Update: Routing.Role + 'Product/Update',
 
     Delete: Routing.Role + 'Product/{Id}',
+    GetMaster: Routing.Role + 'Product/GetMaster/{Id}',
     GetById: Routing.Role + 'Product/{Id}',
   };
   static Orders = {

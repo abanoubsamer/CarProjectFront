@@ -29,16 +29,6 @@
             >
             </textarea>
           </div>
-          <div class="form-group">
-            <label for="product-sku">SKU *</label>
-            <input
-              type="text"
-              id="product-sku"
-              class="form-control"
-              required
-              placeholder="Unique SKU identifier"
-            />
-          </div>
 
           <div class="form-group">
             <label for="description">Description *</label>
@@ -52,68 +42,58 @@
               [modules]="editorConfig"
             ></quill-editor>
           </div>
-        </div>
 
-        <div class="card">
-          <h2>Product Images</h2>
-          <div class="image-upload-area">
-            <!-- منطقة السحب والإفلات -->
-            <div
-              class="dropzone"
-              (dragover)="onDragOver($event)"
-              (dragleave)="onDragLeave($event)"
-              (drop)="onDrop($event)"
-              (click)="browseImage()"
-              [class]="{ 'drag-over': isDragOver }"
-            >
-              @if(imagePreviews.length > 0){
-              <div class="image-preview">
-                @for(img of imagePreviews; track img){
-                <div class="preview-item">
-                  <img [src]="img" alt="Uploaded Image" />
-                  <button
-                    type="button"
-                    class="delete-btn"
-                    (click)="removeImage(img, imagePreviews.indexOf(img))"
-                  >
-                    X
-                  </button>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label for="product-sku">SKU *</label>
+                <div class="custom-search-container">
+                  <input
+                    type="text"
+                    id="product-sku"
+                    class="form-control"
+                    [formControl]="searchControl"
+                    placeholder="Search for SKU"
+                    autocomplete="off"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    required
+                  />
+
+                  <div class="search-results-dropdown" *ngIf="showDropdown">
+                    <div class="loading-indicator" *ngIf="items.length === 0">
+                      <span>جاري البحث...</span>
+                    </div>
+                    <ul class="search-results-list" *ngIf="items.length > 0">
+                      <li
+                        *ngFor="let item of items"
+                        (mousedown)="selectItem(item)"
+                      >
+                        <span class="sku-label">SKU:</span> {{ item.sku }}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="selected-indicator" *ngIf="skuSelected">
+                    <i class="fa fa-check-circle"></i>
+                  </div>
                 </div>
-                }
               </div>
-              } @else {
 
-              <div class="upload-icon">
-                <i class="fa fa-cloud-upload"></i>
+              <div class="col">
+                <label for="product-sku"></label>
+                <button
+                  class="btn btn-primary w-100"
+                  style="margin-top: 20px"
+                  (click)="AddNewModelCampatibility()"
+                >
+                  Add New Model
+                </button>
               </div>
-              <p>Drag and drop your images here</p>
-              <button type="button" class="btn-browse">Browse images</button>
-              }
-            </div>
-
-            <!-- زر رفع الصور عبر المتصفح -->
-            <input
-              type="file"
-              #fileInput
-              (change)="onFileSelect($event)"
-              accept="image/*"
-              multiple
-              hidden
-            />
-
-            <!-- رفع صورة من خلال رابط -->
-            <div class="url-link">
-              <button
-                type="button"
-                class="link-btn"
-                (click)="addMediaFromUrl()"
-              >
-                Add media from URL
-              </button>
             </div>
           </div>
         </div>
-        <div class="card">
+        <div class="card visible">
           <h2>Vehicle Compatibility</h2>
           <div class="row">
             <div class="col">
@@ -225,6 +205,65 @@
               </div>
             </div>
             }
+          </div>
+        </div>
+        <div class="card">
+          <h2>Product Images</h2>
+          <div class="image-upload-area">
+            <!-- منطقة السحب والإفلات -->
+            <div
+              class="dropzone"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event)"
+              (click)="browseImage()"
+              [class]="{ 'drag-over': isDragOver }"
+            >
+              @if(imagePreviews.length > 0){
+              <div class="image-preview">
+                @for(img of imagePreviews; track img){
+                <div class="preview-item">
+                  <img [src]="img" alt="Uploaded Image" />
+                  <button
+                    type="button"
+                    class="delete-btn"
+                    (click)="removeImage(img, imagePreviews.indexOf(img))"
+                  >
+                    X
+                  </button>
+                </div>
+                }
+              </div>
+              } @else {
+
+              <div class="upload-icon">
+                <i class="fa fa-cloud-upload"></i>
+              </div>
+              <p>Drag and drop your images here</p>
+              <button type="button" class="btn-browse">Browse images</button>
+              }
+            </div>
+
+            <!-- زر رفع الصور عبر المتصفح -->
+            <input
+              type="file"
+              #fileInput
+              (change)="onFileSelect($event)"
+              accept="image/*"
+              multiple
+              hidden
+            />
+
+            <!-- رفع صورة من خلال رابط -->
+            <div class="url-link">
+              <button
+                type="button"
+                class="link-btn"
+                (click)="addMediaFromUrl()"
+              >
+                Add media from URL
+              </button>
+            </div>
           </div>
         </div>
       </div>
