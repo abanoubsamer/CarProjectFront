@@ -1,8 +1,9 @@
-<div class="container">
-  <div class="rating-container text-center">
-    <div class="rating-emoji">😊</div>
+<div class="popup-overlay">
+  <div class="popup-content">
+    <span class="close-btn" (click)="close()">&times;</span>
     <h3 class="rating-title">How was your experience?</h3>
-    <div class="star-rating">
+    <div class="rating-emoji text-center">😊</div>
+    <div rate class="star-rating text-center">
       <input type="radio" id="star5" name="rating" value="5" />
       <label for="star5" class="fas fa-star"></label>
       <input type="radio" id="star4" name="rating" value="4" />
@@ -18,9 +19,16 @@
       <textarea
         class="form-control"
         rows="3"
+        #feedback
         placeholder="Tell us about your experience (optional)"
       ></textarea>
     </div>
-    <button class="submit-rating">Submit Rating</button>
+    <button
+      type="submit"
+      (click)="Addfeedback(feedback.value)"
+      class="btn btn-success mt-3"
+    >
+      Submit Rating
+    </button>
   </div>
 </div>

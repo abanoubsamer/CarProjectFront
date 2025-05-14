@@ -32,8 +32,9 @@ export class ProductQuereisService {
   getSellerProduct(
     PageNumber: number,
     PageSize: number,
-    filter: any
+    filter: any = {}
   ): Observable<PagintationResponse<GetSellerProductsModel>> {
+    filter['sellerID'] = localStorage.getItem('sellerID');
     return this._apiServices.GetWithPagination<
       PagintationResponse<GetSellerProductsModel>
     >(Routing.Seller.GetSellersProducts, PageNumber, PageSize, filter);

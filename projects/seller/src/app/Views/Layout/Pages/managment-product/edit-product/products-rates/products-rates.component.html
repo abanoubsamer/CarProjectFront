@@ -8,16 +8,19 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-4 text-center">
-          <h1 class="display-4 mt-3 mb-4">{{ averageRating.toFixed(2) }}</h1>
+          <h1 class="display-4 mt-3 mb-4">
+            {{ reviews.averageRating.toFixed(2) }}
+          </h1>
 
           <div class="mb-3 text-warning">
             @for (i of [1,2,3,4,5] ; track i) {
             <i
               class="
                   {{
-                i <= fullStars(averageRating)
+                i <= fullStars(reviews.averageRating)
                   ? 'fa-solid fa-star'
-                  : fullStars(averageRating) && i - 0.5 <= averageRating
+                  : fullStars(reviews.averageRating) &&
+                    i - 0.5 <= reviews.averageRating
                   ? 'fa-solid fa-star-half-alt'
                   : 'fa-regular fa-star'
               }} "
@@ -25,7 +28,9 @@
             ></i>
             }
           </div>
-          <h6 class="text-muted">Based on {{ Ratings.length }} reviews</h6>
+          <h6 class="text-muted">
+            Based on {{ reviews.namberReviews }} reviews
+          </h6>
         </div>
         <div class="col-md-8">
           <div class="rating-bars">
@@ -36,15 +41,16 @@
                 >
                   <span>{{ star }} stars</span>
                   <small class="text-muted"
-                    >{{ percentages[star] | number : "1.0-0" }}%</small
+                    >{{ reviews.percentages[star] | number : "1.0-0" }}%</small
                   >
                 </div>
                 <div class="progress" style="height: 10px">
                   <div
                     class="progress-bar bg-warning"
                     role="progressbar"
-                    [style.width.%]="percentages[star]"
-                    [attr.aria-valuenow]="percentages[star]"
+                    [style.width.%]="reviews.percentages[star]"
+                    [attr.aria-valuenow]="reviews.percentages[star]"
+                    [attr.aria-valuenow]="reviews.percentages[star]"
                     aria-valuemin="0"
                     aria-valuemax="100"
                   ></div>
@@ -54,23 +60,6 @@
           </div>
         </div>
       </div>
-      <hr />
-      <div class="text-center mt-4">
-        <button
-          class="btn btn-review"
-          data-bs-toggle="modal"
-          data-bs-target="#ratingModal"
-          (click)="showPopup()"
-        >
-          Write a Review
-        </button>
-      </div>
     </div>
   </div>
 </div>
-
-<app-popup
-  [prodctId]="Productid"
-  *ngIf="isPopupVisible"
-  (closePopup)="hidePopup()"
-></app-popup>

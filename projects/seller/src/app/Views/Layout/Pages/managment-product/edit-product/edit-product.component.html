@@ -1,11 +1,22 @@
-<!-- product-form.component.html -->
+<a
+  (click)="BackWord()"
+  class="list-group-item list-group-item-action ms-2 back"
+>
+  <i class="fa fa-arrow-left fa-fw me-3" aria-hidden="true"
+    ><span class="ms-2 back" [style]="{ cursor: 'pointer' }">Back</span>
+  </i>
+</a>
 <div class="product-form-container">
   <div class="header">
-    <h1>Edit Product</h1>
+    <h1>Details Product</h1>
     <p>Online product across your store</p>
     <div class="actions">
-      <button class="btn-secondary" (click)="saveDraft()">Save draft</button>
-      <button type="submit" (click)="publishProduct()" class="btn-primary">
+      <button
+        type="submit"
+        [disabled]="IsUpdate()"
+        (click)="UpdateProduct()"
+        class="btn-primary"
+      >
         Update product
       </button>
     </div>
@@ -13,14 +24,12 @@
 
   <form [formGroup]="productForm">
     <div class="form-layout">
-      <!-- Left column -->
       <div class="main-column">
-        <!-- Product Information Section -->
         <div class="card">
           <h2>Product information</h2>
 
           <div class="form-group">
-            <label for="name">Name *</label>
+            <label for="name">Name</label>
             <textarea
               type="text"
               id="name"
@@ -29,19 +38,9 @@
             >
             </textarea>
           </div>
-          <div class="form-group">
-            <label for="product-sku">SKU *</label>
-            <input
-              type="text"
-              id="product-sku"
-              class="form-control"
-              required
-              placeholder="Unique SKU identifier"
-            />
-          </div>
 
           <div class="form-group">
-            <label for="description">Description *</label>
+            <label for="description">Description</label>
             <div class="text-editor-toolbar"></div>
             <quill-editor
               id="description"
@@ -57,7 +56,6 @@
         <div class="card">
           <h2>Product Images</h2>
           <div class="image-upload-area">
-            <!-- منطقة السحب والإفلات -->
             <div
               class="dropzone"
               (dragover)="onDragOver($event)"
@@ -68,13 +66,13 @@
             >
               @if(imagePreviews.length > 0){
               <div class="image-preview">
-                @for(img of imagePreviews; track img){
+                @for(img of imagePreviews; track img.id){
                 <div class="preview-item">
-                  <img [src]="img" alt="Uploaded Image" />
+                  <img [src]="img.image" alt="Uploaded Image" />
                   <button
                     type="button"
                     class="delete-btn"
-                    (click)="removeImage(img, imagePreviews.indexOf(img))"
+                    (click)="removeImage(img.image, imagePreviews.indexOf(img))"
                   >
                     X
                   </button>
@@ -100,134 +98,6 @@
               multiple
               hidden
             />
-
-
-<!-- رفع صورة من خلال رابط -->
-            <div class="url-link">
-              <button
-                type="button"
-                class="link-btn"
-                (click)="addMediaFromUrl()"
-              >
-                Add media from URL
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <h2>Vehicle Compatibility</h2>
-          <div class="row">
-            <div class="col">
-              <div class="selection-item">
-                <ng-select
-                  [items]="CarBrands"
-                  bindLabel="name"
-                  placeholder="Select Brand"
-                  [searchable]="true"
-                  [(ngModel)]="selectedBrand"
-                  [ngModelOptions]="{ standalone: true }"
-                  [clearable]="true"
-                  [virtualScroll]="true"
-                  [selectOnTab]="true"
-                  (change)="GetModelsWithBrands($event)"
-                >
-                  <ng-template ng-option-tmp let-item="item">
-                    {{ item.name }}
-                  </ng-template>
-                </ng-select>
-              </div>
-            </div>
-            <div class="col">
-              <div class="selection-item">
-                <ng-select
-                  [items]="Models"
-                  bindLabel="displayName"
-                  placeholder="Select Model 2"
-                  [searchable]="true"
-                  [clearable]="true"
-                  [(ngModel)]="selectedModel"
-                  [ngModelOptions]="{ standalone: true }"
-                  [disabled]="!selectedBrand"
-                  [virtualScroll]="true"
-                  [selectOnTab]="true"
-                  (change)="GetMaxAndMinYearsWithBrands($event)"
-                >
-                  <ng-template ng-option-tmp let-item="item">
-                    {{ item.displayName }}
-                  </ng-template>
-                </ng-select>
-              </div>
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col">
-              <div class="selection-item">
-                <ng-select
-                  [items]="RangeYear"
-                  placeholder="Min Year"
-                  [(ngModel)]="selectMinYear"
-                  [ngModelOptions]="{ standalone: true }"
-                  [disabled]="RangeYear.length == 0"
-                  [searchable]="true"
-                  [clearable]="true"
-                  [virtualScroll]="true"
-                  [selectOnTab]="true"
-                >
-                </ng-select>
-              </div>
-            </div>
-            <div class="col">
-              <div class="selection-item">
-                <ng-select
-                  [items]="RangeYear"
-                  placeholder="Max Year"
-                  [placeholder]="'Max Year'"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="selectMaxYear"
-                  [disabled]="RangeYear.length == 0"
-                  [searchable]="true"
-                  [clearable]="true"
-                  [virtualScroll]="true"
-                  [selectOnTab]="true"
-                >
-                </ng-select>
-              </div>
-            </div>
-          </div>
-          <div class="mt-5">
-            <button
-              class="btn btn-primary W-100"
-              style="display: flex; justify-content: center; margin: auto"
-              (click)="click()"
-            >
-              Add Compatibility
-            </button>
-          </div>
-          <h2 class="section-title">Technical Specifications</h2>
-          <div class="specifications-container">
-            @for (Model of ModelCampatibilityView; track Model.ModelName) {
-            <div class="spec-row">
-              <input
-                type="text"
-                class="form-control"
-                disabled
-                value="{{ Model.BrandName }} - {{ Model.ModelName }}"
-              />
-              <input
-                type="text"
-                class="form-control"
-                disabled
-
-
-value="{{ Model.MinYear }} - {{ Model.MaxYear }}"
-              />
-              <div class="spec-row-actions">
-                <button (click)="remove(Model)" type="button" title="Remove">
-                  ❌
-                </button>
-              </div>
-            </div>
-            }
           </div>
         </div>
       </div>
@@ -271,43 +141,48 @@ value="{{ Model.MinYear }} - {{ Model.MaxYear }}"
 
         <div class="card">
           <h2>Organize</h2>
+
           <div class="form-group">
-            <!-- Right side: Service Selection Panel -->
-            <div class="service-panel">
-              <!-- Tabs for service types -->
-
-              <div class="car-selection">
-                <!-- Select Brand -->
-
-                <!-- Select Model -->
-
-                <!-- Select Category -->
-                <div class="selection-item">
-                  <ng-select
-                    [items]="Categorys"
-                    bindLabel="name"
-                    bindValue="id"
-                    groupBy="subCategories"
-                    [searchable]="true"
-                    [selectOnTab]="true"
-                    placeholder="Select Category"
-                    (change)="SelectCategory($event)"
-                  >
-                    <ng-template ng-optgroup-tmp let-item="item">
-                      <hr />
-
-                      {{ item.name }}
-                      <hr />
-                    </ng-template>
-
-                    <ng-template ng-option-tmp let-item="item">
-                      {{ item.name }}
-                    </ng-template>
-                  </ng-select>
-                </div>
-              </div>
+            <label for="basePrice">Category</label>
+            <div class="input-container">
+              <input
+                type="text"
+                id="basePrice"
+                class="custom-input"
+                value="{{ product?.category?.name }}"
+                placeholder="Price"
+                readonly
+              />
             </div>
           </div>
+
+          @if(IsUpdateCategory){
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" (change)="onCategoryChange($event.target)">
+              <option value="">-- Select Category --</option>
+              <!-- @for (categorie of categories; track categorie.id) {
+              <ng-container>
+                <option [value]="categorie.id">{{ categorie.name }}</option>
+              </ng-container>
+              } -->
+            </select>
+          </div>
+          @if(subcategories.length > 0){
+          <div class="form-group">
+            <label>SubCategories</label>
+            <ul>
+              <!-- @for (sub of subcategories; track sub.id) {
+              <ng-container>
+                <app-subcategory-item
+                  [subcategory]="sub"
+                  (subCategorySelected)="onSubCategoryChange($event)"
+                ></app-subcategory-item>
+              </ng-container>
+              } -->
+            </ul>
+          </div>
+          }}
 
           <div class="form-group">
             <label for="collection">Stock</label>
@@ -318,23 +193,61 @@ value="{{ Model.MinYear }} - {{ Model.MaxYear }}"
               class="form-control"
             />
           </div>
-
-          <!-- <div class="form-group">
-             <label for="tags">Tags</label>
-             <div class="tags-input">
-               <div class="tag">Normal <span class="remove">×</span></div>
-               <div class="tag">Standard <span class="remove">×</span></div>
-               <div class="tag">Premium <span class="remove">×</span></div>
-               <input
-                 type="text"
-                 id="tags"
-                 formControlName="tags"
-                 placeholder="Add tag"
-               />
-             </div>
-           </div> -->
         </div>
       </div>
     </div>
   </form>
 </div>
+
+<app-products-rates [ProductId]="product?.id || ''"></app-products-rates>
+
+<!-- Customer Reviews Section -->
+@if(reviews.length > 0){
+<div class="product-reviews mt-4">
+  <h5>Customer Reviews</h5>
+  <div class="reviews-list">
+    <!-- Loop through reviews -->
+
+    @for ( review of reviews | paginate: { id: 'foo', itemsPerPage:pageSize,
+    currentPage: p, totalItems: total } ; track review.reviewID) {
+    <div class="review-item mb-3">
+      <div class="d-flex justify-content-between">
+        <span class="review-author"
+          ><strong>{{ review.user.name }}</strong></span
+        >
+        <div class="review-rating">
+          @for (rate of [1, 2, 3, 4, 5]; track rate) {
+          <i
+            class="fa-solid"
+            [class]="{
+              'fa-star': rate <= review.rating,
+              'fa-star-o': rate > review.rating
+            }"
+            aria-hidden="true"
+          ></i>
+          }
+        </div>
+      </div>
+      <p>{{ review.comment }}</p>
+      <span class="time">{{ review.reviewDate }}</span>
+    </div>
+    }
+  </div>
+  <pagination-controls
+    id="foo"
+    (pageChange)="pageChanged($event)"
+    (pageBoundsCorrection)="pageChanged($event)"
+    previousLabel="Previous"
+    nextLabel="Next"
+    screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page"
+    screenReaderCurrentLabel="You're on page"
+  >
+  </pagination-controls>
+</div>
+
+}@else {
+<div class="product-reviews mt-4">
+  <h5>No Reviews</h5>
+</div>
+}

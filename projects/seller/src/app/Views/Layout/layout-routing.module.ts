@@ -21,12 +21,12 @@ const routes: Routes = [
             (c) => c.AddProudctComponent
           ),
       },
-      
+
       {
-        path: 'EditProduct',
-        loadComponent: () =>
-          import('./Pages/managment-product/edit-product/edit-product.component').then(
-            (c) => c.EditProductComponent
+        path: 'ManagmentProduct',
+        loadChildren: () =>
+          import('./Pages/managment-product/managementproduct.module').then(
+            (m) => m.ManagementproductModule
           ),
       },
 

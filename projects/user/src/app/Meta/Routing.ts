@@ -49,6 +49,7 @@ export class Routing {
   };
 
   static Review = {
+    Add: Routing.Role + 'Review/Add',
     GetReviewStatistic: Routing.Role + 'Review/GetRatingStatistics/{Id}',
   };
 

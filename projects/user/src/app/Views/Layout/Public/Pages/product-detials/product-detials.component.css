@@ -1,62 +1,54 @@
 .product-reviews {
   margin-top: 30px;
-
-  h5 {
-    font-size: 18px;
-    color: #2874f0;
-  }
-
-  .reviews-list {
-    margin-top: 15px;
-  }
-
-  .review-item {
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 10%);
-    margin-bottom: 20px;
-
-    .d-flex {
-      justify-content: space-between;
-    }
-
-    .review-author {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .review-rating {
-      font-size: 14px;
-      color: #f39c12;
-    }
-
-    p {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #555;
-    }
-  }
-
-  .add-review {
-    margin-top: 30px;
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    textarea {
-      resize: none;
-    }
-  }
 }
+.product-reviews h5 {
+  font-size: 18px;
+  color: #2874f0;
+}
+.product-reviews .reviews-list {
+  margin-top: 15px;
+}
+.product-reviews .review-item {
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 10%);
+  margin-bottom: 20px;
+}
+.product-reviews .review-item .d-flex {
+  justify-content: space-between;
+}
+.product-reviews .review-item .review-author {
+  font-size: 16px;
+  font-weight: 600;
+}
+.product-reviews .review-item .review-rating {
+  font-size: 14px;
+  color: #f39c12;
+}
+.product-reviews .review-item p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+.product-reviews .add-review {
+  margin-top: 30px;
+}
+.product-reviews .add-review .form-group {
+  margin-bottom: 15px;
+}
+.product-reviews .add-review textarea {
+  resize: none;
+}
+
 .btn-cart {
   background-color: #264e7e;
   color: #fff;
   transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #213a59;
-  }
 }
+.btn-cart:hover {
+  background-color: #213a59;
+}
+
 /* Product View */
 .product-view .product-name {
   font-size: 24px;
@@ -108,12 +100,13 @@
   outline: none;
   text-align: center;
 }
-.product-image {
-  width: 100%; /* اجعل العرض 100% ليتناسب مع حجم العنصر الأب */
-  height: 400px; /* ارتفاع ثابت */
-  object-fit: contain; /* احتواء الصورة داخل الإطار بدون قص */
-  border-radius: 10px; /* تحسين المظهر */
 
+.product-image {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+
+  border-radius: 10px;
   display: block;
 }
 
@@ -125,11 +118,9 @@
 }
 
 .thumbnail {
-  width: calc(25% - 10px); /* يجعل كل صورة تأخذ ربع العرض مع احتساب المسافات */
-  max-width: 150px; /* حد أقصى للحجم */
-  height: auto;
   width: 80px;
-
+  max-width: 150px;
+  height: auto;
   object-fit: cover;
   cursor: pointer;
   opacity: 0.6;
@@ -140,10 +131,9 @@
 .thumbnail.active {
   opacity: 1;
 }
-.description {
-  span {
-    white-space: pre-wrap;
-    word-break: break-word;
-    width: 10px;
-  }
+
+.description span {
+  white-space: pre-wrap;
+  word-break: break-word;
+  width: 10px;
 }
