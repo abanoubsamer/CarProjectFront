@@ -1,9 +1,10 @@
 import { ProductImagesDto } from '../../../../Core/Dtos/ProductImagesDto';
-import { ReviewDto } from '../../../../Core/Dtos/ReviewDto';
+
 import { SellerDto } from '../../../../Core/Dtos/SellerDto';
+import { GetProductReviowsModel } from '../../../Rating/Queries/Model/GetProductReviowsModel';
 
 export interface GetProductById {
-  reviewDto: ReviewDto[];
+  reviewDto: GetProductReviowsModel[];
   productID: string;
   name: string;
   description: string;

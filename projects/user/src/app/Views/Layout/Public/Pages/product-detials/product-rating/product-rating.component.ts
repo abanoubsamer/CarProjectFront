@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ReviewDto } from '../../../../../../Core/Dtos/ReviewDto';
 import { PopupComponent } from './popup/popup.component';
+import { ReviewStatistic } from '../../../../../../Services/Rating/Queries/Model/ReviewStatistic';
+import { RatingQueryService } from '../../../../../../Services/Rating/Queries/Handler/rating-query.service';
 
 @Component({
   selector: 'app-product-rating',
@@ -11,25 +13,26 @@ import { PopupComponent } from './popup/popup.component';
 })
 export class ProductRatingComponent {
   //#region Failds
-  @Input() Ratings: ReviewDto[] = [];
   @Input() Productid = '';
   averageRating: number = 0;
   isPopupVisible = false;
-  percentages: { [key: number]: number } = {};
+  reviews: ReviewStatistic = {
+    namberReviews: 0,
+    averageRating: 0,
+    percentages: {},
+  };
+
   //#endregion
 
   //#region Injector
-
+  private readonly _RateService = inject(RatingQueryService);
   //#endregion
 
   //#region LiveHook
   ngOnInit(): void {
-    this.percentages = this.calculateRatingPercentage(this.Ratings);
-    if (this.Ratings.length > 0) {
-      this.averageRating =
-        this.Ratings.reduce((sum, x) => sum + x.rating, 0) /
-        this.Ratings.length;
-    }
+    this._RateService.GetReviewStatistic(this.Productid).subscribe((res) => {
+      this.reviews = res.data;
+    });
   }
   //#endregion
 
@@ -44,29 +47,6 @@ export class ProductRatingComponent {
   hidePopup() {
     this.isPopupVisible = false;
   }
-  calculateRatingPercentage(reviews: ReviewDto[]): { [key: number]: number } {
-    const totalReviews = reviews.length;
-    const ratingCounts: { [key: number]: number } = {
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-    };
 
-    reviews.forEach((review) => {
-      if (review.rating >= 1 && review.rating <= 5) {
-        ratingCounts[review.rating]++;
-      }
-    });
-
-    const ratingPercentages: { [key: number]: number } = {};
-    for (let rating = 1; rating <= 5; rating++) {
-      ratingPercentages[rating] =
-        totalReviews > 0 ? (ratingCounts[rating] / totalReviews) * 100 : 0;
-    }
-
-    return ratingPercentages;
-  }
   //#endregion
 }

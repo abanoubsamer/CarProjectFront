@@ -11,10 +11,13 @@ import { SharedDataService } from '../../../../../Services/SharedDataService/sha
 import { NavigationService } from '../../../../../Services/Navigation/navigation.service';
 import { CartService } from '../../../../../Services/Cart/Handler/cart.service';
 import { catchError, Observable, tap } from 'rxjs';
+import { RatingQueryService } from '../../../../../Services/Rating/Queries/Handler/rating-query.service';
+import { ReviewStatistic } from '../../../../../Services/Rating/Queries/Model/ReviewStatistic';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-product-detials',
-  imports: [CommonModule, ProductRatingComponent],
+  imports: [CommonModule, ProductRatingComponent, NgxPaginationModule],
   templateUrl: './product-detials.component.html',
   styleUrl: './product-detials.component.css',
 })
@@ -24,12 +27,16 @@ export class ProductDetialsComponent implements OnInit {
   Ip = Routing.Ip;
   userId = localStorage.getItem('userId');
   selectedImage: string = '';
-
+  filter: any = {};
+  pageSize = 5;
+  p = 1;
+  total: number = 0;
   //#endregion
 
   //#region Injectors
   private readonly _CardService = inject(CartService);
   private readonly _totservice = inject(ToastrService);
+  private readonly _RateService = inject(RatingQueryService);
   private readonly _sharedDataService = inject(SharedDataService);
   private readonly _NavigationBar = inject(NavigationService);
   private readonly route = inject(ActivatedRoute);
@@ -40,10 +47,11 @@ export class ProductDetialsComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(({ ProductId }) => {
       this.product = ProductId;
+      this.filter['ProductId'] = this.product.productID;
       this.product.description = this.product.description
         .replace(/,/g, '<br>')
         .replace(/\./g, '<br>');
-      console.log(this.product);
+      this.GetReviewPaginagtion(this.p, this.pageSize, this.filter);
     });
     setTimeout(() => {
       window.scrollTo({
@@ -55,6 +63,14 @@ export class ProductDetialsComponent implements OnInit {
   //#endregion
 
   //#region Method
+  GetReviewPaginagtion(p: number, pageSize: number, filter: object) {
+    this._RateService
+      .getSellerProductReviews(p, pageSize, filter)
+      .subscribe((res) => {
+        this.product.reviewDto = res.data;
+        this.total = res.totalCount;
+      });
+  }
   changeImage(event: Event, newSrc: string) {
     this.selectedImage = newSrc;
   }
@@ -102,6 +118,14 @@ export class ProductDetialsComponent implements OnInit {
         })
       );
   }
+  pageChanged(event: number) {
+    this.p = event;
+    this.GetReviewPaginagtion(this.p, this.pageSize, this.filter);
 
+    // const element = document.getElementById('products-container');
+    // if (element) {
+    //   this.smoothScrollTo(element.getBoundingClientRect().top - 70);
+    // }
+  }
   //#endregion
 }

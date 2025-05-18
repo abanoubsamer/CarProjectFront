@@ -98,23 +98,20 @@
       </div>
     </div>
 
-    <app-product-rating
-      [Productid]="product.productID"
-      [Ratings]="product.reviewDto"
-    ></app-product-rating>
+    <app-product-rating [Productid]="product.productID"></app-product-rating>
 
     <!-- Customer Reviews Section -->
-    <div class="product-reviews mt-4">
-      <h5>Customer Reviews</h5>
+    <div class="product-reviews mt-5">
+      <h4 class="mb-4 title border-bottom pb-2">Customer Reviews</h4>
       <div class="reviews-list">
-        <!-- Loop through reviews -->
-
-        @for ( review of product.reviewDto; track review.reviewID) {
-        <div class="review-item mb-3">
-          <div class="d-flex justify-content-between">
-            <span class="review-author"
-              ><strong>{{ review.userName }}</strong></span
-            >
+        @for (review of product.reviewDto | paginate: { id: 'foo', itemsPerPage:
+        pageSize, currentPage: p, totalItems: total }; track review.reviewID) {
+        <div class="review-item p-4 mb-4 rounded shadow-sm bg-white border">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-user-circle fa-lg me-2 text-secondary"></i>
+              <strong class="text-dark">{{ review.user.name }}</strong>
+            </div>
             <div class="review-rating">
               @for (rate of [1, 2, 3, 4, 5]; track rate) {
               <i
@@ -128,11 +125,25 @@
               }
             </div>
           </div>
-          <p>{{ review.comment }}</p>
-          <span class="time">{{ review.reviewDate }}</span>
+          <p class="mb-2 text-secondary fst-italic">"{{ review.comment }}"</p>
+          <span class="time text-muted small">
+            <i class="fa-regular fa-clock me-1"></i>{{ review.reviewDate }}
+          </span>
         </div>
         }
       </div>
+
+      <pagination-controls
+        id="foo"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        previousLabel="Previous"
+        nextLabel="Next"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page"
+      >
+      </pagination-controls>
     </div>
   </div>
 </div>

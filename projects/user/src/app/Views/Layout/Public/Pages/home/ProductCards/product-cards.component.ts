@@ -91,7 +91,7 @@ export class ProductCardsComponent implements OnInit {
 
     const element = document.getElementById('products-container');
     if (element) {
-      this.smoothScrollTo(element.offsetTop - 100);
+      this.smoothScrollTo(element.getBoundingClientRect().top - 70);
     }
   }
 
@@ -109,26 +109,35 @@ export class ProductCardsComponent implements OnInit {
 
   //#region  Scroll
   private smoothScrollTo(targetPosition: number, duration: number = 500) {
+    const elementPosition = targetPosition;
+    const offsetPosition = elementPosition + window.pageYOffset;
+
+    // Smooth scroll with easing
     const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    const startTime = performance.now();
+    const distance = offsetPosition - startPosition;
 
-    const animateScroll = (currentTime: number) => {
-      const elapsedTime = currentTime - startTime;
-      const progress = Math.min(elapsedTime / duration, 1);
-      const ease =
-        progress < 0.5
-          ? 2 * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+    let start: number | null = null;
 
-      window.scrollTo(0, startPosition + distance * ease);
+    function animation(currentTime: number) {
+      if (start === null) start = currentTime;
+      const timeElapsed = currentTime - start;
+      const progress = Math.min(timeElapsed / duration, 1);
 
-      if (progress < 1) {
-        requestAnimationFrame(animateScroll);
+      const easeInOutCubic = (progress: number): number => {
+        return progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      };
+
+      window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
       }
-    };
+    }
 
-    requestAnimationFrame(animateScroll);
+    requestAnimationFrame(animation);
   }
+
   //#endregion
 }

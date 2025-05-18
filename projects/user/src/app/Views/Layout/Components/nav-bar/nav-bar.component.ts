@@ -53,4 +53,7 @@ export class NavBarComponent implements OnInit {
   GetCart() {
     this._Navigation.NavigationByUrl(`Security/Cart`);
   }
+  IsAuth(): boolean {
+    return localStorage.getItem('token') ? true : false;
+  }
 }

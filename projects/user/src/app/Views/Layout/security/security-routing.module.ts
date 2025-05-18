@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { OrdersComponent } from './orders/orders.component';
 import { userOrdersResolver } from '../../../Resolver/user-orders.resolver';
+import { authGuard } from '../../../Guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
         loadComponent: () =>
           import('./cart/cart.component').then((m) => m.CartComponent),
         resolve: { CardUser: userCardResolver },
+        canMatch: [authGuard],
       },
       {
         path: 'Checkout',
@@ -26,17 +28,20 @@ const routes: Routes = [
             (m) => m.CheckOutComponent
           ),
       },
-      { path: 'profile', component: ProfileComponent, title: 'profile' },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./profile/profile.component').then((m) => m.ProfileComponent),
+        canMatch: [authGuard],
+        title: 'profile',
+      },
 
       {
-        path: 'changepassword',
-        component: ChangepasswordComponent,
-        title: 'changepassword',
-      },
-      {
         path: 'orders',
-        component: OrdersComponent,
+        loadComponent: () =>
+          import('./orders/orders.component').then((m) => m.OrdersComponent),
         resolve: { userOrders: userOrdersResolver },
+        canMatch: [authGuard],
         title: 'orders',
       },
     ],
