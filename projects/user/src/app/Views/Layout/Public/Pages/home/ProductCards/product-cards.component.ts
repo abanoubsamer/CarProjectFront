@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { GetProducts } from '../../../../../../Services/Product/Queries/Models/GetProducts';
 import { Routing } from '../../../../../../Meta/Routing';
@@ -9,6 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
 import { CartService } from '../../../../../../Services/Cart/Handler/cart.service';
 import { AddIteamCart } from '../../../../../../Services/Cart/Models/AddToCart';
+import { SharedDataService } from '../../../../../../Services/SharedDataService/shared-data.service';
 @Component({
   selector: 'app-product-cards',
   imports: [NotFoundComponent, SharedModuleModule, NgxPaginationModule],
@@ -22,18 +23,18 @@ export class ProductCardsComponent implements OnInit {
   p = 1;
   total: number = 0;
   userId = localStorage.getItem('userId');
+  @Input() filter: object = {};
 
   //cache
   private pageCache = new Map<number, GetProducts[]>();
-
   private _ProductService = inject(QueriesProductService);
+  private _ShardedDataService = inject(SharedDataService);
   private readonly _CartServices = inject(CartService);
-
   private _totservice = inject(ToastrService);
   private readonly NavigationUrl = inject(NavigationService);
 
   ngOnInit(): void {
-    this.GetProductPagination(this.p, this.pageSize);
+    this.GetProductPagination(this.p, this.pageSize, this.filter);
   }
 
   AddToCart(productId: string) {
@@ -42,10 +43,16 @@ export class ProductCardsComponent implements OnInit {
       userId: this.userId,
       quantity: 1,
     } as AddIteamCart;
-    this._CartServices.addToCart(requset).subscribe((res) => {
-      if (res.success) {
-        this._totservice.success('Success Add To Cart');
-      }
+    this._CartServices.addToCart(requset).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this._totservice.success('Success Add Prouct In Cart');
+          this._ShardedDataService.updateCartCount(1);
+        }
+      },
+      error: (err) => {
+        this._totservice.warning(err.error.message);
+      },
     });
   }
 
@@ -80,7 +87,7 @@ export class ProductCardsComponent implements OnInit {
 
   pageChanged(event: number) {
     this.p = event;
-    this.GetProductPagination(this.p, this.pageSize);
+    this.GetProductPagination(this.p, this.pageSize, this.filter);
 
     const element = document.getElementById('products-container');
     if (element) {

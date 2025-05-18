@@ -1,4 +1,4 @@
-<div class="py-3 py-md-5 bg-light">
+<div class="py-3 py-md-5">
   <div class="container">
     <div class="row">
       <!-- Product Images -->
@@ -27,8 +27,10 @@
         <h2 class="mb-3">{{ product.name }}</h2>
         <p class="text-muted mb-4">SKU: WH1000XM4</p>
         <div class="mb-3">
-          <span class="h4 me-2">${{ product.price }}</span>
-          <span class="text-muted"><s>$399.99</s></span>
+          <span class="h4 me-2">EGP{{ product.price }}</span>
+          <span class="text-muted"
+            ><s> EGP {{ product.price * (1 + 0.2) }}</s></span
+          >
         </div>
         <div class="mb-3">
           <div class="text-warning">
@@ -70,7 +72,7 @@
           />
         </div>
         <button
-          (click)="AddToCard(+quantity.value)"
+          (click)="AddToCard(+quantity.value).subscribe()"
           class="btn btn-cart btn-lg mb-3 me-2"
         >
           <i class="bi bi-cart-plus"></i> Add to Cart

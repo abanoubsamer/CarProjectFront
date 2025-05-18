@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BrandCarComponent } from './brand-car/brand-car.component';
 import { CarPartsSelectorComponent } from './car-parts-selector/car-parts-selector.component';
 import { AdvertisingComponent } from './advertising/advertising.component';
@@ -8,6 +8,9 @@ import { SliderAdvComponent } from './slider-adv/slider-adv.component';
 import { GetCarBrandModel } from '../../../../../Services/Car/Queries/Models/GetCarBrandModel';
 import { GetCategoryModel } from '../../../../../Services/Category/Queries/Models/GetCategoryModel';
 import { InfoComponent } from './info/info.component';
+import { GetProducts } from '../../../../../Services/Product/Queries/Models/GetProducts';
+import { QueriesProductService } from '../../../../../Services/Product/Queries/Handler/queries-product.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',

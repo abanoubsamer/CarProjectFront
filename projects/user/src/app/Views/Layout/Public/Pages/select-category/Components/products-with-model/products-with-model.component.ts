@@ -8,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NotFoundComponent } from '../../../../../Components/not-found/not-found.component';
 import { SharedModuleModule } from '../../../../../../../Shared/Modules/shared-module.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProductCardsComponent } from '../../../home/ProductCards/product-cards.component';
 @Component({
   selector: 'app-products-with-model',
-  imports: [NotFoundComponent, SharedModuleModule, NgxPaginationModule],
+  imports: [SharedModuleModule, NgxPaginationModule, ProductCardsComponent],
   templateUrl: './products-with-model.component.html',
   styleUrl: './products-with-model.component.css',
 })
@@ -18,11 +19,10 @@ export class ProductsWithModelComponent {
   //#region  Fials
   model: GetModelWithBrand = {} as GetModelWithBrand;
   Products: Array<GetProducts> = new Array<GetProducts>();
-  Totalitems: number = 0;
+  filter: object = {};
+
   Ip = Routing.Ip;
-  pageSize = 5;
-  p = 1;
-  total: number = 0;
+
   //#endregion
 
   private readonly AcativeRoute = inject(ActivatedRoute);
@@ -38,45 +38,14 @@ export class ProductsWithModelComponent {
           this.brandId = params['brandId'];
           this.categoryId = perntparams['id'];
           console.log(this.categoryId);
-
           this.model = ModelById;
-          this.GetProductPagination(1, 10, {
+          this.filter = {
             CategoryId: this.categoryId,
             ModelId: this.model.id,
             BrandId: this.brandId,
-          });
+          };
         });
       });
     });
   }
-
-  GetProductPagination(
-    PageNumber: number,
-    PageSize: number,
-    filter?: object
-  ): void {
-    this._ProductService
-      .GetProuctsWihtPagination(PageNumber, PageSize, filter)
-      .subscribe({
-        next: (res) => {
-          if (res.succeeded) {
-            this.Products = res.data;
-            this.Totalitems = res.totalCount;
-          }
-        },
-        error(err) {},
-      });
-  }
-  fullStars(rate: number) {
-    return Math.floor(rate);
-  }
-
-  hasHalfStar(rate: number) {
-    return rate % 1 !== 0;
-  }
-
-  emptyStars(rate: number) {
-    return 5 - Math.floor(rate);
-  }
-  pageChanged(event: number) {}
 }

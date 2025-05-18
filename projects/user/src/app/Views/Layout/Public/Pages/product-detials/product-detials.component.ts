@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedDataService } from '../../../../../Services/SharedDataService/shared-data.service';
 import { NavigationService } from '../../../../../Services/Navigation/navigation.service';
 import { CartService } from '../../../../../Services/Cart/Handler/cart.service';
+import { catchError, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-product-detials',
@@ -39,9 +40,17 @@ export class ProductDetialsComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(({ ProductId }) => {
       this.product = ProductId;
-      this.product.description = this.product.description.replace(/,/g, '<br>');
+      this.product.description = this.product.description
+        .replace(/,/g, '<br>')
+        .replace(/\./g, '<br>');
       console.log(this.product);
     });
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 0);
   }
   //#endregion
 
@@ -54,30 +63,45 @@ export class ProductDetialsComponent implements OnInit {
   }
 
   OrderNow(quantity: number) {
-    this.AddToCard(quantity);
-
-    this._NavigationBar.NavigationByUrl('Sucurity/Cart');
+    this.AddToCard(quantity).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this._NavigationBar.NavigationByUrl('Security/Cart');
+        }
+      },
+      error: (err) => {
+        this._totservice.error('Error while adding product to cart');
+      },
+    });
   }
-  AddToCard(quantity: number) {
+
+  AddToCard(quantity: number): Observable<any> {
     if (!this.userId) {
       this._NavigationBar.NavigationByUrl('Auth');
-      return;
+      return new Observable();
     }
-    this._CardService
+
+    return this._CardService
       .addToCart({
         productID: this.product.productID,
         quantity: quantity,
         userId: this.userId,
       })
-      .subscribe({
-        next: (res) => {
+      .pipe(
+        tap((res) => {
           if (res.success) {
-            this._totservice.success('Success Add Prouct In Cart');
-
+            this._totservice.success('Success Add Product In Cart');
             this._sharedDataService.updateCartCount(1);
           }
-        },
-      });
+        }),
+        catchError((err) => {
+          this._totservice.warning(
+            err?.error?.message || 'Something went wrong'
+          );
+          return new Observable(); // نرجع Observable فاضي عشان مانكسرش السلسلة
+        })
+      );
   }
+
   //#endregion
 }

@@ -37,6 +37,9 @@ export class NavBarComponent implements OnInit {
       next: (res) => {
         this.user = res.data;
         this.sharedDataService.updatesuer(this.user);
+        this.sharedDataService.currentCUser.subscribe((user) => {
+          this.user = user;
+        });
       },
     });
   }

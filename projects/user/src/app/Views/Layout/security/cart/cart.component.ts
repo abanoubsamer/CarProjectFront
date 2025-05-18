@@ -17,9 +17,16 @@ import { PhoneComponent } from './phone/phone.component';
 import { CheckOutModel } from '../../../../Services/Orders/Commend/Models/CheckOutModels';
 import { CheckOutComponent } from '../check-out/check-out.component';
 import { GetcartUser } from '../../../../Services/Cart/Models/CartItem';
+import { NotFoundComponent } from '../../Components/not-found/not-found.component';
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, MatFormSharedModule, RouterModule, MatStepperModule],
+  imports: [
+    CommonModule,
+    MatFormSharedModule,
+    RouterModule,
+    MatStepperModule,
+    NotFoundComponent,
+  ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
@@ -64,6 +71,12 @@ export class CartComponent implements OnInit {
       this.Card = CardUser;
       this.CalcOrderSummary(this.Card);
     });
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 0);
   }
 
   openMapDialog(stepper: MatStepper) {
@@ -79,7 +92,9 @@ export class CartComponent implements OnInit {
       }
     });
   }
-
+  goToProduct(Id: string) {
+    this._NavigationService.NavigationByUrl('/Public/Product/' + Id);
+  }
   openPhoneDialog(stepper: MatStepper) {
     const dialogRef = this.dialog.open(PhoneComponent, {
       width: '500px',

@@ -131,3 +131,8 @@
   [product]="selectedProduct"
 ></app-edit-product>
 }
+<div *ngIf="products.length === 0" class="no-results">
+  <i class="fas fa-search"></i>
+  <h4>No Results Found</h4>
+  <p>There are no products matching the specified search criteria.</p>
+</div>
