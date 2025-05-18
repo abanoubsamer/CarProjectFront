@@ -1,0 +1,126 @@
+body {
+  background-color: #f4f6f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card {
+  background-color: #f8f9fc;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card:hover {
+  background-color: #eef1f6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+h1,
+h3 {
+  color: #343a40;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .dashboard-card {
+    padding: 16px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+
+  .stat-icon {
+    font-size: 20px;
+  }
+}
+/* الوضع الليلي */
+.dark-mode {
+  background-color: #1e1e2f;
+  color: #f1f1f1;
+}
+
+.dark-mode .dashboard-card {
+  background-color: #2a2a3c;
+  color: #f1f1f1;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.06);
+}
+
+.dark-mode .dashboard-card:hover {
+  box-shadow: 0 12px 28px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .stat-card {
+  background-color: #333344;
+  color: #e0e0e0;
+}
+
+.dark-mode .stat-card:hover {
+  background-color: #3d3d52;
+}
+
+.dark-mode h1,
+.dark-mode h3,
+.dark-mode .stat-label {
+  color: #ffffff;
+}
+
+button.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.dark-mode button.btn-outline-secondary {
+  border-color: #ccc;
+  color: #ccc;
+}
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .dashboard-card {
+  background-color: #2c2f38; /* Dark background for cards */
+  color: #f4f6f8; /* Light text in dark mode */
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}

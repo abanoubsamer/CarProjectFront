@@ -29,7 +29,13 @@ const routes: Routes = [
             (m) => m.ManagementproductModule
           ),
       },
-
+      {
+        path: 'Analysis',
+        loadComponent: () =>
+          import('./Pages/analysis/analysis.component').then(
+            (c) => c.AnalysisComponent
+          ),
+      },
       { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
     ],
   },
