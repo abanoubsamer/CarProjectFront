@@ -4,11 +4,12 @@ import { UserQuereisService } from '../../../../Services/User/Queries/Handler/us
 import { GetUserIdModel } from '../../../../Services/User/Queries/Models/GetUserIdModels';
 import { Response } from '../../../../Core/BasicResponse/Response';
 import { ScrollService } from '../../../../Services/scroll.service';
+import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, SharedModuleModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })

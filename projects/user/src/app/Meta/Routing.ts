@@ -16,6 +16,9 @@ export class Routing {
 
   static Authentication = {
     LoginUser: Routing.Role + 'Auth/Login',
+    GetToken: Routing.Role + 'Auth/Get-Token/',
+    LoginWihtGoogle: Routing.Role + 'Auth/Google-Login',
+    AuthCallBackGoogle: Routing.Role + 'Auth/Google-Response',
     RegisterUser: Routing.Role + 'Auth/Register/User',
   };
 

@@ -19,6 +19,11 @@ export class AuthCommendService {
       request
     );
   }
+  GetAuthGoogle(): Observable<any> {
+    return this.Api.Get<any>(Routing.Authentication.GetToken, {
+      withCredentials: true,
+    });
+  }
 
   Login(request: LoginModel): Observable<Response<AuthResponse>> {
     return this.Api.Post<Response<AuthResponse>>(

@@ -14,10 +14,11 @@ import { SendMassgeToCahtModel } from '../../../../Services/Chat/Models/SendMass
 import { MarkdownPipe } from '../../../../Shared/pipe/markdown.pipe';
 import { NavigationService } from '../../../../Services/Navigation/navigation.service';
 import { ToastrService } from 'ngx-toastr';
+import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-chatbot',
-  imports: [MatFormSharedModule, MarkdownPipe],
+  imports: [MatFormSharedModule, MarkdownPipe, SharedModuleModule],
   templateUrl: './chatbot.component.html',
   styleUrl: './chatbot.component.css',
 })
@@ -91,6 +92,8 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   clearImage() {
     this.selectedFile = null;
     this.previewImage = null;
+    var selectedFile = document.getElementById('fileInput') as HTMLInputElement;
+    selectedFile.value = '';
   }
 
   sendMessage() {
@@ -136,6 +139,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
     this.userInput = '';
     this.previewImage = null;
     this.selectedFile = null;
+    this.clearImage();
   }
 
   simulateTyping(response: any, typingMessage: any) {
@@ -156,10 +160,12 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
         this.tempmsg = '';
         this.index = 0;
       }
-    }, 50);
+    }, 30);
   }
 
   onFileSelected(event: any) {
+    console.log(event.target.files[0]);
+
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;

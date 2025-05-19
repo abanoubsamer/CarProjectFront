@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from '../../../Services/Navigation/navigation.service';
 import { RouterModule } from '@angular/router';
 import { SharedModuleModule } from '../../../Shared/Modules/shared-module.module';
+import { Routing } from '../../../Meta/Routing';
 
 @Component({
   selector: 'app-login',
@@ -73,6 +74,28 @@ export class LoginComponent implements OnInit {
           this.toastrService.error(err.error.message);
         },
       });
+    }
+  }
+
+  loginWihtGoogle(): void {
+    const popup = window.open(
+      Routing.Authentication.LoginWihtGoogle,
+      'Google Login',
+      'width=500,height=600'
+    );
+    if (popup) {
+      // الاستماع للنافذة حتى تُغلق
+      const checkPopupClosed = setInterval(() => {
+        if (popup.closed) {
+          clearInterval(checkPopupClosed);
+          this.AuthCommend.GetAuthGoogle().subscribe((res) => {
+            localStorage.setItem('token', res?.token);
+            localStorage.setItem('userId', res?.userId);
+            this.toastrService.success('Login Successfully');
+            this.Navigation.NavigationByUrl('/');
+          });
+        }
+      }, 1000);
     }
   }
   togglePasswordVisibility() {

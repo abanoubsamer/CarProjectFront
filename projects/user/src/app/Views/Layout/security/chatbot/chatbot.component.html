@@ -57,12 +57,23 @@
             <span class="message__time">{{ msg.time }}</span>
           </p>
         </div>
+        @if(this.user) { @if(this.user.picture){
         <img
-          [src]="'307ce493-b254-4b2d-8ba4-d12c080d6651.jpg'"
-          alt="avatar 1"
+          loading="lazy"
+          [defaultImage]="'Loding.svg'"
+          [lazyLoad]="this.user.picture"
           class="rounded-circle"
           style="width: 40px; height: 100%"
         />
+        }@else {
+        <img
+          loading="lazy"
+          [defaultImage]="'Loding.svg'"
+          [lazyLoad]="'307ce493-b254-4b2d-8ba4-d12c080d6651.jpg'"
+          class="rounded-circle"
+          style="width: 40px; height: 100%"
+        />
+        } }
       </div>
       } @else {
       <div class="d-flex flex-row justify-content-start mb-4">
@@ -129,6 +140,7 @@
           <input
             type="file"
             #fileInput
+            id="fileInput"
             (change)="onFileSelected($event)"
             accept="image/*"
             hidden

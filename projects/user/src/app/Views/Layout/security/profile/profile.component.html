@@ -6,11 +6,22 @@
         <!--Edit cover-->
         <div class="text-center">
           <div class="position-relative d-inline-block">
+            @if(this.userData) { @if(this.userData.picture){
             <img
-              src="307ce493-b254-4b2d-8ba4-d12c080d6651.jpg"
+              [defaultImage]="'Loding.svg'"
+              [lazyLoad]="this.userData.picture"
               class="rounded-circle profile-pic"
               alt="Profile Picture"
             />
+            }@else {
+            <img
+              loading="lazy"
+              [defaultImage]="'Loding.svg'"
+              [lazyLoad]="'307ce493-b254-4b2d-8ba4-d12c080d6651.jpg'"
+              class="rounded-circle profile-pic"
+              alt="Profile Picture"
+            />
+            } }
           </div>
           <h3 class="mt-3 mb-1">{{ userData.name || "غير محدد" }}</h3>
 
