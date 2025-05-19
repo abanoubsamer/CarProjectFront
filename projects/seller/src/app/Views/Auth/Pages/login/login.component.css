@@ -130,3 +130,32 @@ h3 {
 .register-link:hover {
   text-decoration: underline;
 }
+.logo {
+  margin: auto;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  max-height: 100px;
+  width: auto;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2px;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    max-height: 38px;
+  }
+  .logo-container {
+    padding: 6px 10px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .logo {
+    max-height: 32px;
+  }
+  .logo-container {
+    padding: 4px 8px;
+  }
+}

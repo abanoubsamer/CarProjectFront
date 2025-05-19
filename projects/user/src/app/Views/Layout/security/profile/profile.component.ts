@@ -1,44 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserQuereisService } from '../../../../Services/User/Queries/Handler/user-quereis.service';
 import { GetUserIdModel } from '../../../../Services/User/Queries/Models/GetUserIdModels';
 import { Response } from '../../../../Core/BasicResponse/Response';
+import { ScrollService } from '../../../../Services/scroll.service';
 
 @Component({
   selector: 'app-profile',
-  standalone:true,
+  standalone: true,
   imports: [RouterModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
   userData: GetUserIdModel = {} as GetUserIdModel;
   userPhoto: string | null = '';
   userId: string = localStorage.getItem('userId') || '';
 
-  constructor(
-    private userService: UserQuereisService,
-  ) {}
+  constructor(private userService: UserQuereisService) {}
+  private scrollService = inject(ScrollService);
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.scrollService.smoothScroll(1000);
+    }, 100);
     if (this.userId) {
       this.loadUserData();
     } else {
       console.error('User ID not found');
-      // ممكن ترجعي المستخدم لصفحة تسجيل الدخول
     }
   }
 
   loadUserData(): void {
-    this.userService.GetUserServices(this.userId).subscribe(
-      (response: Response<GetUserIdModel>) => {
+    this.userService
+      .GetUserServices(this.userId)
+      .subscribe((response: Response<GetUserIdModel>) => {
         this.userData = response.data;
         console.log('User data loaded:', this.userData);
         if (this.userData?.picture) {
           this.userPhoto = this.userData.picture;
         }
-      },
-      
-    );
+      });
   }
 }

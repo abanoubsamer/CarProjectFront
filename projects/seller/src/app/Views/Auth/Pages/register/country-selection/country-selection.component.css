@@ -184,3 +184,14 @@
 .login-link a:hover {
   text-decoration: underline;
 }
+.logo {
+  margin: auto;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  max-height: 100px;
+  width: auto;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2px;
+}

@@ -32,3 +32,28 @@
   color: #fff;
   width: 20px;
 }
+
+.logo {
+  max-height: 45px;
+  width: auto;
+
+  z-index: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    max-height: 38px;
+  }
+  .logo-container {
+    padding: 6px 10px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .logo {
+    max-height: 32px;
+  }
+  .logo-container {
+    padding: 4px 8px;
+  }
+}

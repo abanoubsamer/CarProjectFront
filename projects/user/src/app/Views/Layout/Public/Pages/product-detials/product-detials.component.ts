@@ -14,6 +14,7 @@ import { catchError, Observable, tap } from 'rxjs';
 import { RatingQueryService } from '../../../../../Services/Rating/Queries/Handler/rating-query.service';
 import { ReviewStatistic } from '../../../../../Services/Rating/Queries/Model/ReviewStatistic';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ScrollService } from '../../../../../Services/scroll.service';
 
 @Component({
   selector: 'app-product-detials',
@@ -40,6 +41,7 @@ export class ProductDetialsComponent implements OnInit {
   private readonly _sharedDataService = inject(SharedDataService);
   private readonly _NavigationBar = inject(NavigationService);
   private readonly route = inject(ActivatedRoute);
+  private scrollService = inject(ScrollService);
 
   //#endregion
 
@@ -54,11 +56,8 @@ export class ProductDetialsComponent implements OnInit {
       this.GetReviewPaginagtion(this.p, this.pageSize, this.filter);
     });
     setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }, 0);
+      this.scrollService.smoothScroll(1000);
+    }, 100);
   }
   //#endregion
 

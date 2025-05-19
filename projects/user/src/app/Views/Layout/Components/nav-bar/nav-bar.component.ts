@@ -5,6 +5,10 @@ import { UserQuereisService } from '../../../../Services/User/Queries/Handler/us
 import { RouterModule } from '@angular/router';
 import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
 import { NavigationService } from '../../../../Services/Navigation/navigation.service';
+import { QueriesProductService } from '../../../../Services/Product/Queries/Handler/queries-product.service';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,11 +28,90 @@ export class NavBarComponent implements OnInit {
     shippingAddresses: [],
   };
   userid = localStorage.getItem('userId');
+  searchResults: string[] = [];
+  showSearchResults = false;
+  isLoading = false;
+  currentSearchTerm = '';
+  private searchSubject = new Subject<string>();
+
   private readonly sharedDataService = inject(SharedDataService);
   private readonly _UserQuereisService = inject(UserQuereisService);
   private readonly _Navigation = inject(NavigationService);
+  private readonly _ProductService = inject(QueriesProductService);
+  private readonly _toster = inject(ToastrService);
+  private readonly sanitizer = inject(DomSanitizer);
+
   ngOnInit(): void {
     this.getUserData();
+    this.setupSearch();
+  }
+
+  private setupSearch() {
+    this.searchSubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((searchText) => {
+        if (searchText.length > 3) {
+          this.isLoading = true;
+          this.showSearchResults = true;
+          this.currentSearchTerm = searchText;
+          this._ProductService.AutoCompleteSearch(searchText).subscribe({
+            next: (response) => {
+              this.searchResults = response.data;
+              this.isLoading = false;
+            },
+            error: (error) => {
+              console.error('Search error:', error);
+              this.searchResults = [];
+              this.isLoading = false;
+            },
+          });
+        } else {
+          this.searchResults = [];
+          this.showSearchResults = false;
+          this.isLoading = false;
+          this.currentSearchTerm = '';
+        }
+      });
+  }
+
+  highlightSearchTerm(text: string): SafeHtml {
+    if (!this.currentSearchTerm)
+      return this.sanitizer.bypassSecurityTrustHtml(text);
+
+    const regex = new RegExp(
+      `(${this.escapeRegExp(this.currentSearchTerm)})`,
+      'gi'
+    );
+    const highlightedText = text.replace(
+      regex,
+      '<mark class="highlight">$1</mark>'
+    );
+    return this.sanitizer.bypassSecurityTrustHtml(highlightedText);
+  }
+
+  private escapeRegExp(string: string): string {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  onSearchInput(event: Event) {
+    const searchText = (event.target as HTMLInputElement).value;
+    this.searchSubject.next(searchText);
+  }
+  search() {
+    const inputElem = document.getElementById('Input') as HTMLInputElement;
+    if (inputElem) {
+      this._Navigation.NavigationByUrl(`Public/Search/${inputElem.value}`);
+      this.showSearchResults = false;
+    }
+  }
+
+  onSearchResultClick(result: string) {
+    const inputElem = document.getElementById('Input') as HTMLInputElement;
+    if (inputElem) {
+      inputElem.value = result;
+    }
+    this._Navigation.NavigationByUrl(`Public/Search/${result}`);
+    this.showSearchResults = false;
   }
 
   getUserData() {

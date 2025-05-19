@@ -7,7 +7,9 @@ import { GetCategoryModel } from '../Services/Category/Queries/Models/GetCategor
 
 export const categoryResolver: ResolveFn<CategoryDto> = (route, state) => {
   const CategoryService = inject(CategoryQuereisService);
-  return CategoryService.GetCategoryById(route.params['id']).pipe(
+  return CategoryService.GetCategoryById(
+    route.params['id'] ?? route.params['CategoryId']
+  ).pipe(
     map((res) => {
       return res.data;
     })

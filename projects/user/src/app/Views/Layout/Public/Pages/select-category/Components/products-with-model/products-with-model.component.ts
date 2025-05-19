@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { GetProducts } from '../../../../../../../Services/Product/Queries/Models/GetProducts';
 import { Routing } from '../../../../../../../Meta/Routing';
 import { QueriesProductService } from '../../../../../../../Services/Product/Queries/Handler/queries-product.service';
@@ -35,8 +35,8 @@ export class ProductsWithModelComponent {
     this.AcativeRoute.data.subscribe(({ ModelById }) => {
       this.AcativeRoute.parent?.params.subscribe((perntparams) => {
         this.AcativeRoute.params.subscribe((params) => {
-          this.brandId = params['brandId'];
-          this.categoryId = perntparams['id'];
+          this.brandId = params['brandId'] ?? perntparams['brandId'];
+          this.categoryId = perntparams['id'] ?? params['CategoryId'];
           console.log(this.categoryId);
           this.model = ModelById;
           this.filter = {

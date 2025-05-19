@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   inject,
+  Input,
   OnInit,
   Output,
   output,
@@ -15,6 +16,7 @@ import { SelectCarService } from '../../../../../../Services/SharedDataService/s
 import { CategoryDto } from '../../../../../../Core/Dtos/CategoryDto';
 import { Routing } from '../../../../../../Meta/Routing';
 import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-car-parts-selector',
@@ -28,12 +30,25 @@ export class CarPartsSelectorComponent implements OnInit {
   selectedPart: GetCategoryModel | null = null;
   categorys: GetCategoryModel[] = [];
   IP: string = Routing.Ip;
+  BrandId!: string;
+  ModelId!: string;
   @Output() CategorysEvent = new EventEmitter<GetCategoryModel[]>();
+  @Input() IsSelectorCar: boolean = false;
 
   private readonly CateogryQuereisService = inject(CategoryQuereisService);
   private readonly Navigation = inject(NavigationService);
   private readonly Selector = inject(SelectCarService);
+  private readonly route = inject(ActivatedRoute); // Inject the route
+
   ngOnInit(): void {
+    this.route.parent?.params.subscribe((params) => {
+      console.log(params);
+      this.BrandId = params['brandId'];
+    });
+    this.route.params.subscribe((params) => {
+      this.ModelId = params['modelId'];
+    });
+
     this.CateogryQuereisService.GetCategoriesWithPagination(1, 15).subscribe(
       (response) => {
         this.categorys = response.data;
@@ -67,7 +82,13 @@ export class CarPartsSelectorComponent implements OnInit {
 
   selectPart(item: GetCategoryModel) {
     this.selectedPart = item;
-    this.Navigation.NavigationByUrl('/Public/Selector/' + item.categoryID);
+    if (!this.IsSelectorCar) {
+      this.Navigation.NavigationByUrl('/Public/Selector/' + item.categoryID);
+    } else {
+      this.Navigation.NavigationByUrlWithReload(
+        `/Public/SelectorBrand/${this.BrandId}/Categories/${item.categoryID}/Models`
+      );
+    }
   }
 
   @HostListener('document:click', ['$event'])

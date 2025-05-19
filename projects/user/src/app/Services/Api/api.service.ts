@@ -28,8 +28,8 @@ export class ApiService {
 
     return this.Http.get<T>(Url, { params: Prams });
   }
-  Get<T>(Url: string): Observable<T> {
-    return this.Http.get<T>(Url);
+  Get<T>(Url: string, options: object = {}): Observable<T> {
+    return this.Http.get<T>(Url, options);
   }
   Post<T>(Url: string, Body: object, options: object = {}): Observable<T> {
     return this.Http.post<T>(Url, Body, { withCredentials: true, ...options });

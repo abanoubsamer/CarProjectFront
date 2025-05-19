@@ -11,6 +11,7 @@ export class Routing {
     UpdateProduct: Routing.Role + 'Product/Update',
     GetProductPagination: Routing.Role + 'Product/Pagination',
     GetProductDetails: Routing.Role + 'Product/{Id}',
+    AutoCompleteSearch: Routing.Role + 'Product/AutoCompleteSearch/{Text}',
   };
 
   static Authentication = {
@@ -20,6 +21,7 @@ export class Routing {
 
   static Car = {
     GetCarBrandsWithPagination: Routing.Role + 'CarBrand/Pagination',
+    GetCarBrandsById: Routing.Role + 'CarBrand/{Id}',
   };
 
   static Category = {

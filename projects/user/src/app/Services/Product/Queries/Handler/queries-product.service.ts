@@ -34,6 +34,17 @@ export class QueriesProductService {
   }
   //#endregion
 
+  AutoCompleteSearch(text: string): Observable<Response<Array<string>>> {
+    return this.Api.Get<Response<Array<string>>>(
+      Routing.Product.AutoCompleteSearch.replace('{Text}', text),
+      {
+        headers: {
+          'Skip-Loader': 'true',
+        },
+      }
+    );
+  }
+
   getProductDetails(productID: string): Observable<Response<GetProductById>> {
     return this.Api.Get<Response<GetProductById>>(
       Routing.Product.GetProductDetails.replace('{Id}', productID)

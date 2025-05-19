@@ -3,17 +3,29 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
-          <h5 class="brand-name">E-Commerce</h5>
+          <a [routerLink]="['/Public/Home']" class="logo-container">
+            <img src="Logo/4.svg" alt="Company Logo" class="logo" />
+          </a>
         </div>
         <div class="col-md-5 my-auto">
-          <form role="search">
-            <div class="input-group">
+          <div role="search">
+            <div class="input-group position-relative">
               <input
                 type="search"
+                id="Input"
                 placeholder="Search your product"
                 class="form-control"
+                (input)="onSearchInput($event)"
+                (keyup.enter)="search()"
               />
-              <button class="btn bg-white" type="submit">
+              <button
+                class="btn bg-white"
+                (click)="search()"
+                style="
+                  border-top-right-radius: 4px;
+                  border-bottom-right-radius: 4px;
+                "
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -27,8 +39,38 @@
                   />
                 </svg>
               </button>
+              @if(showSearchResults) {
+              <div
+                class="search-results-dropdown"
+                style="
+                  border-top-left-radius: 10px;
+                  border-bottom-left-radius: 10px;
+                "
+              >
+                @if(isLoading) {
+                <div class="search-loading">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <span>Loading...</span>
+                </div>
+                } @else if(searchResults.length === 0) {
+                <div class="search-not-found">
+                  <i class="fas fa-search"></i>
+                  <span>Not Found</span>
+                </div>
+                } @else { @for(result of searchResults; track result) {
+                <div
+                  class="search-result-item"
+                  (click)="onSearchResultClick(result)"
+                >
+                  <span [innerHTML]="highlightSearchTerm(result)"></span>
+                </div>
+                } }
+              </div>
+              }
             </div>
-          </form>
+          </div>
         </div>
         <div class="col-md-5 my-auto">
           <ul class="nav justify-content-end">

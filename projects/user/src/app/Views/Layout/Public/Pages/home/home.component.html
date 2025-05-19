@@ -9,7 +9,11 @@
       (CategorysEvent)="handleCategorys($event)"
     ></app-car-parts-selector>
   </div>
-  <div id="offers" class="animate-section">
+  <div
+    id="offers"
+    class="animate-section"
+    style="position: relative; z-index: 998"
+  >
     <app-slider-adv
       [CarBrands]="brands"
       [Categorys]="category"

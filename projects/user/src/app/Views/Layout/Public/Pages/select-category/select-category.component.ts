@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
-
 import { CategoryDto } from '../../../../../Core/Dtos/CategoryDto';
-
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Routing } from '../../../../../Meta/Routing';
 import { SharedModuleModule } from '../../../../../Shared/Modules/shared-module.module';
+import { ScrollService } from '../../../../../Services/scroll.service';
 
 @Component({
   selector: 'app-select-category',
@@ -18,16 +17,15 @@ export class SelectCategoryComponent implements OnInit {
   currentStep = 1;
   IP: string = Routing.Ip;
   private readonly route = inject(ActivatedRoute);
+  private scrollService = inject(ScrollService);
+
   ngOnInit(): void {
     this.route.data.subscribe(({ CategoryId }) => {
       this.category = CategoryId;
     });
     setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }, 0);
+      this.scrollService.smoothScroll(1000);
+    }, 100);
   }
 
   manufacturers: Manufacturer[] = [

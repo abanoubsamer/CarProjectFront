@@ -1,4 +1,11 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { GetProducts } from '../../../../../../Services/Product/Queries/Models/GetProducts';
 import { Routing } from '../../../../../../Meta/Routing';
@@ -16,7 +23,7 @@ import { SharedDataService } from '../../../../../../Services/SharedDataService/
   templateUrl: './product-cards.component.html',
   styleUrl: './product-cards.component.css',
 })
-export class ProductCardsComponent implements OnInit {
+export class ProductCardsComponent implements OnInit, OnChanges {
   Products: Array<GetProducts> = [];
   Ip = Routing.Ip;
   pageSize = 4;
@@ -32,6 +39,15 @@ export class ProductCardsComponent implements OnInit {
   private readonly _CartServices = inject(CartService);
   private _totservice = inject(ToastrService);
   private readonly NavigationUrl = inject(NavigationService);
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filter']) {
+      this.filter = changes['filter'].currentValue;
+      this.pageCache.clear();
+      this.p = 1;
+      this.GetProductPagination(this.p, this.pageSize, this.filter);
+    }
+  }
 
   ngOnInit(): void {
     this.GetProductPagination(this.p, this.pageSize, this.filter);

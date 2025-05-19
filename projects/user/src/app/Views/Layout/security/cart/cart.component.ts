@@ -18,6 +18,7 @@ import { CheckOutModel } from '../../../../Services/Orders/Commend/Models/CheckO
 import { CheckOutComponent } from '../check-out/check-out.component';
 import { GetcartUser } from '../../../../Services/Cart/Models/CartItem';
 import { NotFoundComponent } from '../../Components/not-found/not-found.component';
+import { ScrollService } from '../../../../Services/scroll.service';
 @Component({
   selector: 'app-cart',
   imports: [
@@ -62,6 +63,7 @@ export class CartComponent implements OnInit {
   private readonly _NavigationService = inject(NavigationService);
   private readonly dialog = inject(MatDialog);
   private readonly toster = inject(ToastrService);
+  private scrollService = inject(ScrollService);
 
   //#endregion
 
@@ -72,11 +74,8 @@ export class CartComponent implements OnInit {
       this.CalcOrderSummary(this.Card);
     });
     setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }, 0);
+      this.scrollService.smoothScroll(1000);
+    }, 100);
   }
 
   openMapDialog(stepper: MatStepper) {

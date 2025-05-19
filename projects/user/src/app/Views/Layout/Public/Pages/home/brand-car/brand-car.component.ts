@@ -3,6 +3,7 @@ import { GetCarBrandModel } from '../../../../../../Services/Car/Queries/Models/
 import { CarBrandQueriesService } from '../../../../../../Services/Car/Queries/Handler/car-brand-queries.service';
 import { Routing } from '../../../../../../Meta/Routing';
 import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-module.module';
+import { NavigationService } from '../../../../../../Services/Navigation/navigation.service';
 
 @Component({
   selector: 'app-brand-car',
@@ -16,6 +17,7 @@ export class BrandCarComponent implements OnInit {
   showAllBrands: boolean = false;
   @Output() CarBrandsEvent = new EventEmitter<GetCarBrandModel[]>();
   private readonly _carBrandQuereisService = inject(CarBrandQueriesService);
+  private readonly _Navigation = inject(NavigationService);
   ngOnInit(): void {
     this._carBrandQuereisService
       .GeTCarBrandsWithPagination(1, 50)
@@ -68,7 +70,7 @@ export class BrandCarComponent implements OnInit {
   }
 
   selectBrand(brandId: string) {
-    console.log('Selected brand:', brandId);
+    this._Navigation.NavigationByUrl(`Public/SelectorBrand/${brandId}`);
   }
   ShowAll() {
     this.showAllBrands = !this.showAllBrands;

@@ -9,6 +9,7 @@ import { NavigationService } from '../../../../Services/Navigation/navigation.se
 import { SharedDataService } from '../../../../Services/SharedDataService/shared-data.service';
 import { OrdersService } from '../../../../Services/Orders/Queries/Handler/orders.service';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { ScrollService } from '../../../../Services/scroll.service';
 
 @Component({
   selector: 'app-orders',
@@ -35,8 +36,12 @@ export class OrdersComponent implements OnInit {
   private readonly _NavigationService = inject(NavigationService);
   private readonly _sharedDataService = inject(SharedDataService);
   private readonly _OrderQuereisService = inject(OrdersService);
+  private scrollService = inject(ScrollService);
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.scrollService.smoothScroll(1000);
+    }, 100);
     this._sharedDataService.currentCUser.subscribe((user) => {
       this.userInfo = user;
       console.log('user', user);

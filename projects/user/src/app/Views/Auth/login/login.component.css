@@ -43,13 +43,20 @@ a {
 h2 {
   font-size: 20px;
 }
+.header {
+  font-family: "Arial", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f4c7a;
 
+  position: relative;
+}
 .form-block {
   width: 100%;
   background: #fff;
   padding: 30px;
-  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 1px 3px 3px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 991.98px) {
@@ -270,4 +277,39 @@ h2 {
 .register-text {
   color: black;
   font-weight: 400;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+
+  text-decoration: none;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo {
+  max-height: 100px;
+  width: auto;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2px;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    max-height: 38px;
+  }
+  .logo-container {
+    padding: 6px 10px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .logo {
+    max-height: 32px;
+  }
+  .logo-container {
+    padding: 4px 8px;
+  }
 }

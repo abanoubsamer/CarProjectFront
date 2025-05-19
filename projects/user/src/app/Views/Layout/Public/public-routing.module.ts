@@ -5,6 +5,7 @@ import { categoryResolver } from '../../../Resolver/category.resolver';
 import { modelWithBrandResolver } from '../../../Resolver/model-with-brand.resolver';
 import { modelByIdResolver } from '../../../Resolver/model-by-id.resolver';
 import { getProductByIdResolver } from '../../../Resolver/get-product-by-id.resolver';
+import { brandByIdResolver } from '../../../Resolver/brand-by-id.resolver';
 
 const routes: Routes = [
   {
@@ -58,6 +59,50 @@ const routes: Routes = [
           { path: '', redirectTo: 'Brands', pathMatch: 'full' },
         ],
       },
+
+      {
+        path: 'Search/:text',
+        loadComponent: () =>
+          import('./Pages/search/search.component').then(
+            (m) => m.SearchComponent
+          ),
+      },
+
+      {
+        path: 'SelectorBrand/:brandId',
+        loadComponent: () =>
+          import('./Pages/select-brand/select-brand.component').then(
+            (m) => m.SelectBrandComponent
+          ),
+        resolve: { BrandById: brandByIdResolver },
+        children: [
+          {
+            path: 'Categories',
+            loadComponent: () =>
+              import(
+                './Pages/select-brand/Components/category/category.component'
+              ).then((m) => m.CategoryComponent),
+          },
+          {
+            path: 'Categories/:CategoryId/Models',
+            loadComponent: () =>
+              import(
+                './Pages/select-brand/Components/models/models.component'
+              ).then((m) => m.ModelsComponent),
+            resolve: { CategoryId: categoryResolver },
+          },
+          {
+            path: 'Categories/:CategoryId/Models/:modelId',
+            loadComponent: () =>
+              import(
+                './Pages/select-category/Components/products-with-model/products-with-model.component'
+              ).then((m) => m.ProductsWithModelComponent),
+            resolve: { ModelById: modelByIdResolver },
+          },
+          { path: '', redirectTo: 'Categories', pathMatch: 'full' },
+        ],
+      },
+
       { path: '', redirectTo: 'Home', pathMatch: 'full' },
     ],
   },

@@ -10,4 +10,9 @@ export class NavigationService {
   NavigationByUrl(Url: string) {
     this.Routing.navigateByUrl(Url);
   }
+  NavigationByUrlWithReload(url: string) {
+    this.Routing.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.Routing.navigateByUrl(url);
+    });
+  }
 }

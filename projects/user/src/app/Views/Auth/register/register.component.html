@@ -23,8 +23,10 @@
       <div class="col-lg-5 contents">
         <div class="form-block">
           <div class="mb-4 text-center">
-            <h3 class="name font-weight-bold">Auto Parts</h3>
-            <h3>Register</h3>
+            <a [routerLink]="['/Public/Home']">
+              <img src="Logo/1.svg" alt="Company Logo" class="logo" />
+            </a>
+            <h3 class="header">Register</h3>
             <p class="mb-4"></p>
           </div>
           <form [formGroup]="Form">
