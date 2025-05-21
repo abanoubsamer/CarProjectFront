@@ -37,7 +37,7 @@ import { OrderCommendService } from '../../../../../../Services/Orders/Commend/H
 export class OrdersComponent implements OnInit {
   //#region Faildes
   page = {
-    limit: 5, // عدد الطلبات في كل صفحة
+    limit: 10, // عدد الطلبات في كل صفحة
     pageNumber: 1, // الصفحة الحالية
     count: 0,
     offset: 0,
@@ -70,7 +70,7 @@ export class OrdersComponent implements OnInit {
 
   //#region LiveHooks
   ngOnInit(): void {
-    // this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
+    this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
   }
 
   //#endregion
@@ -97,7 +97,7 @@ export class OrdersComponent implements OnInit {
     Order: GetSellerOrders
   ) {
     const dialogRef = this.dialog.open(DetailsComponent, {
-      width: '700px',
+      width: '800px',
       enterAnimationDuration,
       exitAnimationDuration,
       data: Order,
@@ -142,8 +142,9 @@ export class OrdersComponent implements OnInit {
   }
 
   onPageChange(event: any) {
-    this.page.pageNumber = event.offset + 1; // تحديث رقم الصفحة
-    this.GetOrders(this.page.pageNumber, this.page.limit);
+    this.page.offset = event.offset;
+    this.page.pageNumber = event.offset + 1;
+    this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
   }
 
   // دالة تغيير الصفحة

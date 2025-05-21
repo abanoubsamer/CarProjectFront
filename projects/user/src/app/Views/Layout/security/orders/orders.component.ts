@@ -52,14 +52,27 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  ShowDetails(OrdersUser: GetUserOrders) {
+  ShowDetails(
+    OrdersUser: GetUserOrders,
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ) {
     const dialogRef = this.dialog.open(OrderDetailsComponent, {
-      width: '1000px',
+      width: '800px',
+      height: '90vh',
+      maxHeight: '90vh',
+      enterAnimationDuration,
+      exitAnimationDuration,
       data: OrdersUser,
+      panelClass: 'custom-dialog-container',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
       }
     });
+  }
+
+  goToProduct(id: string) {
+    this._NavigationService.NavigationByUrl('Public/Product/' + id);
   }
 }

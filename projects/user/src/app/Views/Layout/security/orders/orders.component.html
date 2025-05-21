@@ -21,6 +21,7 @@
             <td>
               <div class="product">
                 <img
+                  (click)="goToProduct(orderItems.productID)"
                   [src]="Ip + '/images/' + orderItems.imagesDto"
                   alt="Oneplus 10"
                 />
@@ -29,9 +30,9 @@
                 </div>
               </div>
             </td>
-            <td>{{ orderItems.price }} $</td>
+            <td>EGP {{ orderItems.price }}</td>
             <td>{{ orderItems.quantity }}</td>
-            <td>{{ orderItems.price * orderItems.quantity }} $</td>
+            <td>EGP {{ orderItems.price * orderItems.quantity }}</td>
           </tr>
           }
         </tbody>
@@ -40,24 +41,27 @@
       <div class="totals">
         <div class="total-row">
           <span>Subtotal:</span>
-          <span>{{ order.totalAmount }} dollars</span>
+          <span>EGP {{ order.totalAmount }}</span>
         </div>
         <div class="total-row">
           <span>Discount:</span>
-          <span>0 dollars</span>
+          <span>EGP 0</span>
         </div>
         <div class="total-row">
           <span>Tax:</span>
-          <span>0 dollars</span>
+          <span>EGP 0</span>
         </div>
         <div class="total-row final">
           <span>Total:</span>
-          <span>{{ order.totalAmount }} dollars</span>
+          <span>EGP {{ order.totalAmount }}</span>
         </div>
       </div>
       <div class="card-header">
         <h2></h2>
-        <button (click)="ShowDetails(order)" class="btn btn-primary">
+        <button
+          (click)="ShowDetails(order, '300ms', '150ms')"
+          class="btn btn-primary"
+        >
           Details
         </button>
       </div>

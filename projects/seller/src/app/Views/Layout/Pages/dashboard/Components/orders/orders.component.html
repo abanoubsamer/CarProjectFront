@@ -71,7 +71,8 @@
       [limit]="page.limit"
       [count]="page.count"
       [scrollbarH]="true"
-      [offset]="page.pageNumber - 1"
+      [offset]="page.offset"
+      [footerHeight]="50"
       [externalPaging]="true"
       [pagination]="true"
       (page)="onPageChange($event)"
@@ -141,9 +142,10 @@
             (change)="changeOrderState(row, row.status)"
             class="status-select"
           >
-            <option value="0">🕒 Pending</option>
+            <option value="0" disabled>🕒 Pending</option>
             <option value="1">📦 Confirmed</option>
             <option value="2">🚚 Shipped</option>
+
             <option value="4">❌ Cancelled</option>
           </select>
         </ng-template>

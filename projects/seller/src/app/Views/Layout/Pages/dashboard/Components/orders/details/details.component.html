@@ -1,89 +1,120 @@
-<h2 mat-dialog-title class="title">
-  <mat-icon>shopping_cart</mat-icon> Order Details
-</h2>
-<mat-dialog-content class="mat-typography">
-  <mat-card class="order-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon>assignment</mat-icon> Order ID: {{ order.orderID }}
-      </mat-card-title>
-    </mat-card-header>
+<div class="details-container">
+  <div class="dialog-header">
+    <div class="order-title">
+      <mat-icon>shopping_cart</mat-icon>
+      <h2>Order Details #{{ order.orderID }}</h2>
+    </div>
+    <div class="order-status">
+      <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+        {{ getStatusText(order.status) }}
+      </span>
+    </div>
+  </div>
 
-    <mat-card-content>
-      <div class="order-details">
-        <mat-list>
-          <mat-list-item>
-            <mat-icon class="icon">person</mat-icon>
-            <strong>Customer:</strong> {{ order.user.name }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">email</mat-icon>
-            <strong>Email:</strong> {{ order.user.email }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">phone</mat-icon>
-            <strong>Phone Number:</strong> {{ order.phoneNumber }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">calendar_today</mat-icon>
-            <strong>Order Date:</strong>
-            {{ order.orderDate | date : "dd/MM/yyyy hh:mm a" }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">local_shipping</mat-icon>
-            <strong>Status:</strong>
-            <span class="status-badge" [ngClass]="getStatusClass(order.status)">
-              {{ getStatusText(order.status) }}
-            </span>
-          </mat-list-item>
-        </mat-list>
-
-        <h3>🛒 Product Details</h3>
-        <mat-list>
-          <mat-list-item>
-            <mat-icon class="icon">shopping_basket</mat-icon>
-            <strong>Product:</strong> {{ order.product.name }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">attach_money</mat-icon>
-            <strong>Price:</strong> {{ order.price | currency : "USD" }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">format_list_numbered</mat-icon>
-            <strong>Quantity:</strong> {{ order.quantity }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">monetization_on</mat-icon>
-            <strong>Total:</strong>
-            {{ order.totalAmount | currency : "USD" }}
-          </mat-list-item>
-        </mat-list>
-
-        <h3>📍 Shipping Address</h3>
-        <mat-list>
-          <mat-list-item>
-            <mat-icon class="icon">location_on</mat-icon>
-            <strong>Street:</strong> {{ order.shippingAddresses.street }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">apartment</mat-icon>
-            <strong>City:</strong> {{ order.shippingAddresses.city }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">flag</mat-icon>
-            <strong>Country:</strong> {{ order.shippingAddresses.country }}
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon class="icon">markunread_mailbox</mat-icon>
-            <strong>Postal Code:</strong>
-            {{ order.shippingAddresses.postalCode }}
-          </mat-list-item>
-        </mat-list>
+  <mat-dialog-content class="mat-typography">
+    <div class="details-grid">
+      <!-- Customer Information -->
+      <div class="detail-card customer-info">
+        <div class="card-header">
+          <mat-icon>person</mat-icon>
+          <h3>Customer Information</h3>
+        </div>
+        <div class="card-content">
+          <div class="info-item">
+            <span class="label">Name</span>
+            <span class="value">{{ order.user.name }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Email</span>
+            <span class="value">{{ order.user.email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Phone</span>
+            <span class="value">{{ order.phoneNumber }}</span>
+          </div>
+        </div>
       </div>
-    </mat-card-content>
-  </mat-card>
-</mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close color="warn">Close</button>
-</mat-dialog-actions>
+      <!-- Order Information -->
+      <div class="detail-card order-info">
+        <div class="card-header">
+          <mat-icon>receipt_long</mat-icon>
+          <h3>Order Information</h3>
+        </div>
+        <div class="card-content">
+          <div class="info-item">
+            <span class="label">Order Date</span>
+            <span class="value">{{
+              order.orderDate | date : "dd/MM/yyyy hh:mm a"
+            }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Order ID</span>
+            <span class="value">#{{ order.orderID }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div class="detail-card product-info">
+        <div class="card-header">
+          <mat-icon>shopping_basket</mat-icon>
+          <h3>Product Details</h3>
+        </div>
+        <div class="card-content">
+          <div class="info-item">
+            <span class="label">Product Name</span>
+            <span class="value">{{ order.product.name }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Price</span>
+            <span class="value">{{ order.price | currency : "EGP" }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Quantity</span>
+            <span class="value">{{ order.quantity }}</span>
+          </div>
+          <div class="info-item total">
+            <span class="label">Total Amount</span>
+            <span class="value">{{
+              order.totalAmount | currency : "EGP"
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="detail-card shipping-info">
+        <div class="card-header">
+          <mat-icon>location_on</mat-icon>
+          <h3>Shipping Address</h3>
+        </div>
+        <div class="card-content">
+          <div class="info-item">
+            <span class="label">Street</span>
+            <span class="value">{{ order.shippingAddresses.street }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">City</span>
+            <span class="value">{{ order.shippingAddresses.city }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Country</span>
+            <span class="value">{{ order.shippingAddresses.country }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Postal Code</span>
+            <span class="value">{{ order.shippingAddresses.postalCode }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+      Close
+    </button>
+  </mat-dialog-actions>
+</div>

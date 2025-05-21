@@ -4,7 +4,7 @@ import { NavigationService } from '../Services/Navigation/navigation.service';
 export const authGuard: CanMatchFn = (route, segments) => {
   const _NavigationService = inject(NavigationService);
   const token = localStorage.getItem('token');
-  var userid = localStorage.getItem('userID');
+  var userid = localStorage.getItem('userId');
   if (!token || !userid) {
     _NavigationService.NavigationByUrl('Auth/Login');
     return false;

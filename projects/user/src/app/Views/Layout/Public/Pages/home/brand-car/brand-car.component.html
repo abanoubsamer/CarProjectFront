@@ -30,7 +30,10 @@
   <div class="carousel-container">
     <div class="brands-grid">
       @for (brand of carBrands; track brand.id) {
-      <div class="container brand-logo-container">
+      <div
+        (click)="selectBrand(brand.id)"
+        class="container brand-logo-container"
+      >
         <img
           [lazyLoad]="IP + '/images/CarBrand/' + brand.image"
           [defaultImage]="'Loding.svg'"

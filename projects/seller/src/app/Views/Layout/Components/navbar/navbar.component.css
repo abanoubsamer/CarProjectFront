@@ -63,8 +63,10 @@
 .notification-footer:hover {
   background: rgba(0, 0, 0, 0.05);
 }
-
 .main-navbar {
+  border-bottom: 1px solid #ccc;
+
+  z-index: 1000; /* أقل من z-index بتاع Angular Material dialog */
 }
 .main-navbar .top-navbar {
   background: #fff;

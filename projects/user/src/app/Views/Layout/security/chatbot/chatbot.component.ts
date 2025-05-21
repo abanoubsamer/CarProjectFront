@@ -160,7 +160,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
         this.tempmsg = '';
         this.index = 0;
       }
-    }, 30);
+    }, 40);
   }
 
   onFileSelected(event: any) {

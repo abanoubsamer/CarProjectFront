@@ -101,7 +101,7 @@ export class CheckOutComponent implements AfterViewInit {
           if (res.success) {
             this._TosterServcies.success('Success Add Order');
             this.dialogRef.close();
-            this._NavigationService.NavigationByUrl('/');
+            this._NavigationService.NavigationByUrl('Security/orders');
           }
         },
       });

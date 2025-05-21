@@ -282,3 +282,15 @@
 .final {
   font-weight: bold;
 }
+
+/* Dialog Styles */
+::ng-deep .custom-dialog-container {
+  .mat-mdc-dialog-container {
+    padding: 0;
+  }
+
+  .mat-mdc-dialog-content {
+    max-height: calc(80vh - 120px);
+    overflow-y: auto;
+  }
+}

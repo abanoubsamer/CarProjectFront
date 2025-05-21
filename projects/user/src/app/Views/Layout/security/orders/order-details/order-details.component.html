@@ -1,91 +1,200 @@
-<div id="popupOverlay" class="overlay-container mt-5">
-  <div class="popup-box">
-    <mat-dialog-content>
-      <!-- Saved Addresses List -->
+<div class="details-container">
+  <div class="header">
+    <div class="order-title">
+      <mat-icon>shopping_cart</mat-icon>
+      <h2>Order Details #{{ orderDetails.orderID }}</h2>
+    </div>
+    <div class="order-status">
+      <span
+        class="status-badge"
+        [ngClass]="getStatusClass(orderDetails.status)"
+      >
+        {{ getStatusText(orderDetails.status) }}
+      </span>
+    </div>
+  </div>
 
-      <div class="card-body">
-        <div class="shipping-activity">
-          <div class="popup-box-Centre">
-            <h3>Shipping Activity</h3>
-          </div>
-
-          <div class="shipping-timeline">
-            <div class="timeline-item">
-              <div class="dot"></div>
-              <div class="content">
-                <h4>Order Placed (Order #: #{{ orderDetails.orderID }})</h4>
-                <p>Your order has been successfully placed.</p>
-                <div class="time">{{ orderDetails.orderDate }}</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="dot"></div>
-              <div class="content">
-                <h4>Pickup Scheduled</h4>
-                <p>Pickup scheduled with the shipping company.</p>
-                <div class="time">Wednesday 11:29 AM</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="dot"></div>
-              <div class="content">
-                <h4>Shipped</h4>
-                <p>Order received by the shipping company.</p>
-                <div class="time">Thursday 11:29 AM</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="dot"></div>
-              <div class="content">
-                <h4>Package Arrived</h4>
-                <p>Package arrived at Amazon warehouse, New York.</p>
-                <div class="time">Saturday 10:20 AM</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="dot"></div>
-              <div class="content">
-                <h4>Out for Delivery</h4>
-                <p>Package left Amazon warehouse, New York.</p>
-                <div class="time">Today 2:12 PM</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="dot incomplete"></div>
-              <div class="content">
-                <h4>Delivery</h4>
-                <p>Delivery scheduled for tomorrow.</p>
-                <div class="time">Pending</div>
-              </div>
-            </div>
-          </div>
+  <!-- Order Tracking Timeline -->
+  <div class="container tracking-timeline">
+    <div class="timeline-header">
+      <mat-icon>local_shipping</mat-icon>
+      <h3>Order Tracking</h3>
+    </div>
+    <div class="timeline">
+      <div
+        class="timeline-item"
+        [class.active]="orderDetails.status >= 0"
+        [class.completed]="orderDetails.status >= 0"
+      >
+        <div class="timeline-icon">
+          <mat-icon>shopping_cart</mat-icon>
         </div>
+        <div class="timeline-content">
+          <h4>Order Placed</h4>
+          <p>Your order has been received</p>
+        </div>
+      </div>
 
-        <div class="card popup-box-Centre">
-          <div class="order-details">
-            <h3>Shipping Address</h3>
+      <div
+        class="timeline-item"
+        [class.active]="orderDetails.status >= 0"
+        [class.completed]="orderDetails.status >= 1"
+      >
+        <div class="timeline-icon">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+        <div class="timeline-content">
+          <h4>Order Confirmed</h4>
+          <p>Your order has been confirmed</p>
+        </div>
+      </div>
 
-            <p>{{ orderDetails.shippingAddresses.street }}</p>
-            <p>{{ orderDetails.shippingAddresses.city }}</p>
+      <div
+        class="timeline-item"
+        [class.active]="orderDetails.status >= 1"
+        [class.completed]="orderDetails.status >= 2"
+      >
+        <div class="timeline-icon">
+          <mat-icon>local_shipping</mat-icon>
+        </div>
+        <div class="timeline-content">
+          <h4>Shipped</h4>
+          <p>Your order is on the way</p>
+        </div>
+      </div>
 
-            <p>{{ orderDetails.shippingAddresses.country }}</p>
+      <div
+        class="timeline-item"
+        [class.active]="orderDetails.status >= 2"
+        [class.completed]="orderDetails.status >= 3"
+      >
+        <div class="timeline-icon">
+          <mat-icon>home</mat-icon>
+        </div>
+        <div class="timeline-content">
+          <h4>Delivered</h4>
+          <p>Your order has been delivered</p>
+        </div>
+      </div>
 
-            <h3>Billing Address</h3>
-            <p>
-              {{ orderDetails.shippingAddresses.houseNumber }}:
-              {{ orderDetails.shippingAddresses.street }}
-            </p>
+      <div
+        class="timeline-item"
+        [class.active]="orderDetails.status === 4"
+        [class.completed]="orderDetails.status === 4"
+      >
+        <div class="timeline-icon">
+          <mat-icon>cancel</mat-icon>
+        </div>
+        <div class="timeline-content">
+          <h4>Cancelled</h4>
+          <p>Order has been cancelled</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <h3>Payment Details</h3>
-            <p>{{ orderDetails.payment.paymentMethod }}</p>
-            <p># {{ orderDetails.payment.transactionID }}</p>
-            <p>Amount :{{ orderDetails.payment.amount }}</p>
+  <div class="container mat-typography">
+    <div class="details-grid">
+      <!-- Order Information -->
+      <div class="detail-card order-info">
+        <div class="card-header">
+          <mat-icon>receipt_long</mat-icon>
+          <h3>Order Information</h3>
+        </div>
+        <div class="card-content">
+          <div class="info-item">
+            <span class="label">Order Date</span>
+            <span class="value">{{
+              orderDetails.orderDate | date : "dd/MM/yyyy hh:mm a"
+            }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Order ID</span>
+            <span class="value" style="display: block; text-align: right"
+              >#{{ orderDetails.orderID }}</span
+            >
           </div>
         </div>
       </div>
-    </mat-dialog-content>
-    <mat-dialog-actions class="mt-3">
-      <button mat-button mat-dialog-close>Close</button>
-    </mat-dialog-actions>
+
+      <!-- Shipping Address -->
+      <div class="detail-card shipping-info">
+        <div class="card-header">
+          <mat-icon>location_on</mat-icon>
+          <h3>Shipping Address</h3>
+        </div>
+        <div class="card-content">
+          <div class="info-item">
+            <span class="label">Street</span>
+            <span class="value">{{
+              orderDetails.shippingAddresses.street
+            }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">City</span>
+            <span class="value">{{ orderDetails.shippingAddresses.city }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Country</span>
+            <span class="value">{{
+              orderDetails.shippingAddresses.country
+            }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Postal Code</span>
+            <span class="value">{{
+              orderDetails.shippingAddresses.postalCode
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Information -->
+    </div>
+    <div class="detail-card payment-info">
+      <div class="card-header">
+        <mat-icon>payment</mat-icon>
+        <h3>Payment Information</h3>
+      </div>
+      <div class="card-content">
+        <div class="info-item">
+          <span class="label">Payment Method</span>
+          <span class="value">{{
+            orderDetails.payment.paymentMethod || "Credit Card"
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Payment Status</span>
+          <span
+            class="value"
+            [ngClass]="{
+              'text-success': 'Paid',
+              'text-warning': orderDetails.paymentStatus === 'Pending'
+            }"
+          >
+            Paid
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="label">Transaction ID</span>
+          <span class="value"
+            >#{{ orderDetails.payment.transactionID || "N/A" }}</span
+          >
+        </div>
+        <div class="info-item total">
+          <span class="label">Total Amount</span>
+          <span class="value"
+            >EGP{{ orderDetails.payment.amount || "0.00" }}</span
+          >
+        </div>
+      </div>
+    </div>
   </div>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+      Close
+    </button>
+  </mat-dialog-actions>
 </div>
