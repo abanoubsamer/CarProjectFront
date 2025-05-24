@@ -1,5 +1,6 @@
 .details-container {
   padding: 0;
+
   background-color: #ffffff;
   min-width: 800px;
   border-radius: 16px;
@@ -155,6 +156,7 @@
 mat-dialog-actions {
   padding: 16px 24px;
   margin: 0;
+
   background: #f8f9fa;
   border-top: 1px solid #e9ecef;
 }

@@ -199,7 +199,10 @@ export class AddProudctComponent implements OnInit {
 
   // inventoryForm: FormGroup;
   isDragOver = false;
+  isDragOverMain = false;
   imagePreviews: string[] = [];
+  MainImagePreviews = { id: '', image: '' };
+  MainImage: File = new File([], '');
   editorConfig = {
     toolbar: [
       ['bold', 'italic', 'underline'], // التنسيقات الأساسية
@@ -280,6 +283,9 @@ export class AddProudctComponent implements OnInit {
     // });
   }
 
+  removeMain() {
+    this.MainImagePreviews = { image: '', id: '' };
+  }
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(
@@ -308,6 +314,10 @@ export class AddProudctComponent implements OnInit {
   }
 
   publishProduct() {
+    if (this.MainImage.size == 0) {
+      this.Toster.error('Please select at least one Main Image.');
+      return;
+    }
     if (this.images.length == 0) {
       this.Toster.error('Please select at least one image.');
       return;
@@ -330,6 +340,7 @@ export class AddProudctComponent implements OnInit {
         CategoryID: this.selectedCategory,
         Description: this.productForm.value.description,
         FormImages: this.images,
+        MainImage: this.MainImage,
         Name: this.productForm.value.name,
         Price: this.productForm.value.basePrice,
         SellerID: localStorage.getItem('sellerID') ?? '',
@@ -426,5 +437,61 @@ export class AddProudctComponent implements OnInit {
     this.imagePreviews = this.imagePreviews.filter((img) => img !== image);
     this.images.splice(index, 1);
   }
+
+  onDragOverMain(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOverMain = true;
+  }
+
+  // عند مغادرة الملف لمنطقة الإسقاط
+  onDragLeaveMain(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOverMain = false;
+  }
+
+  // عند إسقاط الملفات
+  onDropMain(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOverMain = false;
+
+    if (event.dataTransfer?.files.length) {
+      this.processFilesMain(event.dataTransfer.files);
+    }
+  }
+
+  // عند اختيار ملفات عبر المتصفح
+  onFileSelectMain(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files) {
+      this.processFilesMain(target.files);
+    }
+  }
+
+  // معالجة الملفات وعرض المعاينة
+  processFilesMain(files: FileList) {
+    Array.from(files).forEach((file) => {
+      if (!file.type.startsWith('image/')) {
+        alert('Please select only image files.');
+        return;
+      }
+      this.MainImage = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.MainImagePreviews = {
+          image: e.target?.result as string,
+          id: crypto.randomUUID(),
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  browseImageMain() {
+    const fileInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    fileInput.click();
+  }
+
   //#endregion
 }

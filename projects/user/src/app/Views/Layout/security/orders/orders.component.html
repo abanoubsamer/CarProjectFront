@@ -30,9 +30,9 @@
                 </div>
               </div>
             </td>
-            <td>EGP {{ orderItems.price }}</td>
+            <td>EGP {{ orderItems.price / orderItems.quantity }}</td>
             <td>{{ orderItems.quantity }}</td>
-            <td>EGP {{ orderItems.price * orderItems.quantity }}</td>
+            <td>EGP {{ orderItems.price }}</td>
           </tr>
           }
         </tbody>

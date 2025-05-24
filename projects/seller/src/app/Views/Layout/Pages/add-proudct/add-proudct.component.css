@@ -12,7 +12,13 @@
 .image-upload-area {
   text-align: center;
 }
+.image-preview-Main {
+  display: flex;
+  flex-wrap: wrap;
 
+  justify-content: center;
+  align-items: center;
+}
 .dropzone {
   border: 2px dashed #002a47;
   padding: 20px;

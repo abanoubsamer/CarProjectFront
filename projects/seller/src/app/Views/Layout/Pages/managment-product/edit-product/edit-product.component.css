@@ -45,7 +45,13 @@
   justify-content: flex-start;
   align-items: center;
 }
+.image-preview-Main {
+  display: flex;
+  flex-wrap: wrap;
 
+  justify-content: center;
+  align-items: center;
+}
 .preview-item {
   position: relative;
 }

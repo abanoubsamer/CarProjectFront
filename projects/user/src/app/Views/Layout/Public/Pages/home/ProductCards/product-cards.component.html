@@ -15,7 +15,8 @@
           >
             <span class="badge bg-danger badge-floating">Sale!</span>
             <img
-              [lazyLoad]="Ip + '/images/' + Product.images[0].image"
+              *ngIf="getMainImage(Product.images) as mainImg"
+              [lazyLoad]="Ip + '/images/' + mainImg"
               [defaultImage]="'Loding.svg'"
               class="product-image card-img-top mt-2"
               alt="Product Image"

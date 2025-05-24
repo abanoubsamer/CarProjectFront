@@ -207,6 +207,52 @@
             }
           </div>
         </div>
+
+        <div class="card">
+          <h2>Product Images Main</h2>
+          <div class="image-upload-area">
+            <div
+              class="dropzone"
+              (dragover)="onDragOverMain($event)"
+              (dragleave)="onDragLeaveMain($event)"
+              (drop)="onDropMain($event)"
+              (click)="browseImageMain()"
+              [class]="{ 'drag-over': isDragOver }"
+            >
+              @if(MainImagePreviews.image!=""){
+              <div class="image-preview-Main">
+                <div class="preview-item">
+                  <img [src]="MainImagePreviews.image" alt="Uploaded Image" />
+                  <button
+                    type="button"
+                    class="delete-btn"
+                    (click)="removeMain()"
+                  >
+                    X
+                  </button>
+                </div>
+              </div>
+              } @else {
+
+              <div class="upload-icon">
+                <i class="fa fa-cloud-upload"></i>
+              </div>
+              <p>Drag and drop your images here</p>
+              <button type="button" class="btn-browse">Browse images</button>
+              }
+            </div>
+
+            <input
+              type="file"
+              #fileInput
+              (change)="onFileSelectMain($event)"
+              accept="image/*"
+              multiple
+              hidden
+            />
+          </div>
+        </div>
+
         <div class="card">
           <h2>Product Images</h2>
           <div class="image-upload-area">

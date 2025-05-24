@@ -8,6 +8,7 @@ import {
 import { OrderCommendService } from '../../../../Services/Orders/Commend/Handler/order-commend.service';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from '../../../../Services/Navigation/navigation.service';
+import { SharedDataService } from '../../../../Services/SharedDataService/shared-data.service';
 
 @Component({
   selector: 'app-check-out',
@@ -19,14 +20,10 @@ export class CheckOutComponent implements AfterViewInit {
   private readonly model = inject(MAT_DIALOG_DATA);
   public dialogRef = inject(MatDialogRef<CheckOutComponent>);
   private readonly _OrderServices = inject(OrderCommendService);
+  private readonly _sharedDataService = inject(SharedDataService);
   private readonly _TosterServcies = inject(ToastrService);
   private readonly _NavigationService = inject(NavigationService);
-  // this._NavigationService.NavigationByUrl('Security/Checkout');
-  // this._OrderServices.CheckOutServices(request).subscribe({
-  //   next: (res) => {
-  //     window.location.href = res.data;
-  //   },
-  // });
+
   ngAfterViewInit(): void {
     document
       .querySelector('.card-number-input')!
@@ -102,6 +99,7 @@ export class CheckOutComponent implements AfterViewInit {
             this._TosterServcies.success('Success Add Order');
             this.dialogRef.close();
             this._NavigationService.NavigationByUrl('Security/orders');
+            this._sharedDataService.clearCartUser();
           }
         },
       });

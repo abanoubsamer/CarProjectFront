@@ -4,7 +4,7 @@
       <!-- Product Images -->
       <div class="col-md-6 mb-4">
         <img
-          [src]="selectedImage || Ip + '/images/' + product.images[0].image"
+          [src]="selectedImage || Ip + '/images/' + MainImage"
           alt="Product"
           class="img-fluid rounded mb-3 product-image"
           id="mainImage"
@@ -25,7 +25,7 @@
       <!-- Product Details -->
       <div class="col-md-6">
         <h2 class="mb-3">{{ product.name }}</h2>
-        <p class="text-muted mb-4">SKU: WH1000XM4</p>
+        <p class="text-muted mb-4">SKU: {{ product.suk }}</p>
         <div class="mb-3">
           <span class="h4 me-2">EGP{{ product.price }}</span>
           <span class="text-muted"

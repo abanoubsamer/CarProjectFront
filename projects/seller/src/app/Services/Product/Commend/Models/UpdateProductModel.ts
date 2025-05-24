@@ -5,6 +5,7 @@ export interface UpdateProductModel {
 
   Price?: number;
   FormImages?: File[];
+  MainImages?: File;
   IdIamgesDelteted?: string[];
   StockQuantity?: number;
   SellerID?: string;

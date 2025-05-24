@@ -206,7 +206,7 @@ export class CartComponent implements OnInit {
       width: '700px',
       height: '650px',
       panelClass: 'custom-dialog-container',
-      backdropClass: 'custom-backdrop',
+
       data: request,
     });
     dialogRef.afterClosed().subscribe((result) => {

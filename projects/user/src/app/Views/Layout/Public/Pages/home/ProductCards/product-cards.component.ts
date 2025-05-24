@@ -17,6 +17,7 @@ import { NavigationService } from '../../../../../../Services/Navigation/navigat
 import { CartService } from '../../../../../../Services/Cart/Handler/cart.service';
 import { AddIteamCart } from '../../../../../../Services/Cart/Models/AddToCart';
 import { SharedDataService } from '../../../../../../Services/SharedDataService/shared-data.service';
+import { ProductImagesDto } from '../../../../../../Core/Dtos/ProductImagesDto';
 @Component({
   selector: 'app-product-cards',
   imports: [NotFoundComponent, SharedModuleModule, NgxPaginationModule],
@@ -31,6 +32,7 @@ export class ProductCardsComponent implements OnInit, OnChanges {
   total: number = 0;
   userId = localStorage.getItem('userId');
   @Input() filter: object = {};
+  mainImage: ProductImagesDto = {} as ProductImagesDto;
 
   //cache
   private pageCache = new Map<number, GetProducts[]>();
@@ -70,6 +72,12 @@ export class ProductCardsComponent implements OnInit, OnChanges {
         this._totservice.warning(err.error.message);
       },
     });
+  }
+
+  getMainImage(images: ProductImagesDto[]): string | null {
+    if (!images || images.length === 0) return null;
+    const main = images.find((img) => img.image.startsWith('main_'));
+    return main?.image ?? images[0].image;
   }
 
   GetProductDetails(ProductId: string) {

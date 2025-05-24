@@ -98,6 +98,7 @@ export class OrdersComponent implements OnInit {
   ) {
     const dialogRef = this.dialog.open(DetailsComponent, {
       width: '800px',
+
       enterAnimationDuration,
       exitAnimationDuration,
       data: Order,

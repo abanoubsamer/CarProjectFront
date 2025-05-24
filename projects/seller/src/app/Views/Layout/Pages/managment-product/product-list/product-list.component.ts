@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductQuereisService } from '../../../../../Services/Product/Queries/Handler/product-quereis.service';
 import { Routing } from '../../../../../Meta/Routing';
 import { EditProductComponent } from '../edit-product/edit-product.component';
+import { ProductImagesDto } from '../../../../../Core/Dtos/ProductImagesDto';
 
 @Component({
   selector: 'app-product-list',
@@ -42,6 +43,13 @@ export class ProductListComponent {
   private readonly _ProductQuereisService = inject(ProductQuereisService);
   products: Array<GetSellerProductsModel> = [];
   SellerId = localStorage.getItem('sellerID');
+
+  getMainImage(images: ProductImagesDto[]): string | null {
+    if (!images || images.length === 0) return null;
+    const main = images.find((img) => img.image.startsWith('main_'));
+    return main?.image ?? images[0].image;
+  }
+
   getProduct(PageNumber: number, PageSize: number, filter?: object) {
     if (this.SellerId) {
       this._ProductQuereisService

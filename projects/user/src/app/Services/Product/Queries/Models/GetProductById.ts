@@ -6,6 +6,7 @@ import { GetProductReviowsModel } from '../../../Rating/Queries/Model/GetProduct
 export interface GetProductById {
   reviewDto: GetProductReviowsModel[];
   productID: string;
+  suk: string;
   name: string;
   description: string;
   averageRating: number;

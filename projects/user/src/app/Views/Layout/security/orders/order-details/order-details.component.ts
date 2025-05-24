@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormSharedModule } from '../../../../../Shared/Modules/mat-form-shared.module';
 import { CommonModule } from '@angular/common';
@@ -9,8 +9,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.css',
 })
-export class OrderDetailsComponent {
+export class OrderDetailsComponent implements OnInit {
   orderDetails: any;
+
   datadailog = inject(MAT_DIALOG_DATA);
   getStatusText(status: number): string {
     const statuses = [

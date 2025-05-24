@@ -4,6 +4,7 @@ export interface AddProductModel {
   sKU: string;
   Price: number;
   FormImages: File[];
+  MainImage: File;
   StockQuantity: number;
   SellerID: string;
   CategoryID: string;

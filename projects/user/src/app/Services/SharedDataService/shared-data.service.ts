@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
 import { PhoneNumberDto } from '../../Core/Dtos/PhoneNumberDto';
 import { GetUserIdModel } from '../User/Queries/Models/GetUserIdModels';
 import { shippingAddressesDto } from '../../Core/Dtos/shippingAddressesDto';
@@ -21,6 +20,11 @@ export class SharedDataService {
   });
   currentCUser = this.cartUserSource.asObservable();
 
+  clearCartUser() {
+    const currentData = this.cartUserSource.value;
+
+    this.cartUserSource.next({ ...currentData, countCard: 0 });
+  }
   updateCartCount(count: number) {
     const currentData = this.cartUserSource.value;
     const newCount = currentData.countCard + count;

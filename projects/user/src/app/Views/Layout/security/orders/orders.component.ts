@@ -59,8 +59,6 @@ export class OrdersComponent implements OnInit {
   ) {
     const dialogRef = this.dialog.open(OrderDetailsComponent, {
       width: '800px',
-      height: '90vh',
-      maxHeight: '90vh',
       enterAnimationDuration,
       exitAnimationDuration,
       data: OrdersUser,

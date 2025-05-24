@@ -60,11 +60,14 @@ export class EditProductComponent implements OnInit {
   productForm: FormGroup = new FormGroup({});
   originalFormValues: any = {};
   isDragOver = false;
+  isDragOverMain = false;
+  updateMain = false;
   filter: any = {};
   Ip: string = Routing.Ip;
   IsUpdateCategory = false;
   @Output() close = new EventEmitter<void>();
   imagePreviews = [] as { id: string; image: string }[];
+  MainImagePreviews = { id: '', image: '' };
   oldImages = [] as { id: string; image: string }[];
   RemoveImagesIds = [] as string[];
   editorConfig = {
@@ -79,6 +82,7 @@ export class EditProductComponent implements OnInit {
   selectedSubCategory: any = null;
   subcategories: any[] = [];
   images: File[] = [];
+  MainImage: File = new File([], '');
   pageSize = 5; // عدد العناصر في كل صفحة
   p = 1; // الصفحة الحالية
   total: number = 0; // إجمالي عدد العناصر
@@ -156,6 +160,7 @@ export class EditProductComponent implements OnInit {
         JSON.stringify(this.originalFormValues) &&
       this.selectedCategory == null &&
       this.selectedSubCategory == null &&
+      this.MainImage.size == 0 &&
       this.images.length === 0 &&
       this.RemoveImagesIds.length === 0
     );
@@ -166,7 +171,6 @@ export class EditProductComponent implements OnInit {
       // Product Information
       name: [this.product?.name || '', Validators.required],
       description: [this.product?.descreption || '', Validators.required],
-
       basePrice: [this.product?.price || '', Validators.required],
       discountedPrice: [''],
       inStock: [true],
@@ -180,7 +184,7 @@ export class EditProductComponent implements OnInit {
           Id: this.product.id,
           CategoryID: this.selectedSubCategory?.id ?? '',
           Description: this.productForm.value.description,
-
+          MainImages: this.MainImage,
           FormImages: this.images,
           IdIamgesDelteted: this.RemoveImagesIds,
           Name: this.productForm.value.name,
@@ -249,6 +253,61 @@ export class EditProductComponent implements OnInit {
     });
   }
 
+  onDragOverMain(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOverMain = true;
+  }
+
+  // عند مغادرة الملف لمنطقة الإسقاط
+  onDragLeaveMain(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOverMain = false;
+  }
+
+  // عند إسقاط الملفات
+  onDropMain(event: DragEvent) {
+    event.preventDefault();
+    this.isDragOverMain = false;
+    if (event.dataTransfer?.files.length) {
+      this.processFilesMain(event.dataTransfer.files);
+    }
+  }
+
+  // عند اختيار ملفات عبر المتصفح
+  onFileSelectMain(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.updateMain = true;
+    if (target.files) {
+      this.processFilesMain(target.files);
+    }
+  }
+
+  // معالجة الملفات وعرض المعاينة
+  processFilesMain(files: FileList) {
+    Array.from(files).forEach((file) => {
+      if (!file.type.startsWith('image/')) {
+        alert('Please select only image files.');
+        return;
+      }
+      this.MainImage = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.MainImagePreviews = {
+          image: e.target?.result as string,
+          id: crypto.randomUUID(),
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  browseImageMain() {
+    const fileInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    fileInput.click();
+  }
+
   // فتح نافذة اختيار الملفات
   browseImage() {
     const fileInput = document.querySelector(
@@ -270,10 +329,17 @@ export class EditProductComponent implements OnInit {
     console.log('Images:', this.product?.productImagesDto);
 
     this.product?.productImagesDto.forEach((x: any) => {
-      this.imagePreviews.push({
-        id: x.id,
-        image: `${this.Ip}/Images/${x.image}`,
-      }); // تأكد من المسار الصحيح
+      if (x.image.startsWith('main_')) {
+        this.MainImagePreviews = {
+          image: `${this.Ip}/Images/${x.image}`,
+          id: x.id,
+        };
+      } else {
+        this.imagePreviews.push({
+          id: x.id,
+          image: `${this.Ip}/Images/${x.image}`,
+        }); // تأكد من المسار الصحيح
+      }
     });
     this.product?.productImagesDto.forEach((x: any) => {
       this.oldImages.push({
@@ -293,6 +359,10 @@ export class EditProductComponent implements OnInit {
       (img) => img.image !== image
     );
     this.images.splice(index, 1);
+  }
+
+  removeMain() {
+    this.MainImagePreviews = { image: '', id: '' };
   }
   BackWord() {
     this.close.emit();

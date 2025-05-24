@@ -15,6 +15,7 @@ import { RatingQueryService } from '../../../../../Services/Rating/Queries/Handl
 import { ReviewStatistic } from '../../../../../Services/Rating/Queries/Model/ReviewStatistic';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ScrollService } from '../../../../../Services/scroll.service';
+import { ProductImagesDto } from '../../../../../Core/Dtos/ProductImagesDto';
 
 @Component({
   selector: 'app-product-detials',
@@ -29,6 +30,7 @@ export class ProductDetialsComponent implements OnInit {
   userId = localStorage.getItem('userId');
   selectedImage: string = '';
   filter: any = {};
+  MainImage: string = '';
   pageSize = 5;
   p = 1;
   total: number = 0;
@@ -51,8 +53,12 @@ export class ProductDetialsComponent implements OnInit {
       this.product = ProductId;
       this.filter['ProductId'] = this.product.productID;
       this.product.description = this.product.description
+
         .replace(/,/g, '<br>')
         .replace(/\./g, '<br>');
+      this.MainImage =
+        this.product.images.find((img) => img.image.startsWith('main_'))
+          ?.image ?? this.product.images[0].image;
       this.GetReviewPaginagtion(this.p, this.pageSize, this.filter);
     });
     setTimeout(() => {
@@ -62,6 +68,12 @@ export class ProductDetialsComponent implements OnInit {
   //#endregion
 
   //#region Method
+
+  getMainImage(images: ProductImagesDto[]): string | null {
+    if (!images || images.length === 0) return null;
+    const main = images.find((img) => img.image.startsWith('main_'));
+    return main?.image ?? images[0].image;
+  }
   GetReviewPaginagtion(p: number, pageSize: number, filter: object) {
     this._RateService
       .getSellerProductReviews(p, pageSize, filter)
