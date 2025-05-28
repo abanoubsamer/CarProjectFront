@@ -91,6 +91,8 @@ export class NotificationService {
   async requestPermission(): Promise<string | null> {
     try {
       const permission = await Notification.requestPermission();
+      console.log('Notification permission:', permission);
+
       if (permission !== 'granted') {
         return null;
       }
