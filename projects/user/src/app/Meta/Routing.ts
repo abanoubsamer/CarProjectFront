@@ -73,4 +73,14 @@ export class Routing {
     GetUserOrder: Routing.Role + 'Order/UserOrders/{id}',
     AddUserOrder: Routing.Role + 'Order/AddTest',
   };
+  static Notification = {
+    GetUserNotification: Routing.Role + 'Notification/GetUserNotification/{Id}',
+    SetNotificationTokenTopic:
+      Routing.Role + 'Notification/SetNotificationTokenTopic',
+    SetTokenNotificationToUser:
+      Routing.Role + 'Notification/SetTokenNotificationToUser',
+    SendNotificationTopic: Routing.Role + 'Notification/SendNotificationTopic',
+    SendNotificationToUser:
+      Routing.Role + 'Notification/SendNotificationToUser',
+  };
 }

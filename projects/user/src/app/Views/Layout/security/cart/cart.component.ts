@@ -19,6 +19,8 @@ import { CheckOutComponent } from '../check-out/check-out.component';
 import { GetcartUser } from '../../../../Services/Cart/Models/CartItem';
 import { NotFoundComponent } from '../../Components/not-found/not-found.component';
 import { ScrollService } from '../../../../Services/scroll.service';
+import { ProductImagesDto } from '../../../../Core/Dtos/ProductImagesDto';
+import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
 @Component({
   selector: 'app-cart',
   imports: [
@@ -27,6 +29,7 @@ import { ScrollService } from '../../../../Services/scroll.service';
     RouterModule,
     MatStepperModule,
     NotFoundComponent,
+    SharedModuleModule,
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
@@ -43,6 +46,7 @@ export class CartComponent implements OnInit {
   };
 
   address: string = '';
+
   phone: string = '';
 
   get isPhoneDisabled(): boolean {
@@ -57,7 +61,6 @@ export class CartComponent implements OnInit {
   //#region Inject
   private readonly route = inject(ActivatedRoute);
   private readonly _CartService = inject(CartService);
-
   private readonly _OrderServices = inject(OrderCommendService);
   private readonly _sharedDataService = inject(SharedDataService);
   private readonly _NavigationService = inject(NavigationService);
@@ -76,6 +79,11 @@ export class CartComponent implements OnInit {
     setTimeout(() => {
       this.scrollService.smoothScroll(1000);
     }, 100);
+  }
+  getMainImage(images: ProductImagesDto[]): string | null {
+    if (!images || images.length === 0) return null;
+    const main = images.find((img) => img.image.startsWith('main_'));
+    return main?.image ?? images[0].image;
   }
 
   openMapDialog(stepper: MatStepper) {

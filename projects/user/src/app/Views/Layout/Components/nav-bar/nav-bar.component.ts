@@ -9,6 +9,9 @@ import { QueriesProductService } from '../../../../Services/Product/Queries/Hand
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../../../Services/Notification/notification.service';
+import { GetUserNotification } from '../../../../Services/Notification/Models/GetUserNotification';
+import { NotFoundComponent } from '../not-found/not-found.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -40,10 +43,19 @@ export class NavBarComponent implements OnInit {
   private readonly _ProductService = inject(QueriesProductService);
   private readonly _toster = inject(ToastrService);
   private readonly sanitizer = inject(DomSanitizer);
-
+  private readonly _notificationService = inject(NotificationService);
+  notifications: GetUserNotification[] = [];
   ngOnInit(): void {
     this.getUserData();
     this.setupSearch();
+    this._notificationService
+      .GetNotifications(this.userid ?? '')
+      .subscribe((res) => {
+        this.notifications = res.data;
+      });
+    this._notificationService.notifications$.subscribe((message) => {
+      this.notifications.push(message);
+    });
   }
 
   private setupSearch() {

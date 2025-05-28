@@ -4,7 +4,7 @@
       <!-- Cart Items Section -->
       <div class="col-lg-8">
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h4 class="mb-0">Shopping Cart</h4>
+          <h2 class="mb-0 Head">Shopping Cart</h2>
           <span class="text-muted">{{ Card.cardItemsDtos.length }} items</span>
         </div>
         @if(Card.cardItemsDtos.length > 0){ @for (cardItems of
@@ -19,8 +19,9 @@
                 (click)="goToProduct(cardItems.product.productID)"
               >
                 <img
-                  [src]="Ip + '/images/' + cardItems.product.imagesDto[0].image"
-                  alt="Product"
+                  *ngIf="getMainImage(cardItems.product.imagesDto) as mainImg"
+                  [lazyLoad]="Ip + '/Images/' + mainImg"
+                  [defaultImage]="'Loding.svg'"
                   class="product-image"
                 />
               </div>

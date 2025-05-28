@@ -323,7 +323,7 @@
   .timeline::before {
     top: 25px;
     bottom: 0;
-    left: 10%;
+    left: 40px;
     width: 2px;
     height: 80%;
     transform: translateX(-50%);

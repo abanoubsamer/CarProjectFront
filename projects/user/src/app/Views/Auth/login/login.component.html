@@ -14,7 +14,7 @@
             <h3 class="header">Sign In</h3>
             <p class="mb-4"></p>
           </div>
-          <form [formGroup]="Form">
+          <form [formGroup]="Form" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email</mat-label>
 
@@ -74,7 +74,6 @@
               color="primary"
               class="full-width login-button w-100"
               type="submit"
-              (click)="login()"
             >
               Login
             </button>
@@ -90,7 +89,7 @@
               <a href="#" class="twitter btn">
                 <i class="fa-brands fa-twitter"></i>
               </a>
-              <a (click)="loginWihtGoogle()" class="google btn">
+              <a (click)="onSubmitGoogle()" class="google btn">
                 <i class="fa-brands fa-google"></i>
               </a>
             </div>

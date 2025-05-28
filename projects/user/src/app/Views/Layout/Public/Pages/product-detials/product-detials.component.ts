@@ -16,10 +16,16 @@ import { ReviewStatistic } from '../../../../../Services/Rating/Queries/Model/Re
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ScrollService } from '../../../../../Services/scroll.service';
 import { ProductImagesDto } from '../../../../../Core/Dtos/ProductImagesDto';
+import { SharedModuleModule } from '../../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-product-detials',
-  imports: [CommonModule, ProductRatingComponent, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    ProductRatingComponent,
+    NgxPaginationModule,
+    SharedModuleModule,
+  ],
   templateUrl: './product-detials.component.html',
   styleUrl: './product-detials.component.css',
 })
@@ -44,7 +50,7 @@ export class ProductDetialsComponent implements OnInit {
   private readonly _NavigationBar = inject(NavigationService);
   private readonly route = inject(ActivatedRoute);
   private scrollService = inject(ScrollService);
-
+  isLoaded = false;
   //#endregion
 
   //#region LiveHooke
@@ -53,12 +59,12 @@ export class ProductDetialsComponent implements OnInit {
       this.product = ProductId;
       this.filter['ProductId'] = this.product.productID;
       this.product.description = this.product.description
-
         .replace(/,/g, '<br>')
         .replace(/\./g, '<br>');
       this.MainImage =
         this.product.images.find((img) => img.image.startsWith('main_'))
           ?.image ?? this.product.images[0].image;
+
       this.GetReviewPaginagtion(this.p, this.pageSize, this.filter);
     });
     setTimeout(() => {
@@ -129,6 +135,16 @@ export class ProductDetialsComponent implements OnInit {
         })
       );
   }
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.src = 'Loding.svg';
+    this.isLoaded = true;
+  }
+
+  onImageLoad() {
+    this.isLoaded = true;
+  }
+
   pageChanged(event: number) {
     this.p = event;
     this.GetReviewPaginagtion(this.p, this.pageSize, this.filter);

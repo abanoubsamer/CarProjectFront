@@ -178,5 +178,6 @@ export class OrdersComponent implements OnInit {
       this.GetOrders(this.page.pageNumber, this.page.limit, this.filter);
     }
   }
+
   //#endregion
 }

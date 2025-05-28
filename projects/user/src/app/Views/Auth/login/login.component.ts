@@ -9,6 +9,7 @@ import { NavigationService } from '../../../Services/Navigation/navigation.servi
 import { RouterModule } from '@angular/router';
 import { SharedModuleModule } from '../../../Shared/Modules/shared-module.module';
 import { Routing } from '../../../Meta/Routing';
+import { NotificationService } from '../../../Services/Notification/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   readonly AuthCommend = inject(AuthCommendService);
   private readonly toastrService = inject(ToastrService);
   private readonly Navigation = inject(NavigationService);
+  private readonly NotficationServices = inject(NotificationService);
   //#endregion
 
   //#region  LiveHooks
@@ -36,6 +38,37 @@ export class LoginComponent implements OnInit {
   //#endregion
 
   //#region Methods
+  async onSubmit() {
+    if (this.Form.valid) {
+      const permissionGranted =
+        await this.NotficationServices.requestPermission();
+      if (!permissionGranted) {
+        this.toastrService.warning('Allow Notification Access');
+        return;
+      }
+
+      try {
+        await this.login(); // هتستنّى لما تسجيل الدخول يتم
+        await this.NotficationServices.checkAndSendToken(); // وبعدها تبعت التوكن
+      } catch (err) {
+        console.error('Login or notification failed:', err);
+      }
+    }
+  }
+
+  async onSubmitGoogle() {
+    const permissionGranted =
+      await this.NotficationServices.requestPermission();
+    if (!permissionGranted) {
+      this.toastrService.warning('Allow Notification Access');
+      return;
+    }
+    this.loginWihtGoogle(() => {
+      // callback بعد تسجيل الدخول
+      this.NotficationServices.checkAndSendToken();
+    });
+  }
+
   initFormLogin(): FormGroup {
     return this.Bulider.group({
       email: [
@@ -58,33 +91,40 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
-    if (this.Form.valid) {
-      var request: LoginModel = this.Form.value;
-      this.AuthCommend.Login(request).subscribe({
-        next: (res) => {
-          if (res.success) {
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('userId', res.data.userID);
-            this.toastrService.success('Success Login');
-            this.Navigation.NavigationByUrl('/Public/Home');
-          }
-        },
-        error: (err) => {
-          this.toastrService.error(err.error.message);
-        },
-      });
-    }
+  login(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (this.Form.valid) {
+        const request: LoginModel = this.Form.value;
+        this.AuthCommend.Login(request).subscribe({
+          next: (res) => {
+            if (res.success) {
+              localStorage.setItem('token', res.data.token);
+              localStorage.setItem('userId', res.data.userID);
+              this.toastrService.success('Success Login');
+              this.Navigation.NavigationByUrl('/Public/Home');
+              resolve();
+            } else {
+              reject(new Error('Login failed'));
+            }
+          },
+          error: (err) => {
+            this.toastrService.error(err.error.message);
+            reject(err);
+          },
+        });
+      } else {
+        reject(new Error('Form is invalid'));
+      }
+    });
   }
 
-  loginWihtGoogle(): void {
+  loginWihtGoogle(afterLoginCallback?: () => void): void {
     const popup = window.open(
       Routing.Authentication.LoginWihtGoogle,
       'Google Login',
       'width=500,height=600'
     );
     if (popup) {
-      // الاستماع للنافذة حتى تُغلق
       const checkPopupClosed = setInterval(() => {
         if (popup.closed) {
           clearInterval(checkPopupClosed);
@@ -93,11 +133,15 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('userId', res?.userId);
             this.toastrService.success('Login Successfully');
             this.Navigation.NavigationByUrl('/');
+
+            // تنفيذ الكولباك بعد تسجيل الدخول
+            if (afterLoginCallback) afterLoginCallback();
           });
         }
       }, 1000);
     }
   }
+
   togglePasswordVisibility() {
     this.hide = !this.hide;
   }

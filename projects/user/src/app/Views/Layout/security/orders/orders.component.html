@@ -22,7 +22,8 @@
               <div class="product">
                 <img
                   (click)="goToProduct(orderItems.productID)"
-                  [src]="Ip + '/images/' + orderItems.imagesDto"
+                  [lazyLoad]="Ip + '/images/' + orderItems.imagesDto"
+                  [defaultImage]="'Loding.svg'"
                   alt="Oneplus 10"
                 />
                 <div class="details">

@@ -362,7 +362,9 @@ export class EditProductComponent implements OnInit {
   }
 
   removeMain() {
+    this.RemoveImagesIds.push(this.MainImagePreviews.id);
     this.MainImagePreviews = { image: '', id: '' };
+    this.MainImage = new File([], '');
   }
   BackWord() {
     this.close.emit();

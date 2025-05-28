@@ -3,25 +3,33 @@
     <div class="row">
       <!-- Product Images -->
       <div class="col-md-6 mb-4">
-        <img
-          [src]="selectedImage || Ip + '/images/' + MainImage"
-          alt="Product"
-          class="img-fluid rounded mb-3 product-image"
-          id="mainImage"
-        />
+        <div class="product-image-container">
+          <div *ngIf="!isLoaded" class="skeleton-loader"></div>
+          <img
+            *ngIf="isLoaded"
+            [lazyLoad]="selectedImage || Ip + '/images/' + MainImage"
+            [defaultImage]="''"
+            class="img-fluid rounded mb-3 product-image"
+            id="mainImage"
+            (error)="onImageError($event)"
+          />
+        </div>
         <div
           class="d-flex thumbnails-container flex-wrap justify-content-center"
         >
           @for (image of product.images; track image.id) {
+
           <img
-            [src]="Ip + '/images/' + image.image"
-            alt="Thumbnail"
+            [lazyLoad]="Ip + '/images/' + image.image"
+            [defaultImage]="'Loding.svg'"
             class="thumbnail rounded"
+            (load)="onImageLoad()"
             (mousemove)="changeImage($event, Ip + '/images/' + image.image)"
           />
           }
         </div>
       </div>
+
       <!-- Product Details -->
       <div class="col-md-6">
         <h2 class="mb-3">{{ product.name }}</h2>

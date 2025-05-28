@@ -10,10 +10,12 @@ import { SharedDataService } from '../../../../Services/SharedDataService/shared
 import { OrdersService } from '../../../../Services/Orders/Queries/Handler/orders.service';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { ScrollService } from '../../../../Services/scroll.service';
+import { ProductImagesDto } from '../../../../Core/Dtos/ProductImagesDto';
+import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
 
 @Component({
   selector: 'app-orders',
-  imports: [RouterModule],
+  imports: [RouterModule, SharedModuleModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css',
 })
@@ -50,6 +52,11 @@ export class OrdersComponent implements OnInit {
     this.route.data.subscribe(({ userOrders }) => {
       this.OrdersUser = userOrders;
     });
+  }
+  getMainImage(images: ProductImagesDto[]): string | null {
+    if (!images || images.length === 0) return null;
+    const main = images.find((img) => img.image.startsWith('main_'));
+    return main?.image ?? images[0].image;
   }
 
   ShowDetails(

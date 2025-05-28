@@ -3,6 +3,13 @@
   min-height: 100vh;
   padding: 40px 0;
 }
+.Head {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f4c7a;
+  margin-bottom: 35px;
+  position: relative;
+}
 
 .product-card {
   background: white;
