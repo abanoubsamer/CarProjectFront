@@ -38,6 +38,27 @@ export class UserCommendService {
       request
     );
   }
+  searchAddressByName(
+    address: string
+  ): Promise<{ lat: string; lon: string; display_name: string }> {
+    const query = encodeURIComponent(address);
+    return fetch(
+      `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`
+    )
+      .then((response) => response.json())
+      .then((results) => {
+        if (results.length > 0) {
+          const result = results[0];
+          return {
+            lat: result.lat,
+            lon: result.lon,
+            display_name: result.display_name,
+          };
+        } else {
+          throw new Error('❌ لم يتم العثور على نتائج للعنوان المطلوب.');
+        }
+      });
+  }
 
   getAddressFromCoordinates(
     lat: number,

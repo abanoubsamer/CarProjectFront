@@ -48,11 +48,13 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.getUserData();
     this.setupSearch();
-    this._notificationService
-      .GetNotifications(this.userid ?? '')
-      .subscribe((res) => {
-        this.notifications = res.data;
-      });
+    if (this.userid) {
+      this._notificationService
+        .GetNotifications(this.userid)
+        .subscribe((res) => {
+          this.notifications = res.data;
+        });
+    }
     this._notificationService.notifications$.subscribe((message) => {
       this.notifications.push(message);
     });

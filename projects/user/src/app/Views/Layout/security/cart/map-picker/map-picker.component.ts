@@ -2,15 +2,25 @@ import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormSharedModule } from '../../../../../Shared/Modules/mat-form-shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as L from 'leaflet';
 import { ToastrService } from 'ngx-toastr';
 import { SharedDataService } from '../../../../../Services/SharedDataService/shared-data.service';
 import { UserCommendService } from '../../../../../Services/User/Commend/Handler/user-commend.service';
 import { UserQuereisService } from '../../../../../Services/User/Queries/Handler/user-quereis.service';
 import { shippingAddressesDto } from '../../../../../Core/Dtos/shippingAddressesDto';
+import { FormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+
 @Component({
   selector: 'app-map-picker',
-  imports: [MatFormSharedModule, MatDialogModule, MatDatepickerModule],
+  imports: [
+    MatFormSharedModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './map-picker.component.html',
   styleUrl: './map-picker.component.css',
 })
@@ -21,6 +31,12 @@ export class MapPickerComponent {
   savedLocations: shippingAddressesDto[] = [];
   desapol = false;
   shippingid = '';
+  searchQuery: string = '';
+  isSearching: boolean = false;
+  addressSuggestions: { display_name: string; lat: number; lon: number }[] = [];
+  showSuggestions = false;
+  private searchSubject = new Subject<string>();
+
   private readonly _UserCommendService = inject(UserCommendService);
   private readonly _UserQuereisService = inject(UserQuereisService);
   private readonly _SharedDataService = inject(SharedDataService);
@@ -30,6 +46,20 @@ export class MapPickerComponent {
   ngOnInit(): void {
     this.GetLocationsUser();
     this.initMap();
+    this.setupSearchSubscription();
+  }
+
+  private setupSearchSubscription() {
+    this.searchSubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((query) => {
+        this.getAddressSuggestions(query);
+      });
+  }
+
+  onSearchInput(event: any) {
+    const query = event.target.value;
+    this.searchSubject.next(query);
   }
 
   GetLocationsUser() {
@@ -76,6 +106,33 @@ export class MapPickerComponent {
   SubmitAddress() {
     this.dialogRef.close(this.shippingid);
   }
+
+  async searchAddress() {
+    if (!this.searchQuery.trim()) {
+      this.toster.warning('الرجاء إدخال عنوان للبحث');
+      return;
+    }
+
+    this.isSearching = true;
+    try {
+      const result = await this._UserCommendService.searchAddressByName(
+        this.searchQuery
+      );
+      const lat = parseFloat(result.lat);
+      const lng = parseFloat(result.lon);
+
+      this.map.setView([lat, lng], 13);
+      this.marker.setLatLng([lat, lng]);
+      this.locationSelected.emit({ lat, lng });
+
+      this.toster.success('تم العثور على العنوان بنجاح');
+    } catch (error: any) {
+      this.toster.error(error.message || 'حدث خطأ أثناء البحث عن العنوان');
+    } finally {
+      this.isSearching = false;
+    }
+  }
+
   //#region Private Methods
   private initMap(): void {
     this.map = L.map('map');
@@ -145,7 +202,48 @@ export class MapPickerComponent {
       this.marker.setLatLng([lat, lng]);
     });
   }
-  //GetLoacationDetials
+
+  getAddressSuggestions(query: string) {
+    if (!query || query.length < 3) {
+      this.addressSuggestions = [];
+      this.showSuggestions = false;
+      return;
+    }
+
+    this.isSearching = true;
+    fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        query
+      )}&format=json&limit=5`
+    )
+      .then((res) => res.json())
+      .then((results) => {
+        this.addressSuggestions = results.map((r: any) => ({
+          display_name: r.display_name,
+          lat: parseFloat(r.lat),
+          lon: parseFloat(r.lon),
+        }));
+        this.showSuggestions = true;
+      })
+      .catch((error) => {
+        this.toster.error('حدث خطأ أثناء البحث عن العنوان');
+      })
+      .finally(() => {
+        this.isSearching = false;
+      });
+  }
+
+  selectSuggestion(suggestion: {
+    lat: number;
+    lon: number;
+    display_name: string;
+  }) {
+    this.map.setView([suggestion.lat, suggestion.lon], 14);
+    this.marker.setLatLng([suggestion.lat, suggestion.lon]);
+    this.searchQuery = suggestion.display_name;
+    this.showSuggestions = false;
+    this.locationSelected.emit({ lat: suggestion.lat, lng: suggestion.lon });
+  }
 
   //#endregion;
 }
