@@ -508,6 +508,8 @@ export class AddProudctComponent implements OnInit {
     this.showDropdown = false;
     this.images = [];
     this.initForm();
+    this.ModelCampatibilityView = [];
+    this.ModelCompatibility = [];
     this.items = [];
     this.searchControl = new FormControl();
   }
