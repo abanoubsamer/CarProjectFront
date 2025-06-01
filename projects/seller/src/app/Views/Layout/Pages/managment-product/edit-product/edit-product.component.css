@@ -484,6 +484,8 @@
   width: 100%;
 }
 .specifications-container {
+  max-height: 500px;
+  overflow-y: auto;
   border: 1px solid #cbd5e1;
   border-radius: 4px;
   padding: 1rem;
@@ -610,4 +612,97 @@ input.form-control {
 }
 .back :hover {
   color: #04395e;
+}
+.product-reviews {
+  margin-top: 30px;
+}
+.product-reviews h5 {
+  font-size: 18px;
+  color: #2874f0;
+}
+.product-reviews .reviews-list {
+  margin-top: 15px;
+}
+.product-reviews .review-item {
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 10%);
+  margin-bottom: 20px;
+}
+.product-reviews .review-item .d-flex {
+  justify-content: space-between;
+}
+.product-reviews .review-item .review-author {
+  font-size: 16px;
+  font-weight: 600;
+}
+.product-reviews .review-item .review-rating {
+  font-size: 14px;
+  color: #f39c12;
+}
+.product-reviews .review-item p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+.product-reviews .add-review {
+  margin-top: 30px;
+}
+.product-reviews .add-review .form-group {
+  margin-bottom: 15px;
+}
+.product-reviews .add-review textarea {
+  resize: none;
+}
+
+::ng-deep .ngx-pagination .current {
+  padding: 8px 14px;
+  background: #264e7e !important;
+  border-radius: 10px;
+  color: #fefefe;
+  cursor: default;
+}
+/* Modern Rounded Pagination Theme */
+::ng-deep .ngx-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  gap: 8px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+::ng-deep.ngx-pagination li {
+  list-style: none;
+}
+
+::ng-deep.ngx-pagination li a,
+.ngx-pagination li span {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f1f3f5;
+  color: #333;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+::ng-deep.ngx-pagination li a:hover {
+  background-color: #264e7e;
+  color: white;
+  transform: translateY(-2px);
+}
+
+::ng-deep.ngx-pagination .disabled a,
+.ngx-pagination .disabled span {
+  background-color: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+html {
+  scroll-behavior: smooth !important;
 }

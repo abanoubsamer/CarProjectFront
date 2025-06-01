@@ -1,4 +1,5 @@
 import { CategoryDto } from '../../../../Core/Dtos/CategoryDto';
+import { GetProductCompatibilityDto } from '../../../../Core/Dtos/getProductCompatibilityDto';
 import { ProductImagesDto } from '../../../../Core/Dtos/ProductImagesDto';
 import { ReviewDto } from '../../../../Core/Dtos/ReviewDto';
 
@@ -12,4 +13,5 @@ export interface GetSellerProductsModel {
   productImagesDto: ProductImagesDto[];
   avaragarate: number;
   category: CategoryDto;
+  modelCompatibilityDto: GetProductCompatibilityDto[];
 }
