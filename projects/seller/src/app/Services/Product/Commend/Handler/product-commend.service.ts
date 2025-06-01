@@ -12,19 +12,41 @@ import { UpdateProductModel } from '../Models/UpdateProductModel';
 export class ProductCommendService {
   private readonly ApiServices = inject(ApiService);
 
-  AddProduct(requste: AddProductModel): Observable<Response<string>> {
-    var formdata = new FormData();
-    Object.entries(requste).forEach(([key, value]: any) => {
+  AddProduct(request: AddProductModel): Observable<Response<string>> {
+    const formData = new FormData();
+
+    Object.entries(request).forEach(([key, value]: any) => {
       if (key === 'FormImages') {
         for (let i = 0; i < value.length; i++) {
-          formdata.append('FormImages', value[i]);
+          formData.append('FormImages', value[i]);
         }
+      } else if (key === 'MainImage') {
+        formData.append('MainImage', value);
+      } else if (key === 'modelCompatibilityDtos') {
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            formData.append(
+              `modelCompatibilityDtos[${index}].minYear`,
+              item.minYear
+            );
+            formData.append(
+              `modelCompatibilityDtos[${index}].maxYear`,
+              item.maxYear
+            );
+            formData.append(
+              `modelCompatibilityDtos[${index}].modelId`,
+              item.modelId
+            );
+          });
+        }
+      } else {
+        formData.append(key, value);
       }
-      formdata.append(key, value);
     });
+
     return this.ApiServices.Post<Response<string>>(
       Routing.Product.Add,
-      formdata
+      formData
     );
   }
 
@@ -44,6 +66,13 @@ export class ProductCommendService {
     return this.ApiServices.Put<Response<string>>(
       Routing.Product.Update,
       formdata
+    );
+  }
+
+  DeleteProduct(id: string): Observable<Response<string>> {
+    return this.ApiServices.Delete<Response<string>>(
+      Routing.Product.Delete,
+      id
     );
   }
 }

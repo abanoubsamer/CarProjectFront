@@ -11,6 +11,10 @@ import { ProductQuereisService } from '../../../../../Services/Product/Queries/H
 import { Routing } from '../../../../../Meta/Routing';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { ProductImagesDto } from '../../../../../Core/Dtos/ProductImagesDto';
+import { Observable } from 'rxjs';
+import { Response } from '../../../../../Core/BasicResponse/Response';
+import { ProductCommendService } from '../../../../../Services/Product/Commend/Handler/product-commend.service';
+import { ConfirmDialogComponent } from '../../../../../Shared/Components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product-list',
@@ -41,6 +45,7 @@ export class ProductListComponent {
   selectedProduct: GetSellerProductsModel | null = null;
   readonly dialog = inject(MatDialog);
   private readonly _ProductQuereisService = inject(ProductQuereisService);
+  private readonly _ProductCommendService = inject(ProductCommendService);
   products: Array<GetSellerProductsModel> = [];
   SellerId = localStorage.getItem('sellerID');
 
@@ -68,6 +73,28 @@ export class ProductListComponent {
   onPageChange(event: any) {
     this.page.pageNumber = event.offset + 1;
     this.getProduct(this.page.pageNumber, this.page.limit);
+  }
+
+  DeleteProduct(product: GetSellerProductsModel): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: {
+        title: 'Delete Product',
+        message: `Are you sure you want to delete "${product.name}"?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._ProductCommendService
+          .DeleteProduct(product.id)
+          .subscribe((res) => {
+            if (res.success) {
+              this.getProduct(this.page.pageNumber, this.page.limit);
+            }
+          });
+      }
+    });
   }
 
   viewProductDetails(model: GetSellerProductsModel): void {

@@ -1,3 +1,5 @@
+import { modelCompatibilityDtos } from '../../../../Core/Dtos/modelCompatibilityDtos';
+
 export interface AddProductModel {
   Name: string;
   Description: string;
@@ -8,4 +10,5 @@ export interface AddProductModel {
   StockQuantity: number;
   SellerID: string;
   CategoryID: string;
+  modelCompatibilityDtos: modelCompatibilityDtos[];
 }

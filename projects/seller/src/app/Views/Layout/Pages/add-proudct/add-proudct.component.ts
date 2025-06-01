@@ -36,9 +36,8 @@ import { GetSKUModel } from '../../../../Services/Compatibility/Commend/Model/Ge
   styleUrl: './add-proudct.component.css',
 })
 export class AddProudctComponent implements OnInit {
-  productForm: FormGroup;
+  productForm: FormGroup = new FormGroup({});
   Categorys: GetCategoryModel[] = [];
-
   CarBrands: GetCarBrandModel[] = [];
   Models: GetModelWithBrand[] = [];
   ModelCompatibility: modelCompatibilityDtos[] = [];
@@ -60,6 +59,33 @@ export class AddProudctComponent implements OnInit {
   skuSelected: boolean = false;
   searchControl = new FormControl();
   showDropdown: boolean = false;
+  isDragOver = false;
+  isDragOverMain = false;
+  imagePreviews: string[] = [];
+  MainImagePreviews = { id: '', image: '' };
+  MainImage: File = new File([], '');
+  editorConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline'], // التنسيقات الأساسية
+      [{ list: 'ordered' }, { list: 'bullet' }], // القوائم
+      ['link'], // الروابط
+    ],
+  };
+
+  images: File[] = [];
+
+  activeSection: string = 'restock';
+  private readonly _ModelQuereisService = inject(ModelQuereisService);
+  private readonly _CategoryServices = inject(CategoryQuereisService);
+  private readonly _CarBrandServices = inject(CarBrandQueriesService);
+  private readonly _ModelCampatibilityServices = inject(
+    CompatibilityCommendService
+  );
+  private Toster = inject(ToastrService);
+  private _ProductCommendService = inject(ProductCommendService);
+  private fb = inject(FormBuilder);
+  private readonly _Navigation = inject(NavigationService);
+
   performSearch(term: string) {
     console.log('Searching for:', term);
     this._ModelCampatibilityServices.GetSKU(term).subscribe((results: any) => {
@@ -76,7 +102,6 @@ export class AddProudctComponent implements OnInit {
   selectItem(item: any) {
     this.selectedSku = item;
     this.selectedCategory = item.categoryID;
-
     this.searchControl.setValue(item.sku, { emitEvent: false });
     this.showDropdown = false;
     this.skuSelected = true;
@@ -94,22 +119,14 @@ export class AddProudctComponent implements OnInit {
     }, 200);
   }
 
-  activeSection: string = 'restock';
-  private readonly _ModelQuereisService = inject(ModelQuereisService);
-  private readonly _CategoryServices = inject(CategoryQuereisService);
-  private readonly _CarBrandServices = inject(CarBrandQueriesService);
-  private readonly _ModelCampatibilityServices = inject(
-    CompatibilityCommendService
-  );
-  private readonly _Navigation = inject(NavigationService);
   AddNewModelCampatibility() {
-    if (!this.selectedSku) {
+    if (!this.selectedSku && this.searchControl.value) {
       const visible = document.querySelector('.visible') as HTMLElement;
       if (visible) {
-        visible.style.display = 'block'; // خلي العنصر ظاهر
+        visible.style.display = 'block';
         setTimeout(() => {
-          visible.classList.add('show'); // أضف الكلاس اللي بيعمل أنيميشن
-        }, 10); // تأخير بسيط عشان الـ transition يتفعل
+          visible.classList.add('show');
+        }, 10);
       }
     }
   }
@@ -120,8 +137,6 @@ export class AddProudctComponent implements OnInit {
     this.selectMaxYear = null;
   }
   click() {
-    console.log(this.selectedSku?.sku ?? '', this.searchControl?.value);
-
     if (this.selectMaxYear && this.selectMinYear && this.selectedModel) {
       if (
         this.ModelCampatibilityView.find(
@@ -146,7 +161,26 @@ export class AddProudctComponent implements OnInit {
         modelId: this.selectedModel.id,
         minYear: this.selectMinYear,
         maxYear: this.selectMaxYear,
-        sKU: this.selectedSku?.sku ?? this.searchControl?.value,
+      });
+      this.selectMaxYear = null;
+      this.selectMinYear = null;
+      this.selectedModel = null;
+      this.RangeYear = [];
+    }
+    if (this.selectedModel.id == 'all') {
+      this.Models.forEach((model) => {
+        if (model.id == 'all') return;
+        this.ModelCampatibilityView.push({
+          BrandName: this.selectedBrand.name,
+          ModelName: model.name,
+          MinYear: model.minYear,
+          MaxYear: model.maxYear,
+        });
+        this.ModelCompatibility.push({
+          modelId: model.id,
+          minYear: model.minYear,
+          maxYear: model.maxYear,
+        });
       });
       this.selectMaxYear = null;
       this.selectMinYear = null;
@@ -165,9 +199,23 @@ export class AddProudctComponent implements OnInit {
   GetModelsWithBrands(event: any) {
     this._ModelQuereisService.GetModelsWithBarnd(event.id).subscribe((res) => {
       this.Models = res.data;
+      this.Models = [
+        {
+          id: 'all',
+          name: 'Select All',
+          minYear: 0,
+          maxYear: 0,
+          image: '',
+          brandImage: '',
+        },
+        ...this.Models,
+      ];
       this.Models = this.Models.map((model) => ({
         ...model,
-        displayName: `${model.name}  (${model.minYear} -- ${model.maxYear})`,
+        displayName:
+          model.id == 'all'
+            ? model.name
+            : `${model.name}  (${model.minYear} -- ${model.maxYear})`,
         RnageYera: Array.from(
           { length: model.maxYear - model.minYear + 1 },
           (_, index) => model.minYear + index
@@ -197,21 +245,6 @@ export class AddProudctComponent implements OnInit {
     return `${model.name} (${model.minYear}-${model.maxYear})`;
   }
 
-  // inventoryForm: FormGroup;
-  isDragOver = false;
-  isDragOverMain = false;
-  imagePreviews: string[] = [];
-  MainImagePreviews = { id: '', image: '' };
-  MainImage: File = new File([], '');
-  editorConfig = {
-    toolbar: [
-      ['bold', 'italic', 'underline'], // التنسيقات الأساسية
-      [{ list: 'ordered' }, { list: 'bullet' }], // القوائم
-      ['link'], // الروابط
-    ],
-  };
-
-  images: File[] = [];
   formatText(format: string, value?: any) {
     const editor = document.querySelector('quill-editor') as any;
     if (editor && editor.quill) {
@@ -219,74 +252,24 @@ export class AddProudctComponent implements OnInit {
       editor.quill.format(format, value);
     }
   }
-  //private categoryService = inject(CategoryService);
-  private Toster = inject(ToastrService);
-  private _ProductCommendService = inject(ProductCommendService);
 
-  //#region  Category
-  // loadParentCategories() {
-  //   this.categoryService.getParentCategories().subscribe((data) => {
-  //     this.categories = data.data;
-  //   });
-  // }
-
-  // onCategoryChange(categoryId: any) {
-  //   this.selectedCategory = this.categories.find(
-  //     (cat) => cat.id === categoryId.value
-  //   );
-  //   if (this.selectedCategory) {
-  //     this.categoryService
-  //       .getSubcategories(categoryId.value)
-  //       .subscribe((res) => {
-  //         this.subcategories = res.data; // تأكد أن res.data هو المكان الصحيح للفئات الفرعية
-  //       });
-  //   } else {
-  //     this.subcategories = [];
-  //   }
-
-  //   this.selectedSubCategory = null;
-  // }
-
-  // onSubCategoryChange(subCategory: any) {
-  //   this.selectedSubCategory = subCategory;
-
-  //   if (subCategory.id) {
-  //     this.categoryService.getSubcategories(subCategory.id).subscribe((res) => {
-  //       subCategory.subCategories = res.data; // تحميل الفئات الفرعية الخاصة بهذا الـ subcategory
-  //     });
-  //   }
-  // }
-
-  //#endregion
-
-  constructor(private fb: FormBuilder) {
+  initForm() {
     this.productForm = this.fb.group({
       // Product Information
       name: ['', Validators.required],
       description: ['', Validators.required],
-
       basePrice: ['', Validators.required],
       discountedPrice: [''],
       inStock: [true],
       Stock: ['', Validators.required],
     });
-    // this.inventoryForm = this.fb.group({
-    //   // Restock section
-    //   quantity: ['', [Validators.required, Validators.min(1)]],
-
-    //   // Advanced section
-    //   productIdType: ['ISBN'],
-    //   productId: [''],
-
-    //   // Shipping section
-    //   shippingType: ['company'], // 'seller' or 'company'
-    // });
   }
 
   removeMain() {
     this.MainImagePreviews = { image: '', id: '' };
   }
   ngOnInit(): void {
+    this.initForm();
     this.searchControl.valueChanges
       .pipe(
         debounceTime(500),
@@ -345,23 +328,26 @@ export class AddProudctComponent implements OnInit {
         Price: this.productForm.value.basePrice,
         SellerID: localStorage.getItem('sellerID') ?? '',
         StockQuantity: +this.productForm.value.Stock,
+        modelCompatibilityDtos: this.ModelCompatibility,
       };
 
       this._ProductCommendService.AddProduct(requst).subscribe((res) => {
         if (res.success) {
-          if (!this.selectedSku?.sku) {
-            this._ModelCampatibilityServices
-              .AddModelCompatibility({
-                modelCompatibilityDtos: this.ModelCompatibility,
-              })
-              .subscribe((res) => {
-                if (res.success) {
-                  this.Toster.success(res.message);
-                }
-              });
-          } else {
-            this.Toster.success(res.message);
-          }
+          this.Toster.success(res.message);
+          this.ClearPage();
+          // if (!this.selectedSku?.sku) {
+          //   this._ModelCampatibilityServices
+          //     .AddModelCompatibility({
+          //       modelCompatibilityDtos: this.ModelCompatibility,
+          //     })
+          //     .subscribe((res) => {
+          //       if (res.success) {
+          //         this.Toster.success(res.message);
+          //       }
+          //     });
+          // } else {
+          //   this.Toster.success(res.message);
+          // }
         } else {
           this.Toster.error(res.message);
         }
@@ -491,6 +477,28 @@ export class AddProudctComponent implements OnInit {
       'input[type="file"]'
     ) as HTMLInputElement;
     fileInput.click();
+  }
+
+  ClearPage() {
+    this.MainImage = new File([], '');
+    this.MainImagePreviews = { image: '', id: '' };
+    this.isDragOverMain = false;
+    this.isDragOver = false;
+    this.Models = [];
+    this.selectedModel = null;
+    this.selectMaxYear = null;
+    this.selectMinYear = null;
+    this.selectedBrand = null;
+    this.RangeYear = [];
+    this.imagePreviews = [];
+    this.skuSelected = false;
+    this.selectedSku = null;
+    this.selectedCategory = null;
+    this.showDropdown = false;
+    this.images = [];
+    this.initForm();
+    this.items = [];
+    this.searchControl = new FormControl();
   }
 
   //#endregion

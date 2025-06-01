@@ -322,3 +322,33 @@
 .ngx-datatable::-webkit-scrollbar-thumb:hover {
   background: #aaa;
 }
+
+.Delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.Delete-btn:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.Delete-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.Delete-btn i {
+  font-size: 16px;
+}
