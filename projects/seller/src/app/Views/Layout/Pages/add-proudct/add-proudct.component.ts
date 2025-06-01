@@ -105,6 +105,15 @@ export class AddProudctComponent implements OnInit {
     this.searchControl.setValue(item.sku, { emitEvent: false });
     this.showDropdown = false;
     this.skuSelected = true;
+    this.ModelCampatibilityView = [];
+    this.ModelCompatibility = [];
+    const visible = document.querySelector('.visible') as HTMLElement;
+    if (visible) {
+      visible.style.display = 'none';
+      setTimeout(() => {
+        visible.classList.remove('block');
+      }, 10);
+    }
   }
 
   onFocus() {

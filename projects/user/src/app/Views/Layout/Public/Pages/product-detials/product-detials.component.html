@@ -37,7 +37,7 @@
         <div class="mb-3">
           <span class="h4 me-2">EGP{{ product.price }}</span>
           <span class="text-muted"
-            ><s> EGP {{ product.price * (1 + 0.2) }}</s></span
+            ><s> EGP {{ (product.price * (1 + 0.2)).toFixed(2) }}</s></span
           >
         </div>
         <div class="mb-3">

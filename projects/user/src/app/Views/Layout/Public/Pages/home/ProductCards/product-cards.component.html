@@ -34,7 +34,7 @@
             <div class="d-grid gap-2 mt-auto">
               <div>
                 <span class="text-muted text-decoration-line-through"
-                  >EGP {{ Product.price * (1 + 0.2) }}</span
+                  >EGP {{ (Product.price * (1 + 0.2)).toFixed(2) }}</span
                 >
                 <span class="h4 mb-0 ms-2 text-primary"
                   >EGP {{ Product.price }}</span

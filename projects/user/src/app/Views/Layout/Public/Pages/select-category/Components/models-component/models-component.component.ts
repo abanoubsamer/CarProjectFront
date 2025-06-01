@@ -5,10 +5,11 @@ import { GetModelWithBrand } from '../../../../../../../Services/Models/Quereis/
 import { NavigationService } from '../../../../../../../Services/Navigation/navigation.service';
 import { Routing } from '../../../../../../../Meta/Routing';
 import { SharedModuleModule } from '../../../../../../../Shared/Modules/shared-module.module';
+import { ProductCardsComponent } from '../../../home/ProductCards/product-cards.component';
 
 @Component({
   selector: 'app-models-component',
-  imports: [SharedModuleModule],
+  imports: [SharedModuleModule, ProductCardsComponent],
   templateUrl: './models-component.component.html',
   styleUrl: './models-component.component.css',
 })
@@ -17,7 +18,7 @@ export class ModelsComponentComponent implements OnInit {
   categoryId!: string;
   brandId!: string;
   IP: string = Routing.Ip;
-
+  filter: any = {};
   private readonly route = inject(ActivatedRoute);
   private readonly navigation = inject(NavigationService);
 
@@ -32,6 +33,7 @@ export class ModelsComponentComponent implements OnInit {
     this.route.data.subscribe(({ Models }) => {
       this.models = Models;
     });
+    this.filter = { CategoryId: this.categoryId, BrandId: this.brandId };
   }
   selectModel(modelId: string) {
     if (this.categoryId && this.brandId) {
