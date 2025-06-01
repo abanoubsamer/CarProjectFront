@@ -484,6 +484,8 @@
   width: 100%;
 }
 .specifications-container {
+  max-height: 550px;
+  overflow-y: auto;
   border: 1px solid #cbd5e1;
   border-radius: 4px;
   padding: 1rem;

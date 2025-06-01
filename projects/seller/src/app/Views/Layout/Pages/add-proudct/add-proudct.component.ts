@@ -317,42 +317,44 @@ export class AddProudctComponent implements OnInit {
       this.Toster.error('Please Enter SKU');
       return;
     }
-    if (this.productForm.valid) {
-      var requst: AddProductModel = {
-        sKU: this.selectedSku?.sku ?? this.searchControl?.value,
-        CategoryID: this.selectedCategory,
-        Description: this.productForm.value.description,
-        FormImages: this.images,
-        MainImage: this.MainImage,
-        Name: this.productForm.value.name,
-        Price: this.productForm.value.basePrice,
-        SellerID: localStorage.getItem('sellerID') ?? '',
-        StockQuantity: +this.productForm.value.Stock,
-        modelCompatibilityDtos: this.ModelCompatibility,
-      };
-
-      this._ProductCommendService.AddProduct(requst).subscribe((res) => {
-        if (res.success) {
-          this.Toster.success(res.message);
-          this.ClearPage();
-          // if (!this.selectedSku?.sku) {
-          //   this._ModelCampatibilityServices
-          //     .AddModelCompatibility({
-          //       modelCompatibilityDtos: this.ModelCompatibility,
-          //     })
-          //     .subscribe((res) => {
-          //       if (res.success) {
-          //         this.Toster.success(res.message);
-          //       }
-          //     });
-          // } else {
-          //   this.Toster.success(res.message);
-          // }
-        } else {
-          this.Toster.error(res.message);
-        }
-      });
+    if (!this.productForm.valid) {
+      this.Toster.error('Please fill all required fields.');
+      return;
     }
+    var requst: AddProductModel = {
+      sKU: this.selectedSku?.sku ?? this.searchControl?.value,
+      CategoryID: this.selectedCategory,
+      Description: this.productForm.value.description,
+      FormImages: this.images,
+      MainImage: this.MainImage,
+      Name: this.productForm.value.name,
+      Price: this.productForm.value.basePrice,
+      SellerID: localStorage.getItem('sellerID') ?? '',
+      StockQuantity: +this.productForm.value.Stock,
+      modelCompatibilityDtos: this.ModelCompatibility,
+    };
+
+    this._ProductCommendService.AddProduct(requst).subscribe((res) => {
+      if (res.success) {
+        this.Toster.success(res.message);
+        this.ClearPage();
+        // if (!this.selectedSku?.sku) {
+        //   this._ModelCampatibilityServices
+        //     .AddModelCompatibility({
+        //       modelCompatibilityDtos: this.ModelCompatibility,
+        //     })
+        //     .subscribe((res) => {
+        //       if (res.success) {
+        //         this.Toster.success(res.message);
+        //       }
+        //     });
+        // } else {
+        //   this.Toster.success(res.message);
+        // }
+      } else {
+        this.Toster.error(res.message);
+      }
+    });
   }
 
   //#region Upload Image
