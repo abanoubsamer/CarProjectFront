@@ -7,6 +7,7 @@ import { Routing } from '../../../../Meta/Routing';
 import { GetProductReviowsModel } from '../Models/GetProductReviowsModel';
 import { Response } from '../../../../Core/BasicResponse/Response';
 import { GetProductRatingStatisticsModels } from '../Models/GetProductRatingStatisticsModels';
+import { GetSellerProductByidModel } from '../Models/GetSellerProductByidModel';
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +39,14 @@ export class ProductQuereisService {
     return this._apiServices.GetWithPagination<
       PagintationResponse<GetSellerProductsModel>
     >(Routing.Seller.GetSellersProducts, PageNumber, PageSize, filter);
+  }
+  GetProductById(
+    productID: string
+  ): Observable<Response<GetSellerProductByidModel>> {
+    console.log(productID);
+
+    return this._apiServices.Get<Response<GetSellerProductByidModel>>(
+      Routing.Seller.GetSellerProductById.replace('{Id}', productID)
+    );
   }
 }

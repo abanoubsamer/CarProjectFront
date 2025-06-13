@@ -37,6 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductsRatesComponent } from './products-rates/products-rates.component';
+import { ActivatedRoute } from '@angular/router';
+import { GetSellerProductByidModel } from '../../../../../Services/Product/Queries/Models/GetSellerProductByidModel';
 
 @Component({
   selector: 'app-edit-product',
@@ -55,7 +57,7 @@ import { ProductsRatesComponent } from './products-rates/products-rates.componen
 })
 export class EditProductComponent implements OnInit {
   //#region  Fialds
-  @Input() product: GetSellerProductsModel | null = null;
+  @Input() product: GetSellerProductByidModel | null = null;
   reviews: GetProductReviowsModel[] = [];
   productForm: FormGroup = new FormGroup({});
   originalFormValues: any = {};
@@ -94,50 +96,17 @@ export class EditProductComponent implements OnInit {
   private fb = inject(FormBuilder);
   private _ProductCommendService = inject(ProductCommendService);
   private _ProductQueriesService = inject(ProductQuereisService);
-  //#endregion
-
-  //#region  Category
-  loadParentCategories() {
-    // this.categoryService.getParentCategories().subscribe((data) => {
-    //   this.categories = data.data;
-    // });
-  }
-
-  onCategoryChange(categoryId: any) {
-    // this.selectedCategory = this.categories.find(
-    //   (cat) => cat.id === categoryId.value
-    // );
-    // if (this.selectedCategory) {
-    //   this.categoryService
-    //     .getSubcategories(categoryId.value)
-    //     .subscribe((res) => {
-    //       this.subcategories = res.data; // تأكد أن res.data هو المكان الصحيح للفئات الفرعية
-    //     });
-    // } else {
-    //   this.subcategories = [];
-    // }
-    // this.selectedSubCategory = null;
-  }
-
-  onSubCategoryChange(subCategory: any) {
-    // this.selectedSubCategory = subCategory;
-    // if (subCategory.id) {
-    //   this.categoryService.getSubcategories(subCategory.id).subscribe((res) => {
-    //     subCategory.subCategories = res.data; // تحميل الفئات الفرعية الخاصة بهذا الـ subcategory
-    //   });
-    // }
-  }
-
+  private _Router = inject(ActivatedRoute);
   //#endregion
 
   //#region LiveHooks
   ngOnInit(): void {
-    console.log('product');
-
+    this._Router.data.subscribe(({ ProductId }) => {
+      this.product = ProductId;
+    });
     this.productForm = this.InitiForm();
     this.originalFormValues = { ...this.productForm.value };
     this.addMediaFromUrl();
-    this.loadParentCategories();
     this.GetReviews();
   }
   //#endregion

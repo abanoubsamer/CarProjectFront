@@ -49,12 +49,10 @@ export class CarPartsSelectorComponent implements OnInit {
       this.ModelId = params['modelId'];
     });
 
-    this.CateogryQuereisService.GetCategoriesWithPagination(1, 15).subscribe(
-      (response) => {
-        this.categorys = response.data;
-        this.CategorysEvent.emit(this.categorys);
-      }
-    );
+    this.CateogryQuereisService.GetCategories().subscribe((response) => {
+      this.categorys = response.data;
+      this.CategorysEvent.emit(this.categorys);
+    });
   }
 
   getFlattenedItems(subCategories: GetCategoryModel[]): GetCategoryModel[] {

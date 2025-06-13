@@ -12,10 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 import { NotificationService } from '../../../../Services/Notification/notification.service';
 import { GetUserNotification } from '../../../../Services/Notification/Models/GetUserNotification';
 import { NotFoundComponent } from '../not-found/not-found.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterModule, SharedModuleModule],
+  imports: [RouterModule, SharedModuleModule, CommonModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
 })

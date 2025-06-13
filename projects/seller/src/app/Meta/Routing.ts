@@ -9,7 +9,7 @@ export class Routing {
   static Version = 'V1';
   static Role = Routing.Ip + '/' + Routing.Root + '/' + Routing.Version + '/';
   static Category = {
-    GetCategoryPagination: Routing.Role + 'Category/Pagination',
+    GetCategoryAll: Routing.Role + 'Category/All',
     GetCategoryById: Routing.Role + 'Category/{Id}',
   };
 
@@ -25,6 +25,7 @@ export class Routing {
     GetSellers: Routing.Role + 'Seller/GetSellers',
     GetSellersById: Routing.Role + 'Seller/{Id}',
     GetSellersProducts: Routing.Role + 'Seller/GetSellersProducts',
+    GetSellerProductById: Routing.Role + 'Seller/GetSellerProductById/{Id}',
     SellerEamilIsExist: Routing.Role + 'Seller/SellerEamilIsExist',
   };
 
@@ -47,6 +48,8 @@ export class Routing {
 
   static Notification = {
     Prefix: Routing.Role + 'Notification/',
+    GetSellerNotification:
+      Routing.Role + 'Notification/GetSellerNotification/{Id}',
     SetNotificationTokenTopic:
       Routing.Role + 'Notification/SetNotificationTokenTopic',
     SetTokenNotificationToUser:

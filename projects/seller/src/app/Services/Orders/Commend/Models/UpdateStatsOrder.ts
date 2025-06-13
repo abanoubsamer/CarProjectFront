@@ -4,4 +4,5 @@ export interface UpdateStatsOrder {
   productID: string;
   orderId: string;
   status: orderStatusDto;
+  cancellationReason?: string;
 }

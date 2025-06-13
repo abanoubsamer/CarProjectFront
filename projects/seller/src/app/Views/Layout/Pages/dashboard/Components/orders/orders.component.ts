@@ -20,6 +20,8 @@ import { OrderQueriesService } from '../../../../../../Services/Orders/Queries/H
 import { DetailsComponent } from './details/details.component';
 import { UpdateStatsOrder } from '../../../../../../Services/Orders/Commend/Models/UpdateStatsOrder';
 import { OrderCommendService } from '../../../../../../Services/Orders/Commend/Handler/order-commend.service';
+import { ConfirmStateDialogComponent } from '../../../../../../Shared/Components/confirm-state-dialog.component';
+import { CancelOrderDialogComponent } from '../../../../../../Shared/Components/cancel-order-dialog.component';
 @Component({
   selector: 'app-orders',
   imports: [
@@ -105,17 +107,55 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  changeOrderState(order: any, newState: string) {
-    order.state = newState;
-    var requst: UpdateStatsOrder = {
+  onStatusChange(event: Event, order: any) {
+    const select = event.target as HTMLSelectElement;
+    const newState = select.value;
+    this.changeOrderState(order, newState);
+  }
+
+  async changeOrderState(order: any, newState: string) {
+    if (newState === '4') {
+      const dialogRef = this.dialog.open(CancelOrderDialogComponent, {
+        width: '400px',
+      });
+      const result = await dialogRef.afterClosed().toPromise();
+      if (!result) {
+        return;
+      }
+      this.updateOrderStatus(order, newState, result);
+    } else {
+      const dialogRef = this.dialog.open(ConfirmStateDialogComponent, {
+        width: '400px',
+        data: { newStatus: this.getStatus(Number(newState)) },
+      });
+
+      const result = await dialogRef.afterClosed().toPromise();
+      if (!result) {
+        return;
+      }
+
+      this.updateOrderStatus(order, newState);
+    }
+  }
+
+  private updateOrderStatus(
+    order: any,
+    newState: string,
+    cancellationReason?: string
+  ) {
+    const request: UpdateStatsOrder = {
       productID: order.product.id,
       orderId: order.orderID,
       status: Number(newState),
+      cancellationReason: cancellationReason,
     };
 
-    this._OrderCommendService.UpdateOrderStatus(requst).subscribe((res) => {
+    this._OrderCommendService.UpdateOrderStatus(request).subscribe((res) => {
       if (res.success) {
-        this.Toster.success('تم تغيير حالة الطلب بنجاح');
+        order.status = Number(newState);
+        this.Toster.success('Order status updated successfully');
+      } else {
+        this.Toster.error('Error updating order status');
       }
     });
   }

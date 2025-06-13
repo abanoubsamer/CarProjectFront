@@ -11,81 +11,81 @@ import { NgClass, CommonModule } from '@angular/common';
   styleUrl: './analysis.component.css',
 })
 export class AnalysisComponent {
-  // بيانات الإيرادات الشهرية
+  // بيانات الإيرادات الشهرية (واقعية لبداية مشروع)
   revenueData = [
-    { name: 'Jan', value: 1200 },
-    { name: 'Feb', value: 1900 },
-    { name: 'Mar', value: 3000 },
-    { name: 'Apr', value: 5000 },
-    { name: 'May', value: 6000 },
-    { name: 'Jun', value: 7000 },
-    { name: 'Jul', value: 8000 },
-    { name: 'Aug', value: 9000 },
-    { name: 'Sep', value: 10000 },
-    { name: 'Oct', value: 11000 },
-    { name: 'Nov', value: 12000 },
-    { name: 'Dec', value: 13000 },
+    { name: 'Jan', value: 500 },
+    { name: 'Feb', value: 700 },
+    { name: 'Mar', value: 900 },
+    { name: 'Apr', value: 1200 },
+    { name: 'May', value: 1000 },
+    { name: 'Jun', value: 2000 },
+    { name: 'Jul', value: 1800 },
+    { name: 'Aug', value: 1500 },
+    { name: 'Sep', value: 3000 },
+    { name: 'Oct', value: 4000 },
+    { name: 'Nov', value: 5500 },
+    { name: 'Dec', value: 6000 },
   ];
 
-  // بيانات المنتجات الأكثر مبيعاً
+  // المنتجات الأكثر مبيعاً (كميات بسيطة ومنطقية)
   revenueDataCar = [
-    { name: 'Car 1', value: 1200 },
-    { name: 'Car 2', value: 1900 },
-    { name: 'Car 3', value: 3000 },
-    { name: 'Car 4', value: 5000 },
-    { name: 'Car 5', value: 6000 },
+    { name: '02228 AMiO Turbo sound Exhaust tip', value: 15 },
+    { name: 'ABAKUS 231-02-038 Brake pad set', value: 20 },
+    { name: 'VI0063 ET ENGINETEAM Inlet valve', value: 12 },
+    { name: 'VALEO 044645 Rear light', value: 8 },
+    { name: 'ABAKUS Intercooler', value: 5 },
   ];
 
-  // بيانات طرق الدفع
+  // طرق الدفع (واقعية في مصر، موقع لسه جديد)
   paymentMethodsData = [
-    { name: 'Visa/MC', value: 60 },
-    { name: 'Cash', value: 40 },
+    { name: 'Cash on Delivery', value: 55 },
+    { name: 'Vodafone Cash', value: 25 },
+    { name: 'Visa/MC', value: 15 },
+    { name: 'PayPal', value: 5 },
   ];
 
-  // بيانات حالة الطلبات
+  // حالة الطلبات (نسبة كبيرة لسه Pending)
   orderStatus = [
-    { name: 'Pending', value: 100 },
-    { name: 'Confirmed', value: 750 },
-    { name: 'Shipped', value: 500 },
-    { name: 'Delivered', value: 600 },
-    { name: 'Cancelled', value: 50 },
+    { name: 'Pending', value: 40 },
+    { name: 'Confirmed', value: 20 },
+    { name: 'Shipped', value: 15 },
+    { name: 'Delivered', value: 20 },
+    { name: 'Cancelled', value: 5 },
   ];
 
-  // بيانات المبيعات حسب الموقع
+  // مبيعات حسب المناطق في الإسكندرية (منتشرة باعتدال)
   salesByLocation = [
-    { name: 'Baldwin', value: 1200 },
-    { name: 'Rowlett', value: 1900 },
-    { name: 'Santa Cruz', value: 3000 },
-    { name: 'Austin', value: 4000 },
-    { name: 'Denver', value: 5000 },
-    { name: 'Phoenix', value: 6000 },
-    { name: 'Seattle', value: 7000 },
-    { name: 'Atlanta', value: 8000 },
-    { name: 'Orlando', value: 10000 },
-    { name: 'Chicago', value: 11000 },
-    { name: 'Miami', value: 12000 },
-    { name: 'San Diego', value: 13000 },
-    { name: 'Boston', value: 5500 },
+    { name: 'Smouha', value: 600 },
+    { name: 'San Stefano', value: 500 },
+    { name: 'El Shatby', value: 450 },
+    { name: 'Moharram Bek', value: 350 },
+    { name: 'Maamoura', value: 300 },
+    { name: 'Miami', value: 650 },
+    { name: 'Bakos', value: 250 },
+    { name: 'Gleem', value: 400 },
+    { name: 'Montaza', value: 300 },
+    { name: 'Asafra', value: 200 },
+    { name: 'Misr Station', value: 350 },
+    { name: 'ALagmi', value: 100 },
   ];
 
-  // بيانات إحصائية سريعة
+  // إحصائيات سريعة (أرقام متناسقة مع الباقي)
   quickStats = [
     {
       label: 'Total Revenue',
-      value: 'EGP 85,400',
+      value: 'EGP 31,000',
       icon: 'fa-dollar-sign',
       color: '#4e73df',
     },
     {
       label: 'Orders',
-      value: '2,854',
+      value: '180',
       icon: 'fa-shopping-cart',
       color: '#1cc88a',
     },
-    { label: 'Customers', value: '1,280', icon: 'fa-users', color: '#36b9cc' },
-    { label: 'Products', value: '75', icon: 'fa-tag', color: '#f6c23e' },
+    { label: 'Customers', value: '95', icon: 'fa-users', color: '#36b9cc' },
+    { label: 'Products', value: '42', icon: 'fa-tag', color: '#f6c23e' },
   ];
-
   // تحديد لوحة الألوان
   colorScheme: Color = {
     name: 'customScheme',

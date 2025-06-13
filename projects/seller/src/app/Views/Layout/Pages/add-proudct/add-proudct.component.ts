@@ -24,6 +24,8 @@ import { SharedModuleModule } from '../../../../../../../user/src/app/Shared/Mod
 import { CompatibilityCommendService } from '../../../../Services/Compatibility/Commend/Handler/compatibility-commend.service';
 import { debounceTime, distinctUntilChanged, filter, Subject } from 'rxjs';
 import { GetSKUModel } from '../../../../Services/Compatibility/Commend/Model/GetSKUModel';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmAgremntComponent } from '../../../../Shared/Components/confirm-agremnt/confirm-agremnt.component';
 @Component({
   selector: 'app-add-proudct',
   imports: [
@@ -85,7 +87,7 @@ export class AddProudctComponent implements OnInit {
   private _ProductCommendService = inject(ProductCommendService);
   private fb = inject(FormBuilder);
   private readonly _Navigation = inject(NavigationService);
-
+  readonly dialog = inject(MatDialog);
   performSearch(term: string) {
     console.log('Searching for:', term);
     this._ModelCampatibilityServices.GetSKU(term).subscribe((results: any) => {
@@ -234,11 +236,9 @@ export class AddProudctComponent implements OnInit {
   }
 
   LodingCategory() {
-    this._CategoryServices
-      .GetCategoriesWithPagination(1, 50)
-      .subscribe((res) => {
-        this.Categorys = res.data;
-      });
+    this._CategoryServices.GetCategories().subscribe((res) => {
+      this.Categorys = res.data;
+    });
   }
   LodingCarBrand() {
     this._CarBrandServices
@@ -330,40 +330,7 @@ export class AddProudctComponent implements OnInit {
       this.Toster.error('Please fill all required fields.');
       return;
     }
-    var requst: AddProductModel = {
-      sKU: this.selectedSku?.sku ?? this.searchControl?.value,
-      CategoryID: this.selectedCategory,
-      Description: this.productForm.value.description,
-      FormImages: this.images,
-      MainImage: this.MainImage,
-      Name: this.productForm.value.name,
-      Price: this.productForm.value.basePrice,
-      SellerID: localStorage.getItem('sellerID') ?? '',
-      StockQuantity: +this.productForm.value.Stock,
-      modelCompatibilityDtos: this.ModelCompatibility,
-    };
-
-    this._ProductCommendService.AddProduct(requst).subscribe((res) => {
-      if (res.success) {
-        this.Toster.success(res.message);
-        this.ClearPage();
-        // if (!this.selectedSku?.sku) {
-        //   this._ModelCampatibilityServices
-        //     .AddModelCompatibility({
-        //       modelCompatibilityDtos: this.ModelCompatibility,
-        //     })
-        //     .subscribe((res) => {
-        //       if (res.success) {
-        //         this.Toster.success(res.message);
-        //       }
-        //     });
-        // } else {
-        //   this.Toster.success(res.message);
-        // }
-      } else {
-        this.Toster.error(res.message);
-      }
-    });
+    this.openDialog();
   }
 
   //#region Upload Image
@@ -505,6 +472,7 @@ export class AddProudctComponent implements OnInit {
     this.skuSelected = false;
     this.selectedSku = null;
     this.selectedCategory = null;
+
     this.showDropdown = false;
     this.images = [];
     this.initForm();
@@ -514,5 +482,33 @@ export class AddProudctComponent implements OnInit {
     this.searchControl = new FormControl();
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmAgremntComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        var requst: AddProductModel = {
+          sKU: this.selectedSku?.sku ?? this.searchControl?.value,
+          CategoryID: this.selectedCategory,
+          Description: this.productForm.value.description,
+          FormImages: this.images,
+          MainImage: this.MainImage,
+          Name: this.productForm.value.name,
+          Price: this.productForm.value.basePrice,
+          SellerID: localStorage.getItem('sellerID') ?? '',
+          StockQuantity: +this.productForm.value.Stock,
+          modelCompatibilityDtos: this.ModelCompatibility,
+        };
+
+        this._ProductCommendService.AddProduct(requst).subscribe((res) => {
+          if (res.success) {
+            this.Toster.success(res.message);
+            this.ClearPage();
+          } else {
+            this.Toster.error(res.message);
+          }
+        });
+      }
+    });
+  }
   //#endregion
 }

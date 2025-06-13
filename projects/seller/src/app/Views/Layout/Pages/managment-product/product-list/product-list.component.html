@@ -1,4 +1,3 @@
-@if(!viewDetails){
 <div class="container mt-3 mb-3 text-center product-header">
   <h2><i class="fas fa-box-open"></i> Products List</h2>
 </div>
@@ -105,10 +104,9 @@
   </ngx-datatable-column>
 
   <ngx-datatable-column name="🖼️ Image">
-    <ng-template let-row="row" ngx-datatable-cell-template>
+    <ng-template let-row="row" prop="mainImage" ngx-datatable-cell-template>
       <img
-        *ngIf="getMainImage(row.productImagesDto) as mainImg"
-        [src]="Ip + '/Images/' + mainImg"
+        [src]="Ip + '/Images/' + row.mainImage"
         alt="Product Image"
         width="50"
         height="50"
@@ -133,12 +131,7 @@
     </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>
-} @else {
-<app-edit-product
-  (close)="backword($event)"
-  [product]="selectedProduct"
-></app-edit-product>
-}
+
 <div *ngIf="products.length === 0" class="no-results">
   <i class="fas fa-search"></i>
   <h4>No Results Found</h4>

@@ -115,11 +115,11 @@ export class MapPickerComponent {
 
     this.isSearching = true;
     try {
-      const result = await this._UserCommendService.searchAddressByName(
+      const results = await this._UserCommendService.searchAddressByName(
         this.searchQuery
       );
-      const lat = parseFloat(result.lat);
-      const lng = parseFloat(result.lon);
+      const lat = parseFloat(results[0].lat);
+      const lng = parseFloat(results[0].lon);
 
       this.map.setView([lat, lng], 13);
       this.marker.setLatLng([lat, lng]);

@@ -28,7 +28,7 @@ export class Routing {
   };
 
   static Category = {
-    GetCategoryPagination: Routing.Role + 'Category/Pagination',
+    GetCategoryAll: Routing.Role + 'Category/All',
     GetCategoryById: Routing.Role + 'Category/{Id}',
   };
 

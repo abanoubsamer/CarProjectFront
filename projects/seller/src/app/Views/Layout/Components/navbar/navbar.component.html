@@ -5,31 +5,7 @@
         <div class="col-md-2 d-none d-sm-none d-md-block d-lg-block">
           <img src="Logo/1.svg" style="height: 45px" />
         </div>
-        <div class="col-md-5 my-auto">
-          <form role="search">
-            <div class="input-group">
-              <input
-                type="search"
-                placeholder="Search your product"
-                class="form-control"
-              />
-              <button class="btn bg-white" type="submit">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-search"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-                  />
-                </svg>
-              </button>
-            </div>
-          </form>
-        </div>
+        <div class="col-md-5 my-auto"></div>
         <div class="col-md-5 my-auto">
           <ul class="nav justify-content-end">
             <li class="nav-item dropdown">
@@ -41,56 +17,106 @@
                 data-bs-toggle="dropdown"
               >
                 <i class="fa-solid fa-bell"></i>
-                <span class="notification-badge">3</span>
+                <span class="notification-badge">{{
+                  notifications.length > 10 ? "10+" : notifications.length
+                }}</span>
               </a>
 
               <ul
-                class="dropdown-menu dropdown-menu-end"
+                class="dropdown-menu dropdown-menu-end notification-container"
                 style="
                   min-width: 300px;
-                  max-height: 350px;
-                  overflow-y: auto;
+                  max-height: 450px;
                   border-radius: 20px;
                   border: none;
                   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
                 "
                 aria-labelledby="navbarDropdown"
               >
-                <li class="notification-header text-center">🔔 الإشعارات</li>
-
-                <li class="notification-item">
-                  <i
-                    class="fa-solid fa-envelope text-primary notification-icon"
-                  ></i>
-                  <div class="notification-text">
-                    <span class="fw-bold d-block">رسالة جديدة</span>
-                    <small class="text-muted">من محمد - منذ 5 دقائق</small>
-                  </div>
-                </li>
-
-                <li class="notification-item">
-                  <i
-                    class="fa-solid fa-user-plus text-success notification-icon"
-                  ></i>
-                  <div class="notification-text">
-                    <span class="fw-bold d-block">طلب صداقة جديد</span>
-                    <small class="text-muted">من أحمد - منذ 10 دقائق</small>
-                  </div>
-                </li>
-
-                <li class="notification-item">
-                  <i
-                    class="fa-solid fa-exclamation-circle text-warning notification-icon"
-                  ></i>
-                  <div class="notification-text">
-                    <span class="fw-bold d-block">تنبيه أمني</span>
-                    <small class="text-muted"
-                      >تم تسجيل الدخول من جهاز جديد</small
+                @if(notifications.length > 0){
+                <li class="notification-header">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <span>Notification 🔔</span>
+                    <span class="notification-count"
+                      >{{ notifications.length }} New</span
                     >
                   </div>
                 </li>
+                <div class="notification-messages">
+                  @for (notification of notifications; track notification.id) {
+                  <li
+                    class="notification-item"
+                    (click)="
+                      notification.id === 'static-update-notification'
+                        ? openProductUpdateDialog()
+                        : notification.id === 'static-warning-notification'
+                        ? openProductWarningDialog()
+                        : null
+                    "
+                  >
+                    <div class="notification-content">
+                      <div class="notification-text">
+                        <i
+                          class="fa-solid"
+                          [ngClass]="{
+                            'fa-envelope':
+                              notification.type !== 'alert' &&
+                              notification.type !== 'warning',
+                            'fa-triangle-exclamation':
+                              notification.type === 'alert' ||
+                              notification.type === 'warning'
+                          }"
+                        ></i>
+                        <span
+                          class="fw-bold"
+                          [ngClass]="{
+                            'text-confirm':
+                              notification.title === 'Confirm Order',
+                            'text-shipped':
+                              notification.title === 'Shipped Order',
+                            'text-delivered':
+                              notification.title === 'Delivered Order',
+                            'text-cancelled':
+                              notification.title === 'Cancelled Order',
+                            'text-alert': notification.type === 'alert',
 
-                <li class="notification-footer">عرض جميع الإشعارات</li>
+                            'text-warning': notification.type === 'warning'
+                          }"
+                        >
+                          {{ notification.title }}
+                        </span>
+                        @if(!notification.isRead){
+                        <span class="unread-dot"></span>
+                        }
+                      </div>
+                      <small class="text-muted">{{
+                        notification.message
+                      }}</small>
+                      <div class="notification-meta">
+                        <small class="notification-time">{{
+                          notification.createdAt | date : "MMM d, h:mm a"
+                        }}</small>
+                      </div>
+                    </div>
+                  </li>
+                  }
+                </div>
+                <li class="notification-footer">
+                  <span>Show All Notifications</span>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </li>
+                }@else{
+                <li class="text-center mt-5 mb-5">
+                  <div class="box-container">
+                    <div class="image-container">
+                      <img src="download.svg" alt="" />
+                    </div>
+                    <h2 class="title">Not Found Notification</h2>
+                  </div>
+                </li>
+                }
               </ul>
             </li>
 
@@ -120,27 +146,35 @@
               >
                 <li>
                   <button class="dropdown-item" href="#">
-                    <i class="fa fa-user"></i> Profile
+                    <i class="fa fa-user" style="color: #213a59"></i> Profile
                   </button>
                 </li>
                 <li>
                   <button class="dropdown-item" [routerLink]="['./Dashboard']">
-                    <i class="fa fa-list"></i> My Orders
+                    <i class="fa fa-list" style="color: #213a59"></i> My Orders
                   </button>
                 </li>
                 <li>
                   <a class="dropdown-item" [routerLink]="['./AddProduct']">
-                    <i class="fas fa-plus-circle fa-fw"></i> Add Product
+                    <i
+                      class="fas fa-plus-circle fa-fw"
+                      style="color: #213a59"
+                    ></i>
+                    Add Product
                   </a>
                 </li>
                 <li>
                   <a class="dropdown-item">
-                    <i class="fas fa-chart-line fa-fw"></i> Analytics
+                    <i
+                      class="fas fa-chart-line fa-fw"
+                      style="color: #213a59"
+                    ></i>
+                    Analytics
                   </a>
                 </li>
                 <li>
                   <button class="dropdown-item" (click)="Logout()">
-                    <i class="fa fa-sign-out"></i> Logout
+                    <i class="fa fa-sign-out" style="color: #213a59"></i> Logout
                   </button>
                 </li>
               </ul>
@@ -161,22 +195,4 @@
       </div>
     </div>
   </div>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="#">
-        Funda Ecom
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav>
 </div>

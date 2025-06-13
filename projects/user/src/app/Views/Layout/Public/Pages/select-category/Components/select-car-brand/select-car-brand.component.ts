@@ -11,7 +11,7 @@ import { ProductCardsComponent } from '../../../home/ProductCards/product-cards.
 
 @Component({
   selector: 'app-select-car-brand',
-  imports: [SharedModuleModule, ProductCardsComponent],
+  imports: [SharedModuleModule],
   templateUrl: './select-car-brand.component.html',
   styleUrl: './select-car-brand.component.css',
 })
@@ -19,7 +19,7 @@ export class SelectCarBrandComponent {
   carBrands: GetCarBrandModel[] = [];
   categoryId!: CategoryDto;
   IP: string = Routing.Ip;
-  filter: any = {};
+
   private readonly route = inject(ActivatedRoute); // Inject the route
   private readonly _carBrandQuereisService = inject(CarBrandQueriesService);
   private readonly Navigation = inject(NavigationService);
@@ -27,7 +27,6 @@ export class SelectCarBrandComponent {
     this.route.parent?.data.subscribe((data) => {
       this.categoryId = data['CategoryId'];
       console.log(this.categoryId);
-      this.filter = { CategoryId: this.categoryId.id };
     });
     this._carBrandQuereisService
       .GeTCarBrandsWithPagination(1, 50)

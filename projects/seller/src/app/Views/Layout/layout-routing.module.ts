@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
+import { getProductByIdResolver } from '../../Resolver/get-product-by-id.resolver';
 
 const routes: Routes = [
   {

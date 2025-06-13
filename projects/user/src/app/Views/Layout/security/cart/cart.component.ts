@@ -21,6 +21,7 @@ import { NotFoundComponent } from '../../Components/not-found/not-found.componen
 import { ScrollService } from '../../../../Services/scroll.service';
 import { ProductImagesDto } from '../../../../Core/Dtos/ProductImagesDto';
 import { SharedModuleModule } from '../../../../Shared/Modules/shared-module.module';
+import { ConfirmDialogComponent } from './confirm-dialog.component';
 @Component({
   selector: 'app-cart',
   imports: [
@@ -181,17 +182,28 @@ export class CartComponent implements OnInit {
   }
 
   DeleteCartItems(id: string) {
-    this._CartService.DeleteCardItemsToCart(id).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.Card.cardItemsDtos = this.Card.cardItemsDtos.filter(
-            (x: any) => x.id != id
-          );
+    const itemToDelete = this.Card.cardItemsDtos.find((x) => x.id === id);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: { productName: itemToDelete?.product.name },
+    });
 
-          this.CalcOrderSummary(this.Card);
-          this._sharedDataService.updateCartCount(-1);
-        }
-      },
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._CartService.DeleteCardItemsToCart(id).subscribe({
+          next: (res) => {
+            if (res.success) {
+              this.Card.cardItemsDtos = this.Card.cardItemsDtos.filter(
+                (x: any) => x.id != id
+              );
+
+              this.CalcOrderSummary(this.Card);
+              this._sharedDataService.updateCartCount(-1);
+              this.toster.success('Item deleted successfully');
+            }
+          },
+        });
+      }
     });
   }
 

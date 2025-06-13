@@ -9,7 +9,7 @@ import { ProductCardsComponent } from '../../../home/ProductCards/product-cards.
 
 @Component({
   selector: 'app-models-component',
-  imports: [SharedModuleModule, ProductCardsComponent],
+  imports: [SharedModuleModule],
   templateUrl: './models-component.component.html',
   styleUrl: './models-component.component.css',
 })
@@ -18,7 +18,7 @@ export class ModelsComponentComponent implements OnInit {
   categoryId!: string;
   brandId!: string;
   IP: string = Routing.Ip;
-  filter: any = {};
+
   private readonly route = inject(ActivatedRoute);
   private readonly navigation = inject(NavigationService);
 
@@ -33,7 +33,6 @@ export class ModelsComponentComponent implements OnInit {
     this.route.data.subscribe(({ Models }) => {
       this.models = Models;
     });
-    this.filter = { CategoryId: this.categoryId, BrandId: this.brandId };
   }
   selectModel(modelId: string) {
     if (this.categoryId && this.brandId) {

@@ -14,14 +14,10 @@ import { PagintationResponse } from '../../../../Core/BasicResponse/PagintationR
 export class CategoryQuereisService {
   private readonly _apiService = inject(ApiService);
 
-  GetCategoriesWithPagination(
-    pageNumber: number,
-    pageSize: number,
-    filter?: object
-  ): Observable<PagintationResponse<GetCategoryModel>> {
-    return this._apiService.GetWithPagination<
-      PagintationResponse<GetCategoryModel>
-    >(Routing.Category.GetCategoryPagination, pageNumber, pageSize, filter);
+  GetCategories(): Observable<Response<Array<GetCategoryModel>>> {
+    return this._apiService.Get<Response<Array<GetCategoryModel>>>(
+      Routing.Category.GetCategoryAll
+    );
   }
   GetCategoryById(id: string): Observable<Response<CategoryDto>> {
     return this._apiService.Get<Response<CategoryDto>>(

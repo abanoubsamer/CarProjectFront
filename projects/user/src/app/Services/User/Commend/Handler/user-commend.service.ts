@@ -38,26 +38,63 @@ export class UserCommendService {
       request
     );
   }
-  searchAddressByName(
-    address: string
-  ): Promise<{ lat: string; lon: string; display_name: string }> {
-    const query = encodeURIComponent(address);
-    return fetch(
-      `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`
-    )
-      .then((response) => response.json())
-      .then((results) => {
-        if (results.length > 0) {
-          const result = results[0];
-          return {
-            lat: result.lat,
-            lon: result.lon,
-            display_name: result.display_name,
-          };
-        } else {
-          throw new Error('❌ لم يتم العثور على نتائج للعنوان المطلوب.');
-        }
-      });
+  // searchAddressByName(
+  //   address: string
+  // ): Promise<{ lat: string; lon: string; display_name: string }> {
+  //   const query = encodeURIComponent(address);
+  //   return fetch(
+  //     `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((results) => {
+  //       if (results.length > 0) {
+  //         const result = results[0];
+  //         return {
+  //           lat: result.lat,
+  //           lon: result.lon,
+  //           display_name: result.display_name,
+  //         };
+  //       } else {
+  //         throw new Error('❌ لم يتم العثور على نتائج للعنوان المطلوب.');
+  //       }
+  //     });
+  // }
+  async searchAddressByName(queryText: string): Promise<
+    Array<{
+      lat: string;
+      lon: string;
+      display_name: string;
+      type: string;
+      class: string;
+      address: {
+        road?: string;
+        neighbourhood?: string;
+        city?: string;
+        county?: string;
+        state?: string;
+        country?: string;
+        [key: string]: any;
+      };
+    }>
+  > {
+    const query = encodeURIComponent(queryText);
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=10`
+    );
+    const results = await response.json();
+
+    if (results.length > 0) {
+      return results.map((result: any) => ({
+        lat: result.lat,
+        lon: result.lon,
+        display_name: result.display_name,
+        type: result.type,
+        class: result.class,
+        address: result.address,
+      }));
+    } else {
+      throw new Error('❌ مفيش نتائج للعنوان أو المكان اللي كتبتيه.');
+    }
   }
 
   getAddressFromCoordinates(

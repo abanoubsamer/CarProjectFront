@@ -7,6 +7,9 @@ import { provideToastr } from 'ngx-toastr';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { loadingHandlerInterceptor } from './Core/Interceptores/loading-handler.interceptor';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getMessaging, provideMessaging } from '@angular/fire/messaging';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideMessaging(() => getMessaging()),
   ],
 };

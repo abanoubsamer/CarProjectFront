@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { Response } from '../../../../../Core/BasicResponse/Response';
 import { ProductCommendService } from '../../../../../Services/Product/Commend/Handler/product-commend.service';
 import { ConfirmDialogComponent } from '../../../../../Shared/Components/confirm-dialog/confirm-dialog.component';
+import { NavigationService } from '../../../../../Services/Navigation/navigation.service';
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +26,6 @@ import { ConfirmDialogComponent } from '../../../../../Shared/Components/confirm
     MatFormSharedModule,
     NgxPaginationModule,
     MatDatepickerModule,
-    EditProductComponent,
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
@@ -46,14 +46,9 @@ export class ProductListComponent {
   readonly dialog = inject(MatDialog);
   private readonly _ProductQuereisService = inject(ProductQuereisService);
   private readonly _ProductCommendService = inject(ProductCommendService);
+  private readonly _NavigationService = inject(NavigationService);
   products: Array<GetSellerProductsModel> = [];
   SellerId = localStorage.getItem('sellerID');
-
-  getMainImage(images: ProductImagesDto[]): string | null {
-    if (!images || images.length === 0) return null;
-    const main = images.find((img) => img.image.startsWith('main_'));
-    return main?.image ?? images[0].image;
-  }
 
   getProduct(PageNumber: number, PageSize: number, filter?: object) {
     if (this.SellerId) {
@@ -98,8 +93,9 @@ export class ProductListComponent {
   }
 
   viewProductDetails(model: GetSellerProductsModel): void {
-    this.selectedProduct = model;
-    this.viewDetails = true;
+    this._NavigationService.NavigationByUrl(
+      'Security/ManagmentProduct/EditProduct/' + model.id
+    );
   }
 
   backword(event: any): void {
