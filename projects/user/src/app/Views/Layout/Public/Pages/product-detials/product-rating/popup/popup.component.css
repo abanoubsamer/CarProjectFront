@@ -2,44 +2,61 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9999;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(2px);
+  padding: 15px;
 }
 
 .popup-content {
   background: white;
   padding: 20px;
-  width: 400px;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
   text-align: center;
   position: relative;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  margin: auto;
 }
 
 .close-btn {
   position: absolute;
   top: 10px;
   right: 15px;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
+
+.close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .rating-container {
   background: linear-gradient(145deg, #ffffff, #f0f0f0);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 10px 10px 20px #d1d1d1, -10px -10px 20px #ffffff;
-  max-width: 400px;
-  margin: 2rem auto;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 5px 5px 15px #d1d1d1, -5px -5px 15px #ffffff;
+  width: 100%;
+  margin: 1rem auto;
 }
 
 .star-rating {
   direction: rtl;
   display: inline-block;
-  padding: 20px;
+  padding: 15px;
 }
 
 .star-rating input {
@@ -49,7 +66,7 @@
 .star-rating label {
   color: #bbb;
   cursor: pointer;
-  font-size: 30px;
+  font-size: clamp(24px, 5vw, 30px);
   padding: 5px;
   transition: all 0.3s ease;
 }
@@ -63,23 +80,28 @@
 .rating-title {
   color: #2d3436;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: clamp(16px, 4vw, 20px);
 }
 
 .rating-feedback {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   color: #636e72;
+  font-size: clamp(14px, 3.5vw, 16px);
 }
 
 .submit-rating {
   background: linear-gradient(145deg, #f7b731, #f0932b);
   border: none;
-  padding: 10px 25px;
+  padding: 12px 30px;
   border-radius: 25px;
   color: white;
   font-weight: 600;
   margin-top: 1rem;
   transition: all 0.3s ease;
+  font-size: clamp(14px, 3.5vw, 16px);
+  width: 100%;
+  max-width: 200px;
 }
 
 .submit-rating:hover {
@@ -88,7 +110,7 @@
 }
 
 .rating-emoji {
-  font-size: 2rem;
+  font-size: clamp(2rem, 5vw, 2.5rem);
   margin-bottom: 1rem;
 }
 
@@ -97,7 +119,7 @@
   padding: 15px;
   background-color: #f8f9fa;
   border-radius: 8px;
-  max-height: 300px;
+  max-height: 50vh;
   overflow-y: auto;
   text-align: left;
 }
@@ -202,30 +224,45 @@
 
 /* Media Queries */
 @media (max-width: 480px) {
+  .popup-content {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .rating-container {
+    padding: 1rem;
+  }
+
   .description {
-    padding: 12px;
-    max-height: 250px;
+    padding: 10px;
+    max-height: 40vh;
   }
 
-  .description ::ng-deep p {
-    font-size: 13px;
+  .submit-rating {
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .popup-content {
+    padding: 10px;
   }
 
-  .description ::ng-deep h1 { font-size: 18px; }
-  .description ::ng-deep h2 { font-size: 16px; }
-  .description ::ng-deep h3 { font-size: 15px; }
-  .description ::ng-deep h4 { font-size: 14px; }
-  .description ::ng-deep h5 { font-size: 13px; }
-  .description ::ng-deep h6 { font-size: 12px; }
-
-  .description ::ng-deep ul, 
-  .description ::ng-deep ol {
-    padding-left: 15px;
+  .rating-container {
+    padding: 0.8rem;
   }
 
-  .description ::ng-deep th,
-  .description ::ng-deep td {
-    padding: 4px;
-    font-size: 12px;
+  .star-rating {
+    padding: 10px;
+  }
+}
+
+/* Add support for devices with notches */
+@supports (padding: max(0px)) {
+  .popup-overlay {
+    padding-left: max(15px, env(safe-area-inset-left));
+    padding-right: max(15px, env(safe-area-inset-right));
+    padding-top: max(15px, env(safe-area-inset-top));
+    padding-bottom: max(15px, env(safe-area-inset-bottom));
   }
 }
