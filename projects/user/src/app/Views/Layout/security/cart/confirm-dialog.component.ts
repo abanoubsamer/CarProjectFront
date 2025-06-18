@@ -42,6 +42,13 @@ import { MatIconModule } from '@angular/material/icon';
   `,
   styles: [
     `
+      ::ng-deep .mat-mdc-dialog-container {
+        border-radius: 50px !important;
+      }
+
+      ::ng-deep .mat-mdc-dialog-surface {
+        border-radius: 50px !important;
+      }
       .dialog-container {
         padding: 20px;
         text-align: center;
