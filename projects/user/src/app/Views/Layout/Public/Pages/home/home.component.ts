@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             // Smooth scroll with easing
             const startPosition = window.pageYOffset;
             const distance = offsetPosition - startPosition;
-            const duration = 500;
+            const duration = 100;
             let start: number | null = null;
 
             function animation(currentTime: number) {

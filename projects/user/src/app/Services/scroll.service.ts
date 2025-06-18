@@ -29,7 +29,7 @@ export class ScrollService {
     const scroll = () => {
       const now =
         'now' in window.performance ? performance.now() : new Date().getTime();
-      const time = Math.min(1, (now - startTime) / duration);
+      const time = Math.min(1, (now - startTime) / 100);
       const timeFunction = (t: number): number => t * (2 - t); // easeOutQuad
       window.scrollTo(0, Math.ceil(timeFunction(time) * (0 - start) + start));
 

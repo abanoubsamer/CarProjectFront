@@ -164,11 +164,134 @@
   opacity: 1;
 }
 
-.description span {
-  white-space: pre-wrap;
-  word-break: break-word;
-  width: 10px;
+.description {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
+.description ::ng-deep p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #333;
+  font-size: 14px;
+}
+
+.description ::ng-deep ul, 
+.description ::ng-deep ol {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.description ::ng-deep li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.description ::ng-deep h1,
+.description ::ng-deep h2,
+.description ::ng-deep h3,
+.description ::ng-deep h4,
+.description ::ng-deep h5,
+.description ::ng-deep h6 {
+  margin: 20px 0 10px;
+  color: #1f4c7a;
+  font-weight: 600;
+}
+
+.description ::ng-deep img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.description ::ng-deep table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+.description ::ng-deep th,
+.description ::ng-deep td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.description ::ng-deep th {
+  background-color: #f5f5f5;
+}
+
+.description ::ng-deep a {
+  color: #2874f0;
+  text-decoration: none;
+}
+
+.description ::ng-deep a:hover {
+  text-decoration: underline;
+}
+
+.description ::ng-deep blockquote {
+  margin: 15px 0;
+  padding: 10px 15px;
+  border-left: 4px solid #2874f0;
+  background-color: #f8f9fa;
+}
+
+.description ::ng-deep code {
+  background-color: #f8f9fa;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+@media (max-width: 768px) {
+  .description {
+    padding: 12px;
+  }
+
+  .description ::ng-deep p {
+    font-size: 13px;
+  }
+
+  .description ::ng-deep h1 { font-size: 20px; }
+  .description ::ng-deep h2 { font-size: 18px; }
+  .description ::ng-deep h3 { font-size: 16px; }
+  .description ::ng-deep h4 { font-size: 15px; }
+  .description ::ng-deep h5 { font-size: 14px; }
+  .description ::ng-deep h6 { font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .description {
+    padding: 10px;
+  }
+
+  .description ::ng-deep span{
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+  }
+  .description ::ng-deep p {
+    font-size: 12px;
+  }
+
+  .description ::ng-deep ul, 
+  .description ::ng-deep ol {
+    padding-left: 15px;
+  }
+
+  .description ::ng-deep th,
+  .description ::ng-deep td {
+    padding: 6px;
+    font-size: 12px;
+  }
+}
+
 ::ng-deep .ngx-pagination .current {
   padding: 8px 14px;
   background: #264e7e !important;

@@ -169,6 +169,12 @@
 
 /* Responsive Design */
 @media (max-width: 900px) {
+  .order-title h2 {
+   font-size: medium;
+  }
+  .order-title mat-icon {
+   width: 50px;
+   }
   .details-container {
     min-width: auto;
     width: 100%;

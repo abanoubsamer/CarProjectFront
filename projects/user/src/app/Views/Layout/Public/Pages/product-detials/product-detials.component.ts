@@ -55,6 +55,9 @@ export class ProductDetialsComponent implements OnInit {
 
   //#region LiveHooke
   ngOnInit(): void {
+    setTimeout(() => {
+      this.scrollService.smoothScroll(1000);
+    }, 100);
     this.route.data.subscribe(({ ProductId }) => {
       this.product = ProductId;
       this.filter['ProductId'] = this.product.productID;
@@ -67,9 +70,7 @@ export class ProductDetialsComponent implements OnInit {
 
       this.GetReviewPaginagtion(this.p, this.pageSize, this.filter);
     });
-    setTimeout(() => {
-      this.scrollService.smoothScroll(1000);
-    }, 100);
+   
   }
   //#endregion
 

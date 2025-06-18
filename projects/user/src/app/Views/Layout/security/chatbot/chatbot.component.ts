@@ -67,26 +67,7 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
 
   //#region Methods
   toggleChat() {
-    if (this.isOpen) {
-      const chatWindow = document.querySelector('.chat-window');
-      if (chatWindow) {
-        chatWindow.classList.add('closing');
-        setTimeout(() => {
-          this.isOpen = false;
-          chatWindow.classList.remove('closing');
-        }, 300);
-      }
-    } else {
-      this.isOpen = true;
-      const chatWindow = document.querySelector('.chat-window');
-      if (chatWindow) {
-        chatWindow.classList.add('opening');
-
-        setTimeout(() => {
-          chatWindow.classList.remove('opening');
-        }, 300);
-      }
-    }
+    this.isOpen = !this.isOpen;
   }
 
   clearImage() {

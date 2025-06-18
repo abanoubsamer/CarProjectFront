@@ -1,7 +1,5 @@
 <div class="tech-support-widget">
-  <div class="chat-window">
-    @if(isOpen){
-
+  <div class="chat-window" [class.opened]="isOpen" [class.chat-not-started]="!chatStarted">
     <div class="header">
       <div class="header__profile">
         <div class="header__profile-image">
@@ -39,7 +37,7 @@
         </a>
       </div>
     </div>
-    <div #chatBox class="message-area" (scroll)="onScroll()">
+    <div #chatBox class="message-area" (scroll)="onScroll()" [class.hidden]="!chatStarted">
       @for (msg of messages; track msg) { @if(msg.sender === 'You'){
       <div class="d-flex flex-row justify-content-end mb-4">
         <div
@@ -52,10 +50,9 @@
           @if(msg.image){
           <img [src]="msg.image" alt="Sent image" class="message-image" />
           }
-          <div class="message small mb-0">{{ msg.content }}</div>
-          <p>
-            <span class="message__time">{{ msg.time }}</span>
-          </p>
+          <div class="message small">{{ msg.content }}</div>
+
+          <span class="message__time">{{ msg.time }}</span>
         </div>
         @if(this.user) { @if(this.user.picture){
         <img
@@ -125,18 +122,12 @@
       <!-- ✨ تأثير "يكتب الآن..." -->
     </div>
 
+    <div class="chat-input-area">
     @if(!chatStarted){
-    <div class="message-area">
       <button class="chat-now" (click)="startNewChat()">
         <i class="fas fa-paper-plane"></i> Chat Now
       </button>
-    </div>
-    } @if(chatStarted){
-    <div class="message-area">
-      <div
-        class="card-footer text-muted d-flex justify-content-start align-items-center"
-      >
-        <div class="chat-container">
+      } @else {
           <input
             type="file"
             #fileInput
@@ -171,15 +162,12 @@
             <i class="fas fa-paper-plane"></i>
           </button>
           }
-        </div>
-      </div>
+      }
     </div>
-    } }
   </div>
 
-  @if(!isOpen){
-  <button class="toggle-chat" (click)="toggleChat()">
-    <i class="fas fa-comments"></i>
+  <button class="toggle-chat" (click)="toggleChat()" [class.active]="isOpen">
+    <i class="fas fa-comments show-icon"></i>
+    <i class="fas fa-times hide-icon"></i>
   </button>
-  }
 </div>

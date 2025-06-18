@@ -1,8 +1,12 @@
 #map {
   width: 100%;
-  height: 500px;
+  height: 400px;
   border-radius: 10px;
   z-index: 999;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  margin-top: 10px;
+  background: #fafafa !important;
 }
 
 /* Replacing SCSS variable with actual color value */
@@ -138,18 +142,23 @@ body {
   justify-content: center;
   align-items: center;
   transition: opacity 0.3s ease;
+  padding: 15px;
+  overflow-y: auto;
 }
 
 .popup-box {
-  background: #fff;
-  padding: 24px;
+  background: #fff !important;
+  color: #222 !important;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  width: 620px;
+  width: 100%;
+  max-width: 600px;
   text-align: center;
   opacity: 0;
   transform: scale(0.8);
   animation: fadeInUp 0.5s ease-out forwards;
+  margin: auto;
 }
 
 .form-container {
@@ -211,7 +220,7 @@ body {
 }
 
 .search-container {
-  margin: 0.5rem 0 1rem 0;
+  margin: 10px 0;
   width: 100%;
   position: relative;
   z-index: 1000;
@@ -219,9 +228,9 @@ body {
 
 .search-field {
   width: 100%;
-  background: white;
+  background: #f5f5f5 !important;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: none !important;
 }
 
 ::ng-deep .search-field .mat-mdc-form-field-subscript-wrapper {
@@ -233,6 +242,7 @@ body {
   background: #f8f9fa;
   border-radius: 12px;
   transition: all 0.3s ease;
+  border: none !important;
 }
 
 ::ng-deep .search-field .mat-mdc-form-field-flex:hover {
@@ -251,6 +261,11 @@ body {
 ::ng-deep .search-field input {
   font-size: 15px;
   color: #2c3e50;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: #222 !important;
 }
 
 ::ng-deep .search-field .mat-mdc-form-field-icon-suffix {
@@ -259,18 +274,143 @@ body {
 
 .suggestions-container {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 0;
   right: 0;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1001;
-  max-height: 250px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
   overflow-y: auto;
-  animation: slideDown 0.2s ease-out;
+  z-index: 1001;
+  animation: slideDown 0.3s ease-out;
 }
 
+.suggestion-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.suggestion-item:hover {
+  background-color: #f5f5f5;
+}
+
+mat-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 15px 0 0;
+}
+
+mat-dialog-actions button {
+  margin: 0 !important;
+  min-width: 120px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .popup-box {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  #map {
+    height: 300px;
+  }
+
+  mat-dialog-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  mat-dialog-actions button {
+    width: 100%;
+    margin: 5px 0 !important;
+  }
+
+  .suggestion-item {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  ::ng-deep .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-form-field-flex {
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-box {
+    padding: 12px;
+    margin: 5px;
+  }
+
+  #map {
+    height: 250px;
+  }
+
+  mat-dialog-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .suggestion-item {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding: 8px 0;
+  }
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .popup-box {
+    background: #fff !important;
+    color: #222 !important;
+  }
+  .search-field, .search-field .mat-mdc-form-field-flex {
+    background: #f5f5f5 !important;
+    color: #222 !important;
+  }
+  #map {
+    background: #fafafa !important;
+  }
+  .suggestion-item {
+    border-bottom-color: #333;
+    color: #fff;
+  }
+  .suggestion-item:hover {
+    background-color: #2a2a2a;
+  }
+  ::ng-deep .mat-mdc-form-field-label {
+    color: #ddd !important;
+  }
+  ::ng-deep .mat-mdc-input-element {
+    color: #fff !important;
+  }
+}
+
+/* Animations */
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -282,50 +422,23 @@ body {
   }
 }
 
-.suggestion-item {
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-bottom: 1px solid #f0f0f0;
-  display: flex;
-  align-items: center;
-  color: #2c3e50;
-  font-size: 14px;
-}
-
-.suggestion-item:last-child {
-  border-bottom: none;
-}
-
-.suggestion-item:hover {
-  background-color: #f8f9fa;
-  padding-left: 20px;
-  color: #1a73e8;
-}
-
-.suggestion-item::before {
-  content: "📍";
-  margin-right: 8px;
-  font-size: 16px;
-}
-
-/* Custom scrollbar for suggestions */
+/* Scrollbar styling */
 .suggestions-container::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 .suggestions-container::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .suggestions-container::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
+  background: #888;
+  border-radius: 2px;
 }
 
 .suggestions-container::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #555;
 }
 
 /* Loading indicator */

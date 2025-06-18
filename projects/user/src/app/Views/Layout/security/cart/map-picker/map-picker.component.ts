@@ -47,6 +47,15 @@ export class MapPickerComponent {
     this.GetLocationsUser();
     this.initMap();
     this.setupSearchSubscription();
+
+    // Fix: Ensure the map resizes after the dialog is opened
+    this.dialogRef.afterOpened().subscribe(() => {
+      setTimeout(() => {
+        if (this.map && this.map.invalidateSize) {
+          this.map.invalidateSize();
+        }
+      }, 300);
+    });
   }
 
   private setupSearchSubscription() {

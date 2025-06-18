@@ -10,6 +10,5 @@ export interface GetProducts {
   price: number;
   stockQuantity: number;
   seller: SellerDto;
-  category: CategoryDto;
-  images: ProductImagesDto[];
+  images: string;
 }

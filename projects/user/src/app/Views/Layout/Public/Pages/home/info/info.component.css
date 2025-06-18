@@ -2,6 +2,8 @@
 .cont {
   font-family: Arial, sans-serif;
   padding: 0 15px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .brand-carousel {
@@ -11,93 +13,224 @@
   justify-content: space-between;
   padding: 20px 0;
   border-bottom: 2px solid #bab7b7;
+  position: relative;
+  overflow: hidden;
 }
 
 .brands-container {
   display: flex;
-  overflow: hidden;
+  overflow-x: auto;
   width: 90%;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.brands-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .brand-item {
-  flex: 0 0 calc(100% / 5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex: 0 0 auto;
+
+margin: auto;
   padding: 10px;
+  transition: transform 0.3s ease;
+}
+
+.brand-item:hover {
+  transform: scale(1.05);
 }
 
 .brand-item img {
   max-width: 100%;
   max-height: 50px;
-  object-fit: contain;
+ 
+
+
+
 }
+
+
 
 .nav-button {
   background: none;
   border: none;
   cursor: pointer;
-  color: #ccc;
+  color: #213a59;
   font-size: 24px;
+  padding: 10px;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.nav-button:hover {
+  color: #1a2d47;
+  transform: scale(1.1);
+}
+
+.nav-button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 .features-section {
-  display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  margin: 30px 20px;
+  padding: 0 10px;
 }
 
 .feature-card {
-  flex: 1 1 calc(25% - 20px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+
+  padding: 20px;
+  border-radius: 10px;
+ 
+ 
 }
+
 
 .feature-icon {
   color: #213a59;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  background: rgba(33, 58, 89, 0.1);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .feature-icon i {
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .feature-title {
   color: #213a59;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 600;
   margin: 0 0 10px 0;
 }
 
 .feature-description {
   font-size: 14px;
   color: #666;
-  margin-bottom: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .cont {
+    padding: 0 10px;
+  }
+  
+  .features-section {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .brand-item {
+    min-width: 100px;
+  }
+  
+  .feature-icon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .feature-icon i {
+    font-size: 22px;
+  }
 }
 
 @media (max-width: 768px) {
-  .feature-card {
-    flex: 1 1 calc(50% - 20px);
+  .brand-carousel {
+    padding: 15px 0;
   }
-
-  .main-content {
-    flex-direction: column;
+  
+  .brands-container {
+    width: 85%;
   }
-
+  
   .brand-item {
-    flex: 0 0 calc(100% / 3);
+    min-width: 90px;
+  }
+  
+  .nav-button {
+    font-size: 20px;
+    padding: 8px;
+  }
+  
+  .features-section {
+    margin: 20px 10px;
+    gap: 15px;
+  }
+  
+  .feature-card {
+    padding: 15px;
+  }
+  
+  .feature-title {
+    font-size: 16px;
   }
 }
 
-@media (max-width: 480px) {
-  .feature-card {
-    flex: 1 1 100%;
+@media (max-width: 576px) {
+  .brand-carousel {
+    padding: 10px 0;
   }
-
+  
+  .brands-container {
+    width: 80%;
+  }
+  
   .brand-item {
-    flex: 0 0 calc(100% / 2);
+    min-width: 80px;
+  }
+  
+  .nav-button {
+    font-size: 18px;
+    padding: 5px;
+  }
+  
+  .features-section {
+    grid-template-columns: 1fr;
+    margin: 15px 5px;
+  }
+  
+  .feature-card {
+    padding: 12px;
+  }
+  
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .feature-icon i {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .brand-item {
+    min-width: 70px;
+  }
+  
+  .brand-item img {
+    max-height: 40px;
+  }
+  
+  .feature-title {
+    font-size: 15px;
+  }
+  
+  .feature-description {
+    font-size: 13px;
   }
 }

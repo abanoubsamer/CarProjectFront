@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatFormSharedModule } from '../../../../../../Shared/Modules/mat-form-shared.module';
 
 @Component({
   selector: 'app-info',
-  imports: [CommonModule],
+  imports: [CommonModule ,  ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.css',
 })

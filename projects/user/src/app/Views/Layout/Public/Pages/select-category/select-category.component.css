@@ -1,6 +1,8 @@
 /* oil-filter-manufacturers.component.css */
 .wrapper {
   background-color: #f9f9f9;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .oil-filter-page {
@@ -8,72 +10,96 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .breadcrumb {
   color: #666;
   margin-bottom: 15px;
   font-size: 14px;
+  padding: 0 10px;
 }
 
 .content-container {
   display: flex;
-  align-items: center;
-  gap: 50px;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
 .filter-images {
   flex: 1;
+  min-width: 280px;
   max-width: 400px;
+  margin: 0 auto;
 }
 
 .filter-images img {
-  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
   image-rendering: crisp-edges;
   image-rendering: -webkit-optimize-contrast;
   filter: contrast(1.1) brightness(1.1);
-  height: auto;
 }
 
 .manufacturers-section {
   flex: 2;
+  min-width: 280px;
 }
 
 h1 {
   font-family: "Arial", sans-serif;
-  font-size: 28px;
+  font-size: clamp(20px, 5vw, 28px);
   font-weight: 700;
   color: #1f4c7a;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   position: relative;
+  padding: 0 10px;
 }
 
 h2 {
   color: #666;
-  font-size: 18px;
+  font-size: clamp(16px, 4vw, 18px);
   margin-bottom: 20px;
+  padding: 0 10px;
 }
 
 .manufacturers-carousel {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+  padding: 0 10px;
 }
 
 .manufacturers-logos {
   display: flex;
-  gap: 40px;
-  overflow: hidden;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 10px 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.manufacturers-logos::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .manufacturer-logo {
-  max-height: 50px;
+  height: 50px;
+  width: auto;
+  min-width: 80px;
   max-width: 100px;
-  transition: filter 0.3s ease;
+  transition: all 0.3s ease;
+  object-fit: contain;
 }
 
 .manufacturer-logo:hover {
   filter: grayscale(0%);
+  transform: scale(1.05);
 }
 
 .nav-button {
@@ -82,28 +108,96 @@ h2 {
   font-size: 24px;
   color: #999;
   cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.nav-button:hover {
+  color: #007bff;
 }
 
 .slide-indicators {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .indicator {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background-color: #ddd;
   border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 
 .indicator.active {
   background-color: #007bff;
 }
 
+/* Tablet and smaller desktop screens */
+@media (max-width: 1024px) {
+  .content-container {
+    gap: 20px;
+  }
+  
+  .filter-images {
+    max-width: 350px;
+  }
+}
+
+/* Tablet screens */
 @media (max-width: 768px) {
   .content-container {
     flex-direction: column;
+    align-items: center;
+  }
+  
+  .filter-images {
+    max-width: 100%;
+  }
+  
+  .manufacturers-section {
+    width: 100%;
+  }
+  
+  .manufacturers-logos {
+    gap: 15px;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+  .oil-filter-page {
+    padding: 15px 10px;
+  }
+  
+  .manufacturers-carousel {
+    gap: 10px;
+  }
+  
+  .manufacturer-logo {
+    min-width: 60px;
+    height: 40px;
+  }
+  
+  .nav-button {
+    font-size: 20px;
+    min-width: 35px;
+    min-height: 35px;
+  }
+  
+  .slide-indicators {
+    gap: 6px;
+  }
+  
+  .indicator {
+    width: 6px;
+    height: 6px;
   }
 }

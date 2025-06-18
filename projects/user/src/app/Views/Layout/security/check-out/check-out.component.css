@@ -7,13 +7,19 @@
   text-transform: uppercase;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+}
+
 .container {
-  min-height: 100vh;
+  
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column;
-  padding-bottom: 60px;
+  padding: 20px 10px 60px;
 }
 
 .container .form {
@@ -21,7 +27,8 @@
   border-radius: 5px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   padding-top: 160px;
 }
 
@@ -70,14 +77,26 @@
   opacity: 0.8;
 }
 
+.container .form .row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.container .form .row .col {
+  width: 100%;
+}
+
 .container .card-container {
   margin-bottom: -150px;
   position: relative;
   height: 250px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
-.container .card-container .front {
+.container .card-container .front,
+.container .card-container .back {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -88,8 +107,17 @@
   backface-visibility: hidden;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  transform: perspective(1000px) rotateY(0deg);
   transition: transform 0.4s ease-out;
+}
+
+.container .card-container .front {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.container .card-container .back {
+  transform: perspective(1000px) rotateY(180deg);
+  text-align: right;
+  padding: 20px 0;
 }
 
 .container .card-container .front .image {
@@ -113,29 +141,13 @@
   display: flex;
 }
 
-.container .card-container .front .flexbox .box:nth-child(1) {
-  margin-right: auto;
-}
-
 .container .card-container .front .flexbox .box {
   font-size: 15px;
   color: #fff;
 }
 
-.container .card-container .back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(135deg, #1e1b2e 0%, #2b5384 100%);
-  border-radius: 5px;
-  padding: 20px 0;
-  text-align: right;
-  backface-visibility: hidden;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-  transform: perspective(1000px) rotateY(180deg);
-  transition: transform 0.4s ease-out;
+.container .card-container .front .flexbox .box:nth-child(1) {
+  margin-right: auto;
 }
 
 .container .card-container .back .stripe {
@@ -167,4 +179,43 @@
 .container .card-container .back .box img {
   margin-top: 30px;
   height: 30px;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .container{
+    padding: 1px 10px 2px;
+  }
+  .container .form {
+    padding-top: 150px;
+    box-shadow: none;
+  }
+
+  .container .form .flexbox {
+    gap: 10px;
+  }
+
+  .container .card-container {
+   margin-top: 10px;
+   
+    
+  }
+
+  .cvv-input {
+    margin-top: 20px;
+    
+  }
+  .container .card-container .front .card-number-box {
+    font-size: 18px;
+    padding: 20px 0;
+  }
+
+  .container .form .submit-btn {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .container .form .row {
+    flex-direction: column;
+  }
 }
