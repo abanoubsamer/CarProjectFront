@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedDataService } from '../../../../../Services/SharedDataService/shared-data.service';
 import { NavigationService } from '../../../../../Services/Navigation/navigation.service';
 import { CartService } from '../../../../../Services/Cart/Handler/cart.service';
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable, range, tap } from 'rxjs';
 import { RatingQueryService } from '../../../../../Services/Rating/Queries/Handler/rating-query.service';
 import { ReviewStatistic } from '../../../../../Services/Rating/Queries/Model/ReviewStatistic';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -75,7 +75,19 @@ export class ProductDetialsComponent implements OnInit {
   //#endregion
 
   //#region Method
-
+  UpdateRate(UpdateRate:any){
+    this.product.reviewDto.push({
+      comment:UpdateRate.commint,
+      rating :UpdateRate.rate,
+      reviewDate: UpdateRate.data,
+      user: {
+        name:UpdateRate.name
+      ,email:"",
+      id:""
+      },
+      reviewID: UpdateRate.data
+    })
+  }
   getMainImage(images: ProductImagesDto[]): string | null {
     if (!images || images.length === 0) return null;
     const main = images.find((img) => img.image.startsWith('main_'));

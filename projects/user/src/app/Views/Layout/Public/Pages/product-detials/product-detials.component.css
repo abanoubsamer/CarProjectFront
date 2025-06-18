@@ -170,8 +170,15 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
-
+.description ::ng-deep span{
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
 .description ::ng-deep p {
   margin-bottom: 15px;
   line-height: 1.6;
@@ -213,6 +220,9 @@
   width: 100%;
   border-collapse: collapse;
   margin: 15px 0;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .description ::ng-deep th,
@@ -220,6 +230,8 @@
   padding: 8px;
   border: 1px solid #ddd;
   text-align: left;
+  white-space: pre-line;
+  word-break: break-word;
 }
 
 .description ::ng-deep th {
@@ -288,6 +300,26 @@
   .description ::ng-deep th,
   .description ::ng-deep td {
     padding: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .description {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+  .description ::ng-deep table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .description ::ng-deep th,
+  .description ::ng-deep td {
+    white-space: pre-line;
+    word-break: break-word;
     font-size: 12px;
   }
 }

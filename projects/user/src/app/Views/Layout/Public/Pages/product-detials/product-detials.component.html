@@ -106,7 +106,7 @@
       </div>
     </div>
 
-    <app-product-rating [Productid]="product.productID"></app-product-rating>
+    <app-product-rating [Productid]="product.productID" (UpdateReview)="UpdateRate($event)"></app-product-rating>
 
     <!-- Customer Reviews Section -->
     <div class="product-reviews mt-5">

@@ -3,13 +3,15 @@
     <div class="row align-items-center">
       <!-- <div class="col-lg-2 my-5 text-center">&mdash; or &mdash;</div> -->
       <div class="col-md-6">
-        <img [lazyLoad]="'login.jpeg'" alt="Image" class="img-fluid" />
+        <img [lazyLoad]="'login.jpeg'"
+        [defaultImage]="'Loding.svg'"  class="img-fluid" />
       </div>
       <div class="col-lg-5 contents">
         <div class="form-block">
           <div class="mb-4 text-center">
             <a [routerLink]="['/Public/Home']">
-              <img src="Logo/1.svg" alt="Company Logo" class="logo" />
+              <img  [lazyLoad]="'Logo/1.svg'"
+              [defaultImage]="'Loding.svg'" class="logo" />
             </a>
             <h3 class="header">Sign In</h3>
             <p class="mb-4"></p>

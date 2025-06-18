@@ -6,6 +6,10 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
 } from '@angular/core';
 import { GetCategoryModel } from '../../../../../../Services/Category/Queries/Models/GetCategoryModel';
 import { GetCarBrandModel } from '../../../../../../Services/Car/Queries/Models/GetCarBrandModel';
@@ -24,7 +28,7 @@ import { SharedModuleModule } from '../../../../../../Shared/Modules/shared-modu
   imports: [SharedModuleModule, MatFormSharedModule, NgSelectModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SliderAdvComponent implements OnChanges {
+export class SliderAdvComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() Categorys: GetCategoryModel[] = [];
   @Input() CarBrands: GetCarBrandModel[] = [];
   selectedBrand: any;
@@ -47,6 +51,9 @@ export class SliderAdvComponent implements OnChanges {
     'Adv/tpQ9F20706.webp',
     'Adv/UPYfU20206.webp',
   ];
+
+  @ViewChild('swiper', { static: false }) swiperRef?: ElementRef;
+  resizeObserver?: () => void;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['Categorys']) {
@@ -75,5 +82,26 @@ export class SliderAdvComponent implements OnChanges {
   }
   getModelLabel(model: any): string {
     return `${model.name} (${model.minYear}-${model.maxYear})`;
+  }
+
+  ngAfterViewInit() {
+    this.forceSwiperUpdate();
+    this.resizeObserver = () => {
+      this.forceSwiperUpdate();
+    };
+    window.addEventListener('resize', this.resizeObserver);
+  }
+
+  ngOnDestroy() {
+    if (this.resizeObserver) {
+      window.removeEventListener('resize', this.resizeObserver);
+    }
+  }
+
+  forceSwiperUpdate() {
+    const swiperEl = document.querySelector('swiper-container') as any;
+    if (swiperEl && typeof swiperEl.swiper === 'object' && typeof swiperEl.swiper.update === 'function') {
+      swiperEl.swiper.update();
+    }
   }
 }

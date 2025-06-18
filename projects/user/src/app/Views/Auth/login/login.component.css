@@ -295,10 +295,30 @@ h2 {
   z-index: 1;
   margin-bottom: 2px;
 }
-
+@media (max-width: 768px) {
+  .forgot-pass {
+    left: 0 !important;
+    top: 0 !important;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 13px !important;
+    position: static !important;
+  }
+}
 @media only screen and (max-width: 768px) {
+  .content {
+    padding: 1rem 0;
+  }
   .logo {
     max-height: 38px;
+  }
+  .img-fluid{
+    margin: auto;
+    
+    display: flex;
+    align-items: center;
+    
   }
   .logo-container {
     padding: 6px 10px;

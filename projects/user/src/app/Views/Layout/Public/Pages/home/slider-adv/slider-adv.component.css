@@ -238,6 +238,66 @@ swiper-slide {
     height: 350px;
   }
 }
+
+@media (max-width: 400px) {
+  .car-service-container {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 2px;
+  }
+  .banner-container,
+  .service-panel {
+    width: 100%;
+    min-width: 0;
+    border-radius: 6px;
+    padding: 4px 0;
+  }
+  swiper-container {
+    max-width: 100vw !important;
+    height: 180px !important;
+    min-height: 120px !important;
+    display: block !important;
+  }
+  svg {
+    display: none;
+  }
+  swiper-container::part(button-next),
+  swiper-container::part(button-prev) {
+    display: none !important;
+  }
+  .custom-slide-img {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 140px !important;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
+  }
+  .main-title, .sub-title {
+    font-size: 1.1rem !important;
+    text-align: center;
+  }
+  .service-list {
+    margin-top: 10px;
+    gap: 2px;
+  }
+  .service-item {
+    font-size: 0.9rem;
+    gap: 4px;
+  }
+  .discount-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+  .calendar-clock {
+    position: static;
+    gap: 4px;
+    font-size: 0.8rem;
+  }
+}
+
 /* General styling */
 .car-selection {
   display: flex;

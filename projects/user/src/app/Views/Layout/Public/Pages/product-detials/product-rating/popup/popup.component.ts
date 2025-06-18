@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NavigationService } from '../../../../../../../Services/Navigation/navigation.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProductCommendService } from '../../../../../../../Services/Product/Commend/Handler/product-commend.service';
+import { SharedDataService } from '../../../../../../../Services/SharedDataService/shared-data.service';
 
 @Component({
   selector: 'app-popup',
@@ -11,11 +12,13 @@ import { ProductCommendService } from '../../../../../../../Services/Product/Com
 })
 export class PopupComponent {
   @Output() closePopup = new EventEmitter<void>();
+  @Output() NewComment = new EventEmitter<{commint:string,rate:number,data:string}>();
   @Input() prodctId = '';
 
   //#region Injectors
   private readonly _ProductServices = inject(ProductCommendService);
   private readonly _Navigation = inject(NavigationService);
+ 
   private readonly _tostser = inject(ToastrService);
   //#endregion
 
@@ -42,7 +45,8 @@ export class PopupComponent {
         next: (res) => {
           if (res.success) {
             this._tostser.success('Success Add Review');
-            window.location.reload();
+            this.closePopup.emit();
+            this.NewComment.emit({ commint:feedbackText,data:new Date().toISOString(),rate:Number(selectedRating)});
           }
         },
       });
