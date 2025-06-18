@@ -294,3 +294,168 @@
     overflow-y: auto;
   }
 }
+
+/* Specific styles for very small screens (less than 375px) */
+@media (max-width: 375px) {
+  .container {
+    padding: 8px;
+  }
+
+  .header {
+    padding: 12px 0;
+    margin-bottom: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .header .date {
+    font-size: 0.85rem;
+  }
+
+  .card {
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+  }
+
+  .card-header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+
+  .card-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .card-header .edit-link {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .order-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .order-table th {
+    padding: 10px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .order-table td {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .order-table td .product {
+    gap: 8px;
+  }
+
+  .order-table td .product img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .order-table td .product .details h3 {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+
+  .order-table td .product .details p {
+    font-size: 0.8rem;
+  }
+
+  .totals {
+    margin-top: 16px;
+    padding: 12px;
+  }
+
+  .totals .total-row {
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+  }
+
+  .totals .total-row.final {
+    margin-top: 12px;
+    padding-top: 12px;
+    font-size: 1rem;
+  }
+
+  .customer-info .avatar {
+    width: 40px;
+    height: 40px;
+    margin: 12px;
+  }
+
+  .customer-info .customer-header {
+    margin-bottom: 16px;
+  }
+
+  .customer-info .customer-header .details h3 {
+    font-size: 1rem;
+  }
+
+  .customer-info .customer-header .details p {
+    font-size: 0.8rem;
+  }
+
+  .customer-info .orders-badge {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+  }
+
+  .customer-info .contact-info {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .customer-info .contact-info p {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+}
+
+/* Additional optimizations for extremely small screens (less than 320px) */
+@media (max-width: 320px) {
+  .container {
+    padding: 6px;
+  }
+
+  .card {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+  .order-table td .product img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .order-table th {
+    padding: 8px;
+    font-size: 0.75rem;
+  }
+
+  .order-table td {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+
+  .totals {
+    padding: 10px;
+  }
+
+  .customer-info .avatar {
+    width: 36px;
+    height: 36px;
+    margin: 10px;
+  }
+
+  .customer-info .contact-info {
+    padding: 10px;
+  }
+}

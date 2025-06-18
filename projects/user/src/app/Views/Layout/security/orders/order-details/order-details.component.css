@@ -28,9 +28,10 @@
 
 .order-title mat-icon {
   color: #3498db;
-  font-size: 28px;
-  width: 28px;
-  height: 28px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
 }
 
 .details-grid {
@@ -71,6 +72,10 @@
 
 .card-header mat-icon {
   color: #3498db;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  transition: all 0.3s ease;
 }
 
 .card-content {
@@ -162,9 +167,11 @@
 }
 
 .close-btn mat-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
+  color: #495057;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  transition: all 0.3s ease;
 }
 
 /* Responsive Design */
@@ -186,6 +193,7 @@
 }
 
 @media (max-width: 600px) {
+  
   .header {
     flex-direction: column;
     align-items: flex-start;
@@ -230,9 +238,10 @@
 
 .timeline-header mat-icon {
   color: #3498db;
-  font-size: 24px;
-  width: 24px;
-  height: 24px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
 }
 
 .timeline {
@@ -320,6 +329,7 @@
 }
 
 @media (max-width: 768px) {
+ 
   .timeline {
     flex-direction: column;
     margin: 0;
@@ -401,4 +411,329 @@
   color: #2c3e50;
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+/* Specific styles for very small screens (less than 375px) */
+@media (max-width: 375px) {
+  .details-container {
+    padding: 12px;
+    min-width: auto;
+  }
+ 
+  .header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .order-title {
+    gap: 8px;
+  }
+
+  .order-title h2 {
+    font-size: 0.95rem;
+  }
+
+  .order-title mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .details-grid {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .detail-card {
+    border-radius: 8px;
+  }
+
+  .card-header {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .card-header h3 {
+    font-size: 0.9rem;
+  }
+
+  .card-header mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .card-content {
+    padding: 12px;
+  }
+
+  .info-item {
+    padding: 6px 0;
+  }
+
+  .info-item .label {
+    font-size: 0.8rem;
+  }
+
+  .info-item .value {
+    font-size: 0.8rem;
+  }
+
+  .info-item.total {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  .info-item.total .label,
+  .info-item.total .value {
+    font-size: 0.9rem;
+  }
+
+  .status-badge {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+
+  .close-btn {
+    padding: 6px 16px;
+    font-size: 0.8rem;
+  }
+
+  .close-btn mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }  
+ 
+
+  /* Timeline styles for small screens */
+  .tracking-timeline {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .timeline-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    gap: 8px;
+  }
+
+  .timeline-header h3 {
+    font-size: 0.9rem;
+  }
+
+  .timeline-header mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .timeline {
+    margin: 0 15px;
+    gap: 12px;
+  }
+
+  .timeline-item {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .timeline-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .timeline-content h4 {
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+  }
+
+  .timeline-content p {
+    font-size: 0.7rem;
+  }
+
+  .content {
+    height: 400px;
+  }
+}
+
+/* Additional optimizations for extremely small screens (less than 320px) */
+@media (max-width: 320px) {
+  .timeline::before {
+ 
+    top: 8%;
+     left: 18%;
+    right: 0;
+
+  }
+  .details-container {
+    padding: 8px;
+  }
+
+  .order-title h2 {
+    font-size: 0.85rem;
+  }
+
+  .order-title mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .card-header {
+    padding: 10px;
+  }
+
+  .card-header h3 {
+    font-size: 0.85rem;
+  }
+
+  .card-content {
+    padding: 10px;
+  }
+
+  .info-item .label,
+  .info-item .value {
+    font-size: 0.75rem;
+  }
+
+  .info-item.total .label,
+  .info-item.total .value {
+    font-size: 0.85rem;
+  }
+
+  .status-badge {
+    padding: 4px 10px;
+    font-size: 0.65rem;
+  }
+
+  .timeline {
+    margin: 0 10px;
+    gap: 8px;
+  }
+
+  .timeline-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .timeline-content h4 {
+    font-size: 0.75rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.65rem;
+  }
+}
+
+/* Icon hover effects */
+.order-title mat-icon:hover,
+.card-header mat-icon:hover,
+.timeline-header mat-icon:hover {
+  color: #2980b9;
+  transform: scale(1.1);
+}
+
+.close-btn:hover mat-icon {
+  color: #212529;
+  transform: scale(1.1);
+}
+
+/* Timeline icon styles */
+.timeline-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.timeline-icon mat-icon {
+  color: #6c757d;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  transition: all 0.3s ease;
+}
+
+.timeline-item.completed .timeline-icon {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.timeline-item.completed .timeline-icon mat-icon {
+  color: #28a745;
+}
+
+.timeline-item.active .timeline-icon {
+  background-color: #cce5ff;
+  border-color: #007bff;
+  animation: pulse 2s infinite;
+}
+
+.timeline-item.active .timeline-icon mat-icon {
+  color: #007bff;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(0, 123, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
+
+/* Responsive icon styles */
+@media (max-width: 375px) {
+  .order-title mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .card-header mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .timeline-header mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .close-btn mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .timeline-icon mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  border-radius: 10px !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 10px !important;
 }
