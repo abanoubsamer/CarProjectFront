@@ -5,6 +5,7 @@ import {
   inject,
   OnInit,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatFormSharedModule } from '../../../../Shared/Modules/mat-form-shared.module';
@@ -50,11 +51,10 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   //#endregion
 
   //#region Lifecycle Hooks
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewChecked() {
-    if (this.autoScrollEnabled) {
-      this.scrollToBottom();
-    }
+    
   }
   //#endregion
 
@@ -134,12 +134,14 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
       if (this.index < this.tempmsg.length) {
         typingMessage.content += this.tempmsg[this.index];
         this.index++;
+       
       } else {
         clearInterval(this.typingInterval);
         this.typingInterval = null;
         this.isTyping = false;
         this.tempmsg = '';
         this.index = 0;
+       
       }
     }, 40);
   }
@@ -161,25 +163,13 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   onScroll(): void {
     const chatBox = this.chatBox.nativeElement;
     const nearBottom =
-      chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 50;
+      chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 100;
 
-    if (!nearBottom) {
-      this.autoScrollEnabled = false;
-    } else {
-      this.autoScrollEnabled = true;
-    }
+    this.autoScrollEnabled = nearBottom;
+    this.cdr.detectChanges();
   }
 
-  scrollToBottom(): void {
-    try {
-      if (this.chatBox && this.chatBox.nativeElement) {
-        this.chatBox.nativeElement.scrollTop =
-          this.chatBox.nativeElement.scrollHeight;
-      }
-    } catch (err) {
-      console.error('Scrolling error:', err);
-    }
-  }
+  
 
   StopMassage() {
     if (this.typingInterval) {
