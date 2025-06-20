@@ -20,12 +20,8 @@
           <tr>
             <td>
               <div class="product">
-                <img
-                  (click)="goToProduct(orderItems.productID)"
-                  [lazyLoad]="Ip + '/images/' + orderItems.imagesDto"
-                  [defaultImage]="'Loding.svg'"
-                  alt="Oneplus 10"
-                />
+                <img (click)="goToProduct(orderItems.productID)" [lazyLoad]="Ip + '/images/' + orderItems.imagesDto"
+                  [defaultImage]="'Loding.svg'" alt="Oneplus 10" />
                 <div class="details">
                   <h3>{{ orderItems.name }}</h3>
                 </div>
@@ -42,7 +38,7 @@
       <div class="totals">
         <div class="total-row">
           <span>Subtotal:</span>
-          <span>EGP {{ order.totalAmount }}</span>
+          <span>EGP {{ order.payment.amount }}</span>
         </div>
         <div class="total-row">
           <span>Discount:</span>
@@ -54,15 +50,12 @@
         </div>
         <div class="total-row final">
           <span>Total:</span>
-          <span>EGP {{ order.totalAmount }}</span>
+          <span>EGP {{ order.payment.amount }}</span>
         </div>
       </div>
       <div class="card-header">
         <h2></h2>
-        <button
-          (click)="ShowDetails(order, '300ms', '150ms')"
-          class="btn btn-primary"
-        >
+        <button (click)="ShowDetails(order, '300ms', '150ms')" class="btn btn-primary">
           Details
         </button>
       </div>
